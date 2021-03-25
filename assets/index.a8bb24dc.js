@@ -6,15 +6,7 @@ import{j as e,c as t,r as n,u as r,a,b as o,e as s,g as c,N as i,d}from"./vendor
         height: 96px;
       `},n?[...r].reverse():r)}function p(){return e("footer",{css:t`
         padding-top: 60px;
-      `},e(l,{swap:!0}))}function u(t){const r=n.useRef(null);return n.useEffect((()=>{const e=r.current;null!==e&&(e.muted=!0,e.setAttribute("autoplay",""),e.setAttribute("playsinline",""))}),[]),e("video",{ref:r,...t,tabIndex:-1})}function f({contract:t,tokenId:n,service:a,url:o}){const s=r(t,n);return s.loading?e(b,null,"Loading…"):s.error?e(b,null,"Error."):e(b,{url:o},e(h,{service:a,nft:s.result}))}function b({url:n,children:r}){const a=e("section",{css:t`
-        display: grid;
-        place-items: center;
-        grid-template-columns: 100%;
-        grid-template-rows: 100%;
-        width: 400px;
-        height: 430px;
-        background: #123;
-      `},r);return n?e("a",{href:n,target:"_blank",css:t`
+      `},e(l,{swap:!0}))}function u(t){const r=n.useRef(null);return n.useEffect((()=>{const e=r.current;null!==e&&(e.muted=!0,e.setAttribute("autoplay",""),e.setAttribute("playsinline",""))}),[]),e("video",{ref:r,...t,tabIndex:-1})}function f({contract:t,tokenId:n,service:a,url:o}){const s=r(t,n);return s.loading?e(b,null,"Loading…"):s.error?e(b,null,"Error."):e(b,{url:o},e(h,{service:a,nft:s.result}))}function b({url:n,children:r}){return e("a",{...n?{href:n,target:"_blank"}:{},css:t`
         display: block;
         overflow: hidden;
         border-radius: 5px;
@@ -29,7 +21,15 @@ import{j as e,c as t,r as n,u as r,a,b as o,e as s,g as c,N as i,d}from"./vendor
           color: #b98fb4;
           box-shadow: 0 0 0 2px #b98fb4;
         }
-      `},a):a}function h({service:n,nft:r}){const a=(null==r?void 0:r.name)||"Untitled",o=(null==r?void 0:r.description)||"−",s=(null==r?void 0:r.image)||"";return e("div",{css:t`
+      `},e("section",{css:t`
+          display: grid;
+          place-items: center;
+          grid-template-columns: 100%;
+          grid-template-rows: 100%;
+          width: 400px;
+          height: 430px;
+          background: #123;
+        `},r))}function h({service:n,nft:r}){const a=(null==r?void 0:r.name)||"Untitled",o=(null==r?void 0:r.description)||"−",s=(null==r?void 0:r.image)||"";return e("div",{css:t`
         display: flex;
         flex-direction: column;
         width: 400px;
@@ -95,6 +95,6 @@ import{j as e,c as t,r as n,u as r,a,b as o,e as s,g as c,N as i,d}from"./vendor
           width: 50px;
           text-align: center;
         `},x())," ","= useNft(address, id)")}function k(){return e("p",{css:t`
-        margin: 0;
+        margin: 12px 0 0;
         text-align: center;
       `},"Fetch NFTs from React − no matter how they were minted.")}var R=[["0xd07dc4262bcdbf85190c01c996b4c06a461d2430","90473","Rarible","https://rarible.com/token/0xd07dc4262bcdbf85190c01c996b4c06a461d2430:90473"],["0x3B3ee1931Dc30C1957379FAc9aba94D1C48a5405","13201","Foundation","https://foundation.app/jenstark/multiverse-13201"],["0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb","2914","CryptoPunks","https://www.larvalabs.com/cryptopunks/details/2914"],["0xabEFBc9fD2F806065b4f3C237d4b59D9A97Bcac7","2299","Zora","https://zora.co/leafilipo/2442"],["0xb932a70a57673d89f4acffbe830e8ed7f75fb9e0","22072","SuperRare","https://superrare.co/artwork-v2/pool-22072"],["0xda98f59e1edecb2545d7b07b794e704ed6cf1f7a","139","Portion.io","https://app.portion.io/#exchange?ID=QmYdqAwiMsb7s1mCTgVE4ZQwohjf8nvUdGnra1J6dx5TDd"],["0x1a9efe6d9a7a977a938f03b1a549bdd9cd316432","11000010018","Nifty Gateway","https://niftygateway.com/itemdetail/secondary/0x1a9efe6d9a7a977a938f03b1a549bdd9cd316432/11000010006"],["0x495f947276749ce646f68ac8c248420045cb7b5e","63990428236934811571513178702512145453357596655980286527887248477662016962561","OpenSea","https://opensea.io/assets/0x495f947276749ce646f68ac8c248420045cb7b5e/63990428236934811571513178702512145453357596655980286527887248477662016962561"],["0xb6dae651468e9593e4581705a09c10a76ac1e0c8","1230","Async Art","https://async.art/art/master/0xb6dae651468e9593e4581705a09c10a76ac1e0c8-1230"]];const j=s({provider:c("homestead",{infura:{}.VITE_INFURA_KEY})});function E(){return e(i,{fetcher:j},e(v,null),e(m,{nfts:R}),e(p,null))}d.render(e(n.StrictMode,null,e(E,null)),document.getElementById("root"));
