@@ -1,12 +1,12 @@
-import{j as e,c as t,r as n,u as r,a,b as o,e as s,g as c,N as i,d}from"./vendor.6f4e7a62.js";function l(){return e("nav",{css:t`
+import{j as e,c as t,r as n,u as r,a,b as o,e as s,g as c,N as i,d}from"./vendor.6f4e7a62.js";function l({swap:n=!1}){const r=[e("a",{key:"by",href:"https://spectre.gallery/",target:"_blank"},"by spectre_"),e("a",{key:"docs",href:"https://github.com/spectrexyz/use-nft",target:"_blank"},"code & docs")];return e("nav",{css:t`
         display: flex;
         justify-content: space-between;
         align-items: center;
         width: 100%;
         height: 100px;
-      `},e("a",{href:"https://spectre.gallery/",target:"_blank"},"by spectre_"),e("a",{href:"https://github.com/spectrexyz/use-nft",target:"_blank"},"code & docs"))}function p(){return e("footer",{css:t`
+      `},n?[...r].reverse():r)}function p(){return e("footer",{css:t`
         padding-top: 60px;
-      `},e(l,null))}function u(t){const r=n.useRef(null);return n.useEffect((()=>{const e=r.current;null!==e&&(e.muted=!0,e.setAttribute("autoplay",""),e.setAttribute("playsinline",""))}),[]),e("video",{ref:r,...t,tabIndex:-1})}function f({contract:t,tokenId:n,service:a,url:o}){const s=r(t,n);return s.loading?e(b,null,"Loading…"):s.error?e(b,null,"Error."):e(b,{url:o},e(h,{service:a,nft:s.result}))}function b({url:n,children:r}){const a=e("section",{css:t`
+      `},e(l,{swap:!0}))}function u(t){const r=n.useRef(null);return n.useEffect((()=>{const e=r.current;null!==e&&(e.muted=!0,e.setAttribute("autoplay",""),e.setAttribute("playsinline",""))}),[]),e("video",{ref:r,...t,tabIndex:-1})}function f({contract:t,tokenId:n,service:a,url:o}){const s=r(t,n);return s.loading?e(b,null,"Loading…"):s.error?e(b,null,"Error."):e(b,{url:o},e(h,{service:a,nft:s.result}))}function b({url:n,children:r}){const a=e("section",{css:t`
         display: grid;
         place-items: center;
         grid-template-columns: 100%;
@@ -83,7 +83,7 @@ import{j as e,c as t,r as n,u as r,a,b as o,e as s,g as c,N as i,d}from"./vendor
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 40px;
-      `},i.map((({progress:t},n)=>{const[a,s,c,i]=r[n];return e(o.div,{key:a+s,style:{opacity:t,transform:t.to((e=>`translate3d(0, ${-10*e}px, 0)`))}},e(f,{contract:a,service:c,tokenId:s,url:i}))})))}!function(e=".",t="__import__"){try{self[t]=new Function("u","return import(u)")}catch(n){const r=new URL(e,location),a=e=>{URL.revokeObjectURL(e.src),e.remove()};self[t]=e=>new Promise(((n,o)=>{const s=new URL(e,r);if(self[t].moduleMap[s])return n(self[t].moduleMap[s]);const c=new Blob([`import * as m from '${s}';`,`${t}.moduleMap['${s}']=m;`],{type:"text/javascript"}),i=Object.assign(document.createElement("script"),{type:"module",src:URL.createObjectURL(c),onerror(){o(new Error(`Failed to import: ${e}`)),a(i)},onload(){n(self[t].moduleMap[s]),a(i)}});document.head.appendChild(i)})),self[t].moduleMap={}}}("/assets/");const g=[..."🌈✨🌝🌼🌸🍔🍟🍕🌮🥞🥐🌭🍜🥟🍬🍮🧡💛💙💖"];function x(){return g[Math.floor(Math.random()*g.length)]}function w(){const e=n.useRef(null);return n.useEffect((()=>function(e,t=1e3/60){const n="function"==typeof t?t:()=>t;let r,a=Date.now()-n();const o=()=>{r=requestAnimationFrame(o);const t=Date.now();t-a<n()||(a=t,e())};return o(),()=>cancelAnimationFrame(r)}((()=>{e.current&&(e.current.innerHTML=x())}),500)),[]),e}function v(){return e("header",{css:t`
+      `},i.map((({progress:t},n)=>{const[a,s,c,i]=r[n];return e(o.div,{key:a+s,style:{opacity:t,transform:t.to((e=>`translate3d(0, ${-10*e}px, 0)`))}},e(f,{contract:a,service:c,tokenId:s,url:i}))})))}!function(e=".",t="__import__"){try{self[t]=new Function("u","return import(u)")}catch(n){const r=new URL(e,location),a=e=>{URL.revokeObjectURL(e.src),e.remove()};self[t]=e=>new Promise(((n,o)=>{const s=new URL(e,r);if(self[t].moduleMap[s])return n(self[t].moduleMap[s]);const c=new Blob([`import * as m from '${s}';`,`${t}.moduleMap['${s}']=m;`],{type:"text/javascript"}),i=Object.assign(document.createElement("script"),{type:"module",src:URL.createObjectURL(c),onerror(){o(new Error(`Failed to import: ${e}`)),a(i)},onload(){n(self[t].moduleMap[s]),a(i)}});document.head.appendChild(i)})),self[t].moduleMap={}}}("/assets/");const g=[..."🌈🌼🌸🍔🍟🍕🌮🥞🥐🌭🍫🍩🍪🍿🍣🥪🍜🥟🍬🍮💛💖🥡💊🎁🎀"];function x(){return g[Math.floor(Math.random()*g.length)]}function w(){const e=n.useRef(null);return n.useEffect((()=>function(e,t=1e3/60){const n="function"==typeof t?t:()=>t;let r,a=Date.now()-n();const o=()=>{r=requestAnimationFrame(o);const t=Date.now();t-a<n()||(a=t,e())};return o(),()=>cancelAnimationFrame(r)}((()=>{e.current&&(e.current.innerHTML=x())}),500)),[]),e}function v(){return e("header",{css:t`
         position: relative;
         padding: 0 0 60px;
       `},e(l,null),e(y,null),e(k,null))}function y(){const n=w();return e("h1",{title:"useNft()",css:t`
