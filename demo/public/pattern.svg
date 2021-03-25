@@ -1,1 +1,6 @@
-<svg width="50" height="50" fill="none" xmlns="http://www.w3.org/2000/svg"><g opacity=".4" clip-path="url(#a)" fill="#B98FB4"><path d="M0 24.5h50v.5H0z"/><path d="M24.5 0h.5v50h-.5z"/></g><defs><clipPath id="a"><path fill="#fff" d="M0 0h50v50H0z"/></clipPath></defs></svg>
+<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g opacity="0.4">
+<rect y="24.75" width="50" height="0.5" fill="#E693DD"/>
+<rect x="24.75" width="0.5" height="50" fill="#E693DD"/>
+</g>
+</svg>

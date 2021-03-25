@@ -5,6 +5,7 @@ import React from "react"
 import { useNft } from "use-nft"
 import { css } from "@emotion/react"
 import LoopVideo from "./LoopVideo"
+import { colors } from "./styles"
 
 type NftProps = {
   contract: string
@@ -43,13 +44,13 @@ function Card({ url, children }: { url?: string; children: ReactNode }) {
 
         &:focus:not(:focus-visible) {
           background: transparent;
-          color: #b98fb4;
+          color: ${colors.accent};
           box-shadow: none;
         }
         &:focus-visible {
           background: transparent;
-          color: #b98fb4;
-          box-shadow: 0 0 0 2px #b98fb4;
+          color: ${colors.accent};
+          box-shadow: 0 0 0 2px ${colors.accent};
         }
       `}
     >
@@ -94,7 +95,7 @@ function NftDetails({
         css={css`
           width: 100%;
           height: 200px;
-          background: #b98fb4;
+          background: ${colors.accent};
           img,
           video {
             display: block;
@@ -153,8 +154,8 @@ function NftDetails({
           bottom: 0;
           padding: 2px 10px;
           border-radius: 0 0 0 3px;
-          color: #000;
-          background: #b98fb4;
+          color: ${colors.accentOver2};
+          background: ${colors.accent};
         `}
       >
         {service}

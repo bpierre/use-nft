@@ -1,9 +1,10 @@
 import React from "react"
 import { ethers } from "ethers"
 import { NftProvider, ethersFetcher } from "use-nft"
+import Base from "./Base"
 import Footer from "./Footer"
-import NftGrid from "./NftGrid"
 import Header from "./Header"
+import NftGrid from "./NftGrid"
 import nfts from "./nfts"
 
 const nftFetcher = ethersFetcher({
@@ -15,9 +16,11 @@ const nftFetcher = ethersFetcher({
 function App() {
   return (
     <NftProvider fetcher={nftFetcher}>
-      <Header />
-      <NftGrid nfts={nfts} />
-      <Footer />
+      <Base>
+        <Header />
+        <NftGrid nfts={nfts} />
+        <Footer />
+      </Base>
     </NftProvider>
   )
 }
