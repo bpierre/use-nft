@@ -1,4 +1,4 @@
-<p align=center><img src=https://user-images.githubusercontent.com/36158/112518000-e31bf780-8d90-11eb-9a52-0d9ed155cb70.png>
+<p align=center><img src=https://user-images.githubusercontent.com/36158/112539178-8fb5a380-8da8-11eb-973e-caa6ea6bbbe0.png>
 
 useNft() allows to access the metadata of any NFT ([EIP 721](https://eips.ethereum.org/EIPS/eip-721), [EIP 1155](https://eips.ethereum.org/EIPS/eip-1155) and [more](https://www.larvalabs.com/cryptopunks)) on the Ethereum blockchain.
 
