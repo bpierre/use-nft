@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'demo/**'
+      - '.github/workflows/gh-pages.yml'
 jobs:
   build-and-deploy:
     name: Build use-nft and deploy the website
