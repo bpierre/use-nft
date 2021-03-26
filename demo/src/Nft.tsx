@@ -60,7 +60,7 @@ function Card({ url, children }: { url?: string; children: ReactNode }) {
           place-items: center;
           grid-template-columns: 100%;
           grid-template-rows: 100%;
-          width: 400px;
+          width: 360px;
           height: 430px;
           background: #123;
         `}
@@ -86,7 +86,7 @@ function NftDetails({
       css={css`
         display: flex;
         flex-direction: column;
-        width: 400px;
+        width: 100%;
         height: 100%;
         position: relative;
       `}
