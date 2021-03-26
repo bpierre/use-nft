@@ -3,7 +3,7 @@ import { css } from "@emotion/react"
 
 function Navigation({ swap = false }: { swap?: boolean }) {
   const links = [
-    <a key="by" href="https://spectre.gallery/" target="_blank">
+    <a key="by" href="https://spectre.xyz/" target="_blank">
       by spectre_
     </a>,
     <a key="docs" href="https://github.com/spectrexyz/use-nft" target="_blank">
