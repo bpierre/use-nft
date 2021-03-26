@@ -18,7 +18,7 @@ jobs:
         run: yarn install --frozen-lockfile && yarn build
 
       - name: Build demo/
-        run: cd demo && yarn install --frozen-lockfile && yarn build
+        run: cd demo && yarn install --frozen-lockfile && rm -rf ./node_modules/use-nft/node_modules && yarn build
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.0
