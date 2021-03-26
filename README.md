@@ -15,7 +15,8 @@ import ethers from "ethers"
 import { ethersFetcher, NftProvider, useNft } from "use-nft"
 
 // Create the fetcher. Here we are using the Ethers.js fetcher
-const fetcher = ethersFetcher({ ethers, provider: ethers.getDefaultProvider() })
+const provider ethers.getDefaultProvider()
+const fetcher = ethersFetcher({ ethers, provider })
 
 // Wrap your app with <NftProvider /> and pass a fetcher
 function App() {
