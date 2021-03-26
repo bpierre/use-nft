@@ -8,10 +8,11 @@ on:
       - 'demo/**'
 jobs:
   build-and-deploy:
+    name: Build use-nft and deploy the website
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.1
+        uses: actions/checkout@v2
 
       - name: Build use-nft
         run: yarn install --frozen-lockfile && yarn build
