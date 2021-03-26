@@ -1,5 +1,5 @@
 import React from "react"
-import { ethers } from "ethers"
+import { getDefaultProvider, Contract } from "ethers"
 import { NftProvider, ethersFetcher } from "use-nft"
 import Base from "./Base"
 import Footer from "./Footer"
@@ -8,8 +8,8 @@ import NftGrid from "./NftGrid"
 import nfts from "./nfts"
 
 const nftFetcher = ethersFetcher({
-  ethers,
-  provider: ethers.getDefaultProvider("homestead", {
+  ethers: { Contract },
+  provider: getDefaultProvider("homestead", {
     infura: import.meta.env.VITE_INFURA_KEY,
   }),
 })

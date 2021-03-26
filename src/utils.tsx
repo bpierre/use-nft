@@ -26,7 +26,7 @@ export function parseNftUrl(url: string): [string, string] | null {
   return null
 }
 
-function ipfsUrlDefault(cid: string, path: string = ""): string {
+function ipfsUrlDefault(cid: string, path = ""): string {
   return `https://ipfs.io/ipfs/${cid}${path}`
 }
 
@@ -175,23 +175,27 @@ export function useLoad<T>(
           return
         }
 
-        setState({ loading: false, error, result: null })
+        setState({
+          loading: false,
+          error: error as Error,
+          result: null,
+        })
 
         // retry
         retryTimer = setTimeout(() => {
           if (!cancelled) {
-            load()
+            void load()
           }
         }, retryDelay)
       }
     }
-    load()
+    void load()
 
     return () => {
       clearTimeout(retryTimer)
       cancelled = true
     }
-  }, [callback])
+  }, [callback, retryDelay])
 
   return state
 }

@@ -380,7 +380,7 @@
   dependencies:
     "@ethersproject/bignumber" "^5.0.13"
 
-"@ethersproject/contracts@5.0.12", "@ethersproject/contracts@^5.0.12":
+"@ethersproject/contracts@5.0.12":
   version "5.0.12"
   resolved "https://registry.yarnpkg.com/@ethersproject/contracts/-/contracts-5.0.12.tgz#6d488db46221258399dfe80b89bf849b3afd7897"
   integrity sha512-srijy31idjz8bE+gL1I6IRj2H4I9dUwfQ+QroLrIgNdGArqY8y2iFUKa3QTy+JBX26fJsdYiCQi1kKkaNpnMpQ==
@@ -481,7 +481,7 @@
   dependencies:
     "@ethersproject/logger" "^5.0.8"
 
-"@ethersproject/providers@5.0.24", "@ethersproject/providers@^5.0.24":
+"@ethersproject/providers@5.0.24":
   version "5.0.24"
   resolved "https://registry.yarnpkg.com/@ethersproject/providers/-/providers-5.0.24.tgz#4c638a029482d052faa18364b5e0e2d3ddd9c0cb"
   integrity sha512-M4Iw1r4gGJkt7ZUa++iREuviKL/DIpmIMsaUlVlXtV+ZrUXeN8xQ3zOTrbz7R4h9W9oljBZM7i4D3Kn1krJ30A==
@@ -1196,10 +1196,7 @@ use-memo-one@^1.1.0:
   integrity sha512-u2qFKtxLsia/r8qG0ZKkbytbztzRb317XCkT7yP8wxL0tZ/CzK2G+WWie5vWvpyeP7+YoPIwbJoIHJ4Ba4k0oQ==
 
 "use-nft@file:..":
-  version "0.1.0"
-  dependencies:
-    "@ethersproject/contracts" "^5.0.12"
-    "@ethersproject/providers" "^5.0.24"
+  version "0.3.0"
 
 vite@^2.1.0:
   version "2.1.2"

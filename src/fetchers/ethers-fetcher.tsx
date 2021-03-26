@@ -15,8 +15,8 @@ import {
 import { CRYPTOPUNKS_CONTRACT, cryptoPunkMetadata } from "../cryptopunks"
 
 type EthersFetcherOptions = {
-  provider: BaseProvider
   ethers: { Contract: typeof Contract }
+  provider: BaseProvider
 }
 type EthersFetcher = Fetcher<EthersFetcherOptions>
 
