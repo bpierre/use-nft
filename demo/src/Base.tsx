@@ -46,6 +46,8 @@ function Base({ children }: BaseProps) {
             display: grid;
             justify-content: center;
             padding: 0 80px;
+            max-width: 1400px;
+            margin: 0 auto;
           }
         `}
       />

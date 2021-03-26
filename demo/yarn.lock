@@ -1004,6 +1004,11 @@ json5@^2.1.2:
   dependencies:
     minimist "^1.2.5"
 
+lodash-es@^4.17.15:
+  version "4.17.21"
+  resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.21.tgz#43e626c46e6591b7750beb2b50117390c609e3ee"
+  integrity sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==
+
 lodash@^4.17.19:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
@@ -1197,6 +1202,12 @@ use-memo-one@^1.1.0:
 
 "use-nft@file:..":
   version "0.3.0"
+
+"use-viewport@git://github.com/aragon/use-viewport.git#master":
+  version "0.2.0"
+  resolved "git://github.com/aragon/use-viewport.git#dd60132c8ab5c8f824e9dd08a7543a034c93141e"
+  dependencies:
+    lodash-es "^4.17.15"
 
 vite@^2.1.0:
   version "2.1.2"

@@ -13,7 +13,8 @@
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-spring": "^9.0.0-rc.3",
-    "use-nft": "file:.."
+    "use-nft": "file:..",
+    "use-viewport": "git://github.com/aragon/use-viewport.git#master"
   },
   "devDependencies": {
     "@types/react": "^17.0.0",

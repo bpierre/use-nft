@@ -38,9 +38,10 @@ function Card({ url, children }: { url?: string; children: ReactNode }) {
     <a
       {...linkProps}
       css={css`
-        display: block;
+        display: grid;
         overflow: hidden;
         border-radius: 5px;
+        height: 100%;
 
         &:focus:not(:focus-visible) {
           background: transparent;
@@ -57,11 +58,9 @@ function Card({ url, children }: { url?: string; children: ReactNode }) {
       <section
         css={css`
           display: grid;
+          height: 100%;
           place-items: center;
           grid-template-columns: 100%;
-          grid-template-rows: 100%;
-          width: 360px;
-          height: 430px;
           background: #123;
         `}
       >

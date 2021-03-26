@@ -1,10 +1,13 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import App from './App'
+import React from "react"
+import ReactDOM from "react-dom"
+import { ViewportProvider } from "use-viewport"
+import App from "./App"
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ViewportProvider>
+      <App />
+    </ViewportProvider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 )

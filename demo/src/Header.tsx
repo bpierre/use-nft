@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react"
 import { css } from "@emotion/react"
+import { useViewport } from "use-viewport"
 import { raf } from "./utils"
 import Navigation from "./Navigation"
 
@@ -42,12 +43,15 @@ function Header() {
 
 function Title() {
   const emojiElt = useEmojiEffect()
+  const { below } = useViewport()
+  const medium = below(1000)
+  const small = below(800)
   return (
     <h1
       title="useNft()"
       css={css`
         margin-top: 24px;
-        font-size: 40px;
+        font-size: ${medium ? "30px" : "40px"};
         text-align: center;
       `}
     >
@@ -62,7 +66,7 @@ function Title() {
       >
         {randomEmoji()}
       </span>{" "}
-      = useNft(address, id)
+      = {small && <br />}useNft({small ? "addr" : "address"}, id)
     </h1>
   )
 }

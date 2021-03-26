@@ -26,8 +26,9 @@ function NftGrid({ nfts }: NftGridProps) {
     <div
       css={css`
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
         gap: 40px;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        grid-auto-rows: 430px;
       `}
     >
       {trail.map(({ progress }, index) => {
