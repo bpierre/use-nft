@@ -8,6 +8,7 @@ import NftGrid from "./NftGrid"
 import nfts from "./nfts"
 
 const nftFetcher = ethersFetcher({
+  ethers,
   provider: ethers.getDefaultProvider("homestead", {
     infura: import.meta.env.VITE_INFURA_KEY,
   }),

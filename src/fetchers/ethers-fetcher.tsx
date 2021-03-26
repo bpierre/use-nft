@@ -1,9 +1,9 @@
 import type { BaseProvider } from "@ethersproject/providers"
-import type { Address, Loader, NftMetadata } from "./types"
-import type { Fetcher } from "./core"
+import type { Contract } from "@ethersproject/contracts"
+import type { Address, Loader, NftMetadata } from "../types"
+import type { Fetcher } from "../core"
 
 import { useCallback } from "react"
-import { Contract } from "@ethersproject/contracts"
 import {
   fixNftMetadataMixedInJsonSchema,
   isNftMetadata,
@@ -11,10 +11,13 @@ import {
   normalizeTokenUrl,
   normalizeNftMetadata,
   useLoad,
-} from "./utils"
-import { CRYPTOPUNKS_CONTRACT, cryptoPunkMetadata } from "./cryptopunks"
+} from "../utils"
+import { CRYPTOPUNKS_CONTRACT, cryptoPunkMetadata } from "../cryptopunks"
 
-type EthersFetcherOptions = { provider: BaseProvider }
+type EthersFetcherOptions = {
+  provider: BaseProvider
+  ethers: { Contract: typeof Contract }
+}
 type EthersFetcher = Fetcher<EthersFetcherOptions>
 
 const ABI = [
@@ -63,7 +66,7 @@ export function useNft(
         return cryptoPunkMetadata(tokenId)
       }
 
-      const contract = new Contract(
+      const contract = new fetcher.config.ethers.Contract(
         contractAddress,
         ABI,
         fetcher.config.provider
@@ -80,10 +83,11 @@ export function useNft(
 }
 
 export function ethersFetcher({
+  ethers,
   provider,
 }: EthersFetcherOptions): EthersFetcher {
   return {
-    config: { provider },
+    config: { ethers, provider },
     useNft,
   }
 }

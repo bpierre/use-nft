@@ -14,8 +14,8 @@ yarn add use-nft
 import ethers from "ethers"
 import { ethersFetcher, NftProvider, useNft } from "use-nft"
 
-// Create the fetcher (Ethers.js here)
-const fetcher = ethersFetcher({ provider: ethers.getDefaultProvider() })
+// Create the fetcher. Here we are using the Ethers.js fetcher
+const fetcher = ethersFetcher({ ethers, provider: ethers.getDefaultProvider() })
 
 // Wrap your app with <NftProvider /> and pass a fetcher
 function App() {
