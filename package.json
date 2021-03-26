@@ -3,58 +3,34 @@
   "version": "0.2.0",
   "author": "spectre.xyz",
   "license": "MIT",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "src"
-  ],
-  "engines": {
-    "node": ">=10"
-  },
+  "homepage": "https://github.com/spectrexyz/use-nft",
+  "repository": "github:spectrexyz/use-nft",
+  "description": "useNft() allows to access the metadata of any NFT (EIP 721, EIP 1155 and more) on the Ethereum blockchain.",
+  "keywords": ["nft", "ethereum"],
+  "bugs": "https://github.com/spectrexyz/use-nft/issues",
+  "main": "dist/use-nft.cjs.js",
+  "module": "dist/use-nft.esm.js",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "files": ["dist"],
   "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build",
-    "test": "tsdx test --passWithNoTests",
-    "lint": "tsdx lint",
-    "prepare": "tsdx build",
-    "size": "size-limit",
-    "analyze": "size-limit --why"
+    "build": "rollpkg build",
+    "watch": "rollpkg watch",
+    "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
     "react": ">=17"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "tsdx lint"
-    }
-  },
-  "module": "dist/use-nft.esm.js",
-  "size-limit": [
-    {
-      "path": "dist/use-nft.cjs.production.min.js",
-      "limit": "10 KB"
-    },
-    {
-      "path": "dist/use-nft.esm.js",
-      "limit": "10 KB"
-    }
-  ],
   "devDependencies": {
-    "@size-limit/preset-small-lib": "^4.10.1",
+    "@ethersproject/contracts": "^5.0.12",
+    "@ethersproject/providers": "^5.0.24",
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.2",
-    "husky": "^5.2.0",
     "prettier": "^2.2.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "size-limit": "^4.10.1",
-    "tsdx": "^0.14.1",
-    "tslib": "^2.1.0",
+    "rollpkg": "^0.5.2",
     "typescript": "^4.2.3"
   },
-  "dependencies": {
-    "@ethersproject/contracts": "^5.0.12",
-    "@ethersproject/providers": "^5.0.24"
-  }
+  "dependencies": {}
 }
