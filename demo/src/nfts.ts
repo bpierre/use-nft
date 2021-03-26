@@ -26,7 +26,7 @@ export default [
     "0xabEFBc9fD2F806065b4f3C237d4b59D9A97Bcac7",
     "2299",
     "Zora",
-    "https://zora.co/leafilipo/2442",
+    "https://zora.co/leafilipo/2299",
   ],
 
   [
