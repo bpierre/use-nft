@@ -6,7 +6,7 @@ import { colors } from "./styles"
 
 type BaseProps = { children: ReactNode }
 
-function Base({ children }, BaseProps) {
+function Base({ children }: BaseProps) {
   return (
     <>
       <Global
