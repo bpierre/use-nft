@@ -1,6 +1,7 @@
 *.log
 .DS_Store
-node_modules
-.cache
+node_modules/
+coverage/
+.cache/
 .env
-dist
+dist/
