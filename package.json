@@ -1,21 +1,26 @@
 {
   "name": "use-nft",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": "spectre.xyz",
   "license": "MIT",
   "homepage": "https://github.com/spectrexyz/use-nft",
   "repository": "github:spectrexyz/use-nft",
   "description": "useNft() allows to access the metadata of any NFT (EIP 721, EIP 1155 and more) on the Ethereum blockchain.",
-  "keywords": ["nft", "ethereum"],
+  "keywords": [
+    "nft",
+    "ethereum"
+  ],
   "bugs": "https://github.com/spectrexyz/use-nft/issues",
   "main": "dist/use-nft.cjs.js",
   "module": "dist/use-nft.esm.js",
   "types": "dist/index.d.ts",
   "sideEffects": false,
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "rollpkg build",
-    "watch": "rollpkg watch",
+    "dev": "rollpkg watch",
     "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
