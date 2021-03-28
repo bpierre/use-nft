@@ -19,7 +19,7 @@ jobs:
         run: yarn install --immutable && yarn build
 
       - name: Build demo/
-        run: cd demo && yarn install --immutable && yarn build
+        run: cd demo && yarn install --immutable && rm -rf ./node_modules/use-nft/node_modules && yarn build
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.0
