@@ -63,4 +63,25 @@ export default [
     "Async Art",
     "https://async.art/art/master/0xb6dae651468e9593e4581705a09c10a76ac1e0c8-1230",
   ],
+
+  [
+    "0x06012c8cf97bead5deae237070f9587f8e7a266d",
+    "1976426",
+    "CryptoKitties",
+    "https://www.cryptokitties.co/kitty/1976426",
+  ],
+
+  [
+    "0x79986af15539de2db9a5086382daeda917a9cf0c",
+    "1162",
+    "Cryptovoxels",
+    "https://www.cryptovoxels.com/parcels/1162",
+  ],
+
+  [
+    "0x7c40c393dc0f283f318791d746d894ddd3693572",
+    "7782",
+    "MoonCats",
+    "https://opensea.io/assets/0x7c40c393dc0f283f318791d746d894ddd3693572/5710",
+  ],
 ] as NftList
