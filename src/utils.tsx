@@ -1,4 +1,4 @@
-import type { Loader, NftMetadata } from "./types"
+import type { Address, Loader, NftMetadata } from "./types"
 
 import { useEffect, useState } from "react"
 
@@ -17,6 +17,10 @@ type NftMetadataMixedInJsonSchema = {
 type IpfsUrlBuilder = (cid: string, path?: string) => string
 
 const RARIBLE_MATCH_RE = /^https:\/\/rarible\.com\/token\/(0x[a-fA-F0-9]{40}):([0-9]+)/
+
+export function isAddress(value: string): value is Address {
+  return /^0x[a-fA-F0-9]{40}$/.test(value)
+}
 
 export function parseNftUrl(url: string): [string, string] | null {
   const raribleMatch = url.match(RARIBLE_MATCH_RE)
@@ -198,4 +202,8 @@ export function useLoad<T>(
   }, [callback, retryDelay])
 
   return state
+}
+
+export function addressesEqual(addr1: Address, addr2: Address) {
+  return addr1?.toLowerCase() === addr2?.toLowerCase()
 }
