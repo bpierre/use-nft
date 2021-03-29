@@ -4,6 +4,7 @@ import type { EthersFetcher, EthersFetcherOptions } from "./types"
 import { useCallback } from "react"
 import { useLoad } from "../../utils"
 import { cryptoPunksMetadata, isCryptoPunks } from "./cryptopunks"
+import { moonCatsMetadata, isMoonCats } from "./mooncats"
 import { standardNftMetadata, isStandardNft } from "./standard-nft"
 
 export function useNft(
@@ -15,6 +16,10 @@ export function useNft(
     useCallback(async () => {
       if (isCryptoPunks(contractAddress)) {
         return cryptoPunksMetadata(tokenId)
+      }
+
+      if (isMoonCats(contractAddress)) {
+        return moonCatsMetadata(tokenId, fetcher.config)
       }
 
       if (isStandardNft(contractAddress)) {
