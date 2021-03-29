@@ -9191,6 +9191,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"mooncatparser@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "mooncatparser@npm:1.0.0"
+  checksum: 89089e9174fba81888443af4d16f2880eebcf9e625a17a11e47541a215de27dcd5c4e6375d2e3201cd377283ebbc5927a0984713e81ec82471038d9890339c4e
+  languageName: node
+  linkType: hard
+
 "move-concurrently@npm:^1.0.1":
   version: 1.0.1
   resolution: "move-concurrently@npm:1.0.1"
@@ -14117,6 +14124,7 @@ typescript@^4.2.3:
     "@ethersproject/providers": ^5.0.24
     "@types/react": ^17.0.3
     "@types/react-dom": ^17.0.2
+    mooncatparser: ^1.0.0
     prettier: ^2.2.1
     react: ^17.0.1
     react-dom: ^17.0.1
