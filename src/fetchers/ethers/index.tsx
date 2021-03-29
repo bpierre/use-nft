@@ -5,6 +5,7 @@ import { useCallback } from "react"
 import { useLoad } from "../../utils"
 import { cryptoPunksMetadata, isCryptoPunks } from "./cryptopunks"
 import { cryptoKittiesMetadata, isCryptoKitties } from "./cryptokitties"
+import { moonCatsMetadata, isMoonCats } from "./mooncats"
 import { standardNftMetadata, isStandardNft } from "./standard-nft"
 
 export function useNft(
@@ -20,6 +21,10 @@ export function useNft(
 
       if (isCryptoKitties(contractAddress)) {
         return cryptoKittiesMetadata(tokenId)
+      }
+
+      if (isMoonCats(contractAddress)) {
+        return moonCatsMetadata(tokenId, fetcher.config)
       }
 
       if (isStandardNft(contractAddress)) {
