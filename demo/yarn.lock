@@ -1864,6 +1864,13 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
+"mooncatparser@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "mooncatparser@npm:1.0.0"
+  checksum: 89089e9174fba81888443af4d16f2880eebcf9e625a17a11e47541a215de27dcd5c4e6375d2e3201cd377283ebbc5927a0984713e81ec82471038d9890339c4e
+  languageName: node
+  linkType: hard
+
 "ms@npm:2.1.2":
   version: 2.1.2
   resolution: "ms@npm:2.1.2"
@@ -2451,6 +2458,8 @@ typescript@^4.1.2:
 "use-nft@portal:..::locator=use-nft-demo%40workspace%3A.":
   version: 0.0.0-use.local
   resolution: "use-nft@portal:..::locator=use-nft-demo%40workspace%3A."
+  dependencies:
+    mooncatparser: ^1.0.0
   peerDependencies:
     react: ">=17"
   languageName: node
