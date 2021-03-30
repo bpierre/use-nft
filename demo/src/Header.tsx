@@ -79,7 +79,7 @@ function Description() {
         text-align: center;
       `}
     >
-      Fetch NFTs from React − no matter how they were minted.
+      Fetch NFT metadata from anywhere.
     </p>
   )
 }

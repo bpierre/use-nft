@@ -93,7 +93,7 @@ function NftDetails({
       <div
         css={css`
           width: 100%;
-          height: 200px;
+          height: 280px;
           background: ${colors.accent};
           img,
           video {
@@ -101,14 +101,14 @@ function NftDetails({
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: 50% calc(50% - 4px);
+            object-position: 50% 50%;
           }
         `}
       >
         {image.endsWith(".mp4") ? (
-          <LoopVideo type="video/mp4" src={image} height="200" />
+          <LoopVideo type="video/mp4" src={image} height="280" />
         ) : (
-          <img src={image} height="200" alt="" />
+          <img src={image} height="280" alt="" />
         )}
       </div>
       <h1
