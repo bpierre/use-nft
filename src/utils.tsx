@@ -1,9 +1,8 @@
-import type { Address, Loader, NftMetadata } from "./types"
+import type { Address, NftMetadata } from "./types"
 
-import { useEffect, useState } from "react"
-
-// Some NFT minting services misinterpreted the JSON schema from the EIP as literal JSON.
-// e.g. portion.io: https://ipfs.io/ipfs/QmNt5T9HSXKLXZ3kmciU4Tm6q9R8JEm5ifJkPoxapjyRUR
+// Some NFT minting services misinterpreted the JSON schema from the EIP as
+// literal JSON, e.g. portion.io:
+// https://ipfs.io/ipfs/QmNt5T9HSXKLXZ3kmciU4Tm6q9R8JEm5ifJkPoxapjyRUR
 type NftMetadataMixedInJsonSchema = {
   title: string
   type: "object"
@@ -30,11 +29,21 @@ export function parseNftUrl(url: string): [string, string] | null {
   return null
 }
 
+export function fetchImage(src: string): Promise<HTMLImageElement> {
+  return new Promise((resolve, reject) => {
+    const image = new Image()
+    image.src = src
+    image.crossOrigin = ""
+    image.onload = () => resolve(image)
+    image.onerror = (error) => reject(error)
+  })
+}
+
 function ipfsUrlDefault(cid: string, path = ""): string {
   return `https://ipfs.io/ipfs/${cid}${path}`
 }
 
-export function normalizeIpfsUrl(
+export function ipfsUrl(
   url: string,
   ipfsUrl: IpfsUrlBuilder = ipfsUrlDefault
 ): string {
@@ -46,7 +55,6 @@ export function normalizeIpfsUrl(
 
   // not perfect, but should be enough
   if (/^Qm[1-9A-HJ-NP-Za-km-z]{44}$/.test(url)) {
-    return `https://ipfs.io/ipfs/${url}`
     return ipfsUrl(url)
   }
 
@@ -95,12 +103,12 @@ export function normalizeNiftyGatewayUrl(url: string): string {
 export function normalizeTokenUrl(url: string, tokenId: string): string {
   url = normalizeOpenSeaUrl(url, tokenId)
   url = normalizeNiftyGatewayUrl(url)
-  url = normalizeIpfsUrl(url)
+  url = ipfsUrl(url)
   return url
 }
 
 export function normalizeImageUrl(url: string): string {
-  return normalizeIpfsUrl(url)
+  return ipfsUrl(url)
 }
 
 export function normalizeNftMetadata(data: NftMetadata): NftMetadata {
@@ -149,59 +157,6 @@ export function isNftMetadata(data: unknown): data is NftMetadata {
   // We don’t test for the exact type here, because some
   // NFT minting services set some of the fields as null.
   return "name" in _data && "image" in _data && "description" in _data
-}
-
-export function useLoad<T>(
-  callback: () => Promise<T | null>,
-  { retryDelay = 2000 } = {}
-): Loader<T> {
-  const [state, setState] = useState<Loader<T>>({
-    loading: true,
-    error: null,
-    result: null,
-  })
-
-  useEffect(() => {
-    let cancelled = false
-    let retryTimer: ReturnType<typeof setTimeout>
-
-    const load = async () => {
-      setState({ loading: true, error: null, result: null })
-
-      try {
-        const result = await callback()
-
-        if (!cancelled) {
-          setState({ loading: false, error: null, result })
-        }
-      } catch (error) {
-        if (cancelled) {
-          return
-        }
-
-        setState({
-          loading: false,
-          error: error as Error,
-          result: null,
-        })
-
-        // retry
-        retryTimer = setTimeout(() => {
-          if (!cancelled) {
-            void load()
-          }
-        }, retryDelay)
-      }
-    }
-    void load()
-
-    return () => {
-      clearTimeout(retryTimer)
-      cancelled = true
-    }
-  }, [callback, retryDelay])
-
-  return state
 }
 
 export function addressesEqual(addr1: Address, addr2: Address) {

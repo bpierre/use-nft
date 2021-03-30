@@ -2,7 +2,7 @@ import type { ReactNode } from "react"
 import type { Address, Loader, NftMetadata } from "./types"
 
 import React, { createContext, useCallback, useContext } from "react"
-import { useLoad } from "./utils"
+import { useLoad } from "./react-utils"
 
 export type Fetcher<Config> = {
   config: Config
