@@ -1,15 +1,12 @@
 import type { ReactNode } from "react"
 import type { Address, Loader, NftMetadata } from "./types"
 
-import React, { createContext, useContext } from "react"
+import React, { createContext, useCallback, useContext } from "react"
+import { useLoad } from "./utils"
 
 export type Fetcher<Config> = {
   config: Config
-  useNft: (
-    fetcher: Fetcher<Config>,
-    contractAddress: Address,
-    tokenId: string
-  ) => Loader<NftMetadata>
+  fetchNft: (contractAddress: Address, tokenId: string) => Promise<NftMetadata>
 }
 
 export type NftProviderType = {
@@ -35,7 +32,14 @@ function useNft(
   if (context === null) {
     throw new Error("Please wrap your app with <NftProvider />")
   }
-  return context.fetcher.useNft(context.fetcher, contractAddress, tokenId)
+  const { fetcher } = context
+  return useLoad<NftMetadata>(
+    useCallback(() => fetcher.fetchNft(contractAddress, tokenId), [
+      contractAddress,
+      fetcher,
+      tokenId,
+    ])
+  )
 }
 
 export { useNft, NftProvider }
