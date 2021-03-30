@@ -1,20 +1,22 @@
-import type { Address, Loader, NftMetadata } from "../../types"
+import type { Address, NftMetadata } from "../../types"
 import type { EthersFetcher, EthersFetcherOptions } from "./types"
 
-import { useCallback } from "react"
-import { useLoad } from "../../utils"
 import { cryptoPunksMetadata, isCryptoPunks } from "./cryptopunks"
 import { cryptoKittiesMetadata, isCryptoKitties } from "./cryptokitties"
 import { moonCatsMetadata, isMoonCats } from "./mooncats"
 import { standardNftMetadata, isStandardNft } from "./standard-nft"
 
-export function useNft(
-  fetcher: EthersFetcher,
-  contractAddress: Address,
-  tokenId: string
-): Loader<NftMetadata> {
-  return useLoad<NftMetadata>(
-    useCallback(async () => {
+export default function ethersFetcher({
+  ethers,
+  provider,
+}: EthersFetcherOptions): EthersFetcher {
+  const config = { ethers, provider }
+  return {
+    config,
+    async fetchNft(
+      contractAddress: Address,
+      tokenId: string
+    ): Promise<NftMetadata> {
       if (isCryptoPunks(contractAddress)) {
         return cryptoPunksMetadata(tokenId)
       }
@@ -24,24 +26,14 @@ export function useNft(
       }
 
       if (isMoonCats(contractAddress)) {
-        return moonCatsMetadata(tokenId, fetcher.config)
+        return moonCatsMetadata(tokenId, config)
       }
 
       if (isStandardNft(contractAddress)) {
-        return standardNftMetadata(tokenId, contractAddress, fetcher.config)
+        return standardNftMetadata(tokenId, contractAddress, config)
       }
 
       throw new Error("Invalid contract address or token ID provided")
-    }, [contractAddress, tokenId, fetcher])
-  )
-}
-
-export function ethersFetcher({
-  ethers,
-  provider,
-}: EthersFetcherOptions): EthersFetcher {
-  return {
-    config: { ethers, provider },
-    useNft,
+    },
   }
 }
