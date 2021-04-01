@@ -31,10 +31,15 @@
     "react": ">=17"
   },
   "eslintConfig": {
-    "extends": ["./node_modules/rollpkg/configs/eslint"],
+    "extends": [
+      "./node_modules/rollpkg/configs/eslint"
+    ],
     "overrides": [
       {
-        "files": ["*.ts", "*.tsx"],
+        "files": [
+          "*.ts",
+          "*.tsx"
+        ],
         "rules": {
           "import/no-default-export": "off"
         }

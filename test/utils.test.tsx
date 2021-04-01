@@ -115,7 +115,7 @@ describe("normalizeNiftyGatewayUrl()", () => {
 
 describe("normalizeTokenUrl()", () => {
   it("normalizes Nifty Gateway API URLs", () => {
-    expect(normalizeTokenUrl("https://api.niftygateway.com/abcdef")).toBe(
+    expect(normalizeTokenUrl("https://api.niftygateway.com/abcdef", "1")).toBe(
       "https://api.niftygateway.com/abcdef/"
     )
   })
@@ -130,17 +130,17 @@ describe("normalizeTokenUrl()", () => {
     )
   })
   it("normalizes IPFS URLs", () => {
-    expect(normalizeTokenUrl(`ipfs://ipfs/${IPFS_HASH_1}`)).toBe(
+    expect(normalizeTokenUrl(`ipfs://ipfs/${IPFS_HASH_1}`, "1")).toBe(
       `https://ipfs.io/ipfs/${IPFS_HASH_1}`
     )
   })
   it("returns other URLs", () => {
-    expect(normalizeTokenUrl("https://example.com/abcdef")).toBe(
+    expect(normalizeTokenUrl("https://example.com/abcdef", "1")).toBe(
       "https://example.com/abcdef"
     )
   })
   it("returns malformed URLs", () => {
-    expect(normalizeTokenUrl("a")).toBe("a")
+    expect(normalizeTokenUrl("a", "1")).toBe("a")
   })
 })
 
