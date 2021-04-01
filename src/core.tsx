@@ -11,14 +11,14 @@ export type Fetcher<Config> = {
 
 export type NftProviderType = {
   children: ReactNode
-  fetcher: Fetcher<any>
+  fetcher: Fetcher<unknown>
 }
 
 const NftContext = createContext<{
-  fetcher: Fetcher<any>
+  fetcher: Fetcher<unknown>
 } | null>(null)
 
-function NftProvider({ children, fetcher }: NftProviderType) {
+function NftProvider({ children, fetcher }: NftProviderType): JSX.Element {
   return (
     <NftContext.Provider value={{ fetcher }}>{children}</NftContext.Provider>
   )

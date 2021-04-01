@@ -1,3 +1,4 @@
+import type { Contract, ContractFunction } from "@ethersproject/contracts"
 import type { Address, NftMetadata } from "../../types"
 import type { EthersFetcherOptions } from "./types"
 
@@ -26,7 +27,10 @@ export async function standardNftMetadata(
     contractAddress,
     ABI,
     config.provider
-  )
+  ) as InstanceType<typeof Contract> & {
+    uri: ContractFunction<string>
+    tokenURI: ContractFunction<string>
+  }
 
   const url = await Promise.any([
     contract.uri(tokenId),
@@ -43,7 +47,7 @@ async function loadMetadata(url: string): Promise<NftMetadata> {
     throw new Error("Error when trying to request " + url)
   }
 
-  let data
+  let data: unknown
 
   try {
     data = await res.json()

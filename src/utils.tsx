@@ -22,7 +22,7 @@ export function isAddress(value: string): value is Address {
 }
 
 export function parseNftUrl(url: string): [string, string] | null {
-  const raribleMatch = url.match(RARIBLE_MATCH_RE)
+  const raribleMatch = RARIBLE_MATCH_RE.exec(url)
   if (raribleMatch) {
     return [raribleMatch[1], raribleMatch[2]]
   }
@@ -39,22 +39,50 @@ export function fetchImage(src: string): Promise<HTMLImageElement> {
   })
 }
 
+// Scale the image and add some extra padding. Returns the image as base64.
+// The padding and scale are expressed as proportions of the image size.
+export function frameImage(
+  image: HTMLImageElement,
+  { scale = 1, padding = 0 } = {}
+): string | null {
+  const width = image.naturalWidth * scale
+  const height = image.naturalHeight * scale
+  const _padding = Math.max(width * padding, height * padding)
+
+  const canvas = document.createElement("canvas")
+  canvas.width = width + _padding * 2
+  canvas.height = height + _padding * 2
+
+  const ctx = canvas.getContext("2d")
+  if (ctx === null) {
+    return null
+  }
+
+  ctx.imageSmoothingEnabled = false
+  ctx.drawImage(image, _padding, _padding, width, height)
+
+  return canvas.toDataURL()
+}
+
 function ipfsUrlDefault(cid: string, path = ""): string {
   return `https://ipfs.io/ipfs/${cid}${path}`
 }
+
+const IPFS_PROTOCOL_RE = /^ipfs:\/\/ipfs\/([^/]+)(\/.+)?$/
+const IPFS_HASH_RE = /^Qm[1-9A-HJ-NP-Za-km-z]{44}$/
 
 export function ipfsUrl(
   url: string,
   ipfsUrl: IpfsUrlBuilder = ipfsUrlDefault
 ): string {
-  const ipfsProtocolMatch = url.match(/^ipfs:\/\/ipfs\/([^\/]+)(\/.+)?$/)
+  const ipfsProtocolMatch = IPFS_PROTOCOL_RE.exec(url)
   if (ipfsProtocolMatch) {
     const [, cid, path = ""] = ipfsProtocolMatch
     return ipfsUrl(cid, path)
   }
 
   // not perfect, but should be enough
-  if (/^Qm[1-9A-HJ-NP-Za-km-z]{44}$/.test(url)) {
+  if (IPFS_HASH_RE.test(url)) {
     return ipfsUrl(url)
   }
 
@@ -159,6 +187,6 @@ export function isNftMetadata(data: unknown): data is NftMetadata {
   return "name" in _data && "image" in _data && "description" in _data
 }
 
-export function addressesEqual(addr1: Address, addr2: Address) {
+export function addressesEqual(addr1: Address, addr2: Address): boolean {
   return addr1?.toLowerCase() === addr2?.toLowerCase()
 }
