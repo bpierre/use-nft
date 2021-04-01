@@ -27,7 +27,7 @@ export async function standardNftMetadata(
     contractAddress,
     ABI,
     config.provider
-  ) as Contract & {
+  ) as InstanceType<typeof Contract> & {
     uri: ContractFunction<string>
     tokenURI: ContractFunction<string>
   }

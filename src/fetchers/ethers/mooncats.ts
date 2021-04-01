@@ -34,7 +34,7 @@ export async function moonCatsMetadata(
     MOONCATS_WRAPPED_CONTRACT,
     MOONCATS_WRAPPED_ABI,
     config.provider
-  ) as Contract & {
+  ) as InstanceType<typeof Contract> & {
     _tokenIDToCatID: ContractFunction<string>
   }
 
