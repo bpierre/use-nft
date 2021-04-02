@@ -15,24 +15,27 @@ type NftProps = {
 }
 
 function Nft({ contract, tokenId, service, url }: NftProps) {
-  const nft = useNft(contract, tokenId)
-
-  if (nft.loading) {
-    return <Card>Loading…</Card>
-  }
-
-  if (nft.error) {
-    return <Card>Error.</Card>
-  }
-
+  const { nft, loading, error, reload } = useNft(contract, tokenId)
   return (
-    <Card url={url}>
-      <NftDetails service={service} nft={nft.result} />
+    <Card url={nft && url} label={service}>
+      {(() => {
+        if (loading) return <NftLoading />
+        if (error) return <NftError error={error} reload={reload} />
+        return <NftDetails nft={nft} />
+      })()}
     </Card>
   )
 }
 
-function Card({ url, children }: { url?: string; children: ReactNode }) {
+function Card({
+  label,
+  url,
+  children,
+}: {
+  label: string
+  url?: string
+  children: ReactNode
+}) {
   const linkProps = url ? { href: url, target: "_blank" } : {}
   return (
     <a
@@ -64,32 +67,77 @@ function Card({ url, children }: { url?: string; children: ReactNode }) {
           background: #123;
         `}
       >
-        {children}
+        <div
+          css={css`
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            position: relative;
+          `}
+        >
+          {children}
+          <div
+            css={css`
+              position: absolute;
+              bottom: 0;
+              padding: 2px 10px;
+              border-radius: 0 0 0 3px;
+              color: ${colors.accentOver2};
+              background: ${colors.accent};
+            `}
+          >
+            {label}
+          </div>
+        </div>
       </section>
     </a>
   )
 }
 
-function NftDetails({
-  service,
-  nft,
-}: {
-  service: string
-  nft: NftMetadata | null
-}) {
-  const name = nft?.name || "Untitled"
-  const description = nft?.description || "−"
-  const image = nft?.image || ""
+function NftLoading() {
   return (
     <div
       css={css`
-        display: flex;
-        flex-direction: column;
-        width: 100%;
+        display: grid;
         height: 100%;
-        position: relative;
+        place-items: center;
       `}
     >
+      Loading…
+    </div>
+  )
+}
+
+function NftError({ error, reload }: { error: Error; reload: () => void }) {
+  return (
+    <div
+      css={css`
+        display: grid;
+        height: 100%;
+        place-items: center;
+        text-align: center;
+        line-height: 2;
+      `}
+    >
+      <p>
+        Loading error.
+        <br /> <button onClick={reload}>Retry?</button>
+      </p>
+    </div>
+  )
+}
+
+function NftDetails({ nft }: { nft?: NftMetadata }) {
+  if (!nft) {
+    return null
+  }
+
+  const name = nft.name || "Untitled"
+  const description = nft.description || "−"
+  const image = nft.image || ""
+  return (
+    <>
       <div
         css={css`
           width: 100%;
@@ -147,19 +195,7 @@ function NftDetails({
       >
         {description}
       </p>
-      <div
-        css={css`
-          position: absolute;
-          bottom: 0;
-          padding: 2px 10px;
-          border-radius: 0 0 0 3px;
-          color: ${colors.accentOver2};
-          background: ${colors.accent};
-        `}
-      >
-        {service}
-      </div>
-    </div>
+    </>
   )
 }
 

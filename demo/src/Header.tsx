@@ -31,7 +31,7 @@ function Header() {
     <header
       css={css`
         position: relative;
-        padding: 0 0 60px;
+        padding: 0 0 80px;
       `}
     >
       <Navigation />

@@ -6,7 +6,7 @@ function Footer() {
   return (
     <footer
       css={css`
-        padding-top: 60px;
+        padding-top: 50px;
       `}
     >
       <Navigation swap />
