@@ -80,8 +80,8 @@ export default [
 
   [
     "0x7c40c393dc0f283f318791d746d894ddd3693572",
-    "7782",
+    "8549",
     "MoonCats",
-    "https://opensea.io/assets/0x7c40c393dc0f283f318791d746d894ddd3693572/5710",
+    "https://opensea.io/assets/0x7c40c393dc0f283f318791d746d894ddd3693572/8549",
   ],
 ] as NftList

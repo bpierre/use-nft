@@ -24,9 +24,13 @@ function Base({ children }: BaseProps) {
             box-sizing: border-box;
           }
           body,
-          h1 {
+          h1,
+          button {
             margin: 0;
             font: 16px/1.4 "IBM Plex Mono", monospace;
+          }
+          button {
+            cursor: pointer;
           }
           body,
           a {
@@ -42,16 +46,21 @@ function Base({ children }: BaseProps) {
             background: ${colors.accent};
             color: ${colors.accentOver};
           }
-          #root {
-            display: grid;
-            justify-content: center;
-            padding: 0 80px;
-            max-width: 1400px;
-            margin: 0 auto;
-          }
         `}
       />
-      {children}
+      <main
+        css={css`
+          max-width: 1440px;
+          min-width: 420px;
+          margin: 0 auto;
+          padding: 0 80px;
+          @media (max-width: 900px) {
+            padding: 0 40px;
+          }
+        `}
+      >
+        {children}
+      </main>
     </>
   )
 }
