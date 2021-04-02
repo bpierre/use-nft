@@ -1,24 +1,30 @@
 export type Address = string
 
-export type Loader<T> =
-  // loading
-  | {
-      loading: true
-      error: null
-      result: null
-    }
-  // error
-  | {
-      loading: false
-      error: Error
-      result: null
-    }
-  // done
-  | {
-      loading: false
-      error: null
-      result: null | T // result can be null − even when done
-    }
+export type NftResultLoading = {
+  status: "loading"
+  loading: true
+  error: undefined
+  nft: undefined
+  reload: () => Promise<boolean>
+}
+
+export type NftResultError = {
+  status: "error"
+  loading: false
+  error: Error
+  nft: undefined
+  reload: () => Promise<boolean>
+}
+
+export type NftResultDone = {
+  status: "done"
+  loading: false
+  error: undefined
+  nft: NftMetadata
+  reload: () => Promise<boolean>
+}
+
+export type NftResult = NftResultLoading | NftResultError | NftResultDone
 
 export type NftMetadata = {
   name: string

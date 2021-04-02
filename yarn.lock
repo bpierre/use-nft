@@ -13316,6 +13316,15 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
+"swr@npm:^1.0.0-beta.3":
+  version: 1.0.0-beta.3
+  resolution: "swr@npm:1.0.0-beta.3"
+  peerDependencies:
+    react: ^16.11.0 || ^17.0.0
+  checksum: 91897e837c1ddc252172c2ef237ff919d8634ea7f6340612cf3b23841212e0f85beb19644f2b35bd99047f11cf9e99a07662e1d7fbb79a652acc13ac98300755
+  languageName: node
+  linkType: hard
+
 "symbol-observable@npm:^1.1.0, symbol-observable@npm:^1.2.0":
   version: 1.2.0
   resolution: "symbol-observable@npm:1.2.0"
@@ -14119,6 +14128,7 @@ typescript@^4.2.3:
     react: ^17.0.1
     react-dom: ^17.0.1
     rollpkg: ^0.5.2
+    swr: ^1.0.0-beta.3
     typescript: ^4.2.3
   peerDependencies:
     react: ">=17"
