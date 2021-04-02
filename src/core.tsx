@@ -1,8 +1,15 @@
 import type { ReactNode } from "react"
-import type { Address, Loader, NftMetadata } from "./types"
+import type {
+  Address,
+  NftMetadata,
+  NftResult,
+  NftResultDone,
+  NftResultError,
+  NftResultLoading,
+} from "./types"
 
-import React, { createContext, useCallback, useContext } from "react"
-import { useLoad } from "./react-utils"
+import React, { createContext, useCallback, useContext, useMemo } from "react"
+import useSWR from "swr"
 
 export type Fetcher<Config> = {
   config: Config
@@ -24,22 +31,54 @@ function NftProvider({ children, fetcher }: NftProviderType): JSX.Element {
   )
 }
 
-function useNft(
-  contractAddress: Address,
-  tokenId: string
-): Loader<NftMetadata> {
+function useNft(contractAddress: Address, tokenId: string): NftResult {
   const context = useContext(NftContext)
   if (context === null) {
     throw new Error("Please wrap your app with <NftProvider />")
   }
+
   const { fetcher } = context
-  return useLoad<NftMetadata>(
-    useCallback(() => fetcher.fetchNft(contractAddress, tokenId), [
-      contractAddress,
-      fetcher,
-      tokenId,
-    ])
+
+  const fetchNft = useCallback(
+    () => fetcher.fetchNft(contractAddress, tokenId),
+    [contractAddress, fetcher, tokenId]
   )
+
+  const result = useSWR<NftMetadata, Error>(contractAddress + tokenId, fetchNft)
+
+  return useMemo(() => {
+    const { error, data, revalidate } = result
+
+    const reload = () => revalidate()
+
+    if (error === undefined && data === undefined) {
+      return {
+        error: undefined,
+        loading: true,
+        nft: undefined,
+        reload,
+        status: "loading",
+      } as NftResultLoading
+    }
+
+    if (error !== undefined) {
+      return {
+        error,
+        loading: false,
+        nft: undefined,
+        reload,
+        status: "error",
+      } as NftResultError
+    }
+
+    return {
+      error: undefined,
+      loading: false,
+      nft: data as NftMetadata,
+      reload,
+      status: "done",
+    } as NftResultDone
+  }, [result])
 }
 
 export { useNft, NftProvider }
