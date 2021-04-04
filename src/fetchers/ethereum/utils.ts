@@ -1,0 +1,76 @@
+import type { Address } from "../../types"
+import type { EthereumProviderEip1193 } from "./types"
+
+// Pre encoded method names to avoid embedding a keccak256 library.
+// See https://docs.soliditylang.org/en/v0.5.3/abi-spec.html#function-selector-and-argument-encoding
+const URI_METHOD_ERC721 = "0xc87b56dd" // tokenURI(uint256)
+const URI_METHOD_ERC1155 = "0x0e89341c" // uri(uint256)
+const SUPPORTS_INTERFACE_METHOD_ERC165 = "0x01ffc9a7" // supportsInterface(bytes4)
+
+// ERC165 identifiers
+export const ERC721_ID = "0x80ac58cd"
+export const ERC1155_ID = "0xd9b67a26"
+
+// Utilities adapted from https://github.com/Zoltu/ethereum-abi-encoder/
+export function uint256Hex(value: bigint): string {
+  let result = ""
+  for (let i = 0; i < 32; ++i) {
+    result += (
+      "0" + ((value >> BigInt(8 * 32 - i * 8 - 8)) & 255n).toString(16)
+    ).slice(-2)
+  }
+  return result
+}
+
+export function bytesToBigInt(bytes: Uint8Array): bigint {
+  let value = 0n
+  for (let byte of bytes) {
+    value = (value << 8n) + BigInt(byte)
+  }
+  return value
+}
+
+export function hexToUint8Array(hex: string): Uint8Array {
+  hex = hex.replace(/^0x/, "")
+  return new Uint8Array(
+    (hex.match(/.{1,2}/g) ?? []).map((byte) => parseInt(byte, 16))
+  )
+}
+
+export function decodeBoolean(hex: string): boolean {
+  return bytesToBigInt(hexToUint8Array(hex)) !== 0n
+}
+
+export function decodeString(hex: string): string {
+  const data = hexToUint8Array(hex)
+  const pointer = Number(bytesToBigInt(data.subarray(0, 32)))
+  const length = Number(bytesToBigInt(data.subarray(pointer, pointer + 32)))
+  const bytes = data.subarray(pointer + 32, pointer + 32 + length)
+  return new TextDecoder().decode(bytes)
+}
+
+export function methodUriErc721(tokenId: bigint): string {
+  return URI_METHOD_ERC721 + uint256Hex(tokenId)
+}
+
+export function methodUriErc1155(id: bigint): string {
+  return URI_METHOD_ERC1155 + uint256Hex(id)
+}
+
+export function supportsInterfaceMethodErc165(interfaceId: string): string {
+  return (
+    SUPPORTS_INTERFACE_METHOD_ERC165 +
+    interfaceId.replace(/^0x/, "").padEnd(64, "0")
+  )
+}
+
+export function ethCall(
+  ethereum: EthereumProviderEip1193,
+  to: Address,
+  data: string
+): Promise<string> {
+  return ethereum.request({
+    method: "eth_call",
+    params: [{ data, to }, "latest"],
+  }) as Promise<string>
+}

@@ -31,3 +31,10 @@ export type NftMetadata = {
   description: string
   image: string
 }
+
+export type ContractMethod = {
+  address: string
+  methodName: string
+  methodHash: string
+  humanReadableAbi: [string]
+}

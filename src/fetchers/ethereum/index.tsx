@@ -1,5 +1,5 @@
 import type { Address, NftMetadata } from "../../types"
-import type { EthersFetcher, EthersFetcherConfig } from "./types"
+import type { EthereumFetcher, EthereumFetcherConfig } from "./types"
 
 import { isAddress } from "../../utils"
 import { fetchMetadata } from "../shared/fetch-metadata"
@@ -9,9 +9,9 @@ import { moonCatsMetadata, isMoonCats } from "../shared/mooncats"
 import { moonCatsCatId } from "./mooncats"
 import { fetchStandardNftUrl } from "./standard-nft"
 
-export default function ethersFetcher(
-  config: EthersFetcherConfig
-): EthersFetcher {
+export default function ethereumFetcher(
+  config: EthereumFetcherConfig
+): EthereumFetcher {
   return {
     config,
     async fetchNft(
