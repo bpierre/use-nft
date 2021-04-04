@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [reactRefresh()],
   resolve: { dedupe: ["react", "react-dom"] },
   build: {
-    target: "es2019",
+    target: "es2020",
   },
   esbuild: {
     jsxFactory: "jsx",
