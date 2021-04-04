@@ -1,6 +1,6 @@
 import type { Contract, ContractFunction } from "@ethersproject/contracts"
 import type { Address } from "../../types"
-import type { EthersFetcherOptions } from "./types"
+import type { EthersFetcherConfig } from "./types"
 
 import { normalizeTokenUrl } from "../../utils"
 
@@ -16,7 +16,7 @@ const ABI = [
 export async function fetchStandardNftUrl(
   contractAddress: Address,
   tokenId: string,
-  config: EthersFetcherOptions
+  config: EthersFetcherConfig
 ): Promise<string> {
   const contract = new config.ethers.Contract(
     contractAddress,

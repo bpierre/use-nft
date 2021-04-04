@@ -1,7 +1,7 @@
 import type { Fetcher } from "../../core"
 
 export type EthereumProviderEip1193 = {
-  request: (arguments: {
+  request: (args: {
     method: string
     params?: unknown[] | object
   }) => Promise<unknown>

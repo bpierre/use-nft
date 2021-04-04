@@ -18,17 +18,23 @@ export type Fetcher<Config> = {
 
 export type NftProviderType = {
   children: ReactNode
-  fetcher: Fetcher<unknown>
+  fetcher?: Fetcher<unknown> | null
 }
 
 const NftContext = createContext<{
-  fetcher: Fetcher<unknown>
+  fetcher?: Fetcher<unknown> | null
 } | null>(null)
 
 function NftProvider({ children, fetcher }: NftProviderType): JSX.Element {
   return (
     <NftContext.Provider value={{ fetcher }}>{children}</NftContext.Provider>
   )
+}
+
+const NFT_METADATA_DEFAULT = {
+  name: "",
+  description: "",
+  image: "",
 }
 
 function useNft(contractAddress: Address, tokenId: string): NftResult {
@@ -40,7 +46,10 @@ function useNft(contractAddress: Address, tokenId: string): NftResult {
   const { fetcher } = context
 
   const fetchNft = useCallback(
-    () => fetcher.fetchNft(contractAddress, tokenId),
+    () =>
+      fetcher
+        ? fetcher.fetchNft(contractAddress, tokenId)
+        : { ...NFT_METADATA_DEFAULT },
     [contractAddress, fetcher, tokenId]
   )
 
