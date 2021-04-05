@@ -1,10 +1,10 @@
-name: CI
+name: Build and test
 
 on: [push]
 
 jobs:
   build:
-    name: Build, lint, and test
+    name: build / lint / test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
