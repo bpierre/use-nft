@@ -1,40 +1,87 @@
 import type { ReactNode } from "react"
 import type {
   Address,
+  Fetcher,
+  FetcherDeclaration,
+  FetcherDeclarationEthers,
+  FetcherDeclarationEthereum,
+  FetcherProp,
   NftMetadata,
   NftResult,
   NftResultDone,
   NftResultError,
   NftResultLoading,
 } from "./types"
+import type { EthersFetcherConfig } from "./fetchers/ethers/types"
+import type { EthereumFetcherConfig } from "./fetchers/ethereum/types"
 
 import React, { createContext, useCallback, useContext, useMemo } from "react"
 import useSWR from "swr"
+import ethersFetcher from "./fetchers/ethers"
+import ethereumFetcher from "./fetchers/ethereum"
 
-export type Fetcher<Config> = {
-  config: Config
-  fetchNft: (contractAddress: Address, tokenId: string) => Promise<NftMetadata>
+const NFT_METADATA_DEFAULT = {
+  name: "",
+  description: "",
+  image: "",
+} as NftMetadata
+
+function isFetcherDeclarationEthers(
+  fetcher: FetcherProp
+): fetcher is FetcherDeclarationEthers {
+  return (
+    Array.isArray(fetcher) && fetcher.length == 2 && fetcher[0] === "ethers"
+  )
 }
 
-export type NftProviderType = {
-  children: ReactNode
-  fetcher?: Fetcher<unknown> | null
+function isFetcherDeclarationEthereum(
+  fetcher: FetcherProp
+): fetcher is FetcherDeclarationEthereum {
+  return (
+    Array.isArray(fetcher) && fetcher.length == 2 && fetcher[0] === "ethereum"
+  )
+}
+
+function normalizeFetcher(fetcher: FetcherProp): Fetcher<unknown> {
+  // default fetcher
+  if (!fetcher) {
+    return {
+      config: {},
+      fetchNft: () => Promise.resolve(NFT_METADATA_DEFAULT),
+    } as Fetcher<Record<string, never>>
+  }
+
+  // ethers
+  if (isFetcherDeclarationEthers(fetcher)) {
+    return ethersFetcher(fetcher[1]) as Fetcher<EthersFetcherConfig>
+  }
+
+  // ethereum
+  if (isFetcherDeclarationEthereum(fetcher)) {
+    return ethereumFetcher(fetcher[1]) as Fetcher<EthereumFetcherConfig>
+  }
+
+  // custom fetcher (or wrong value)
+  return fetcher
 }
 
 const NftContext = createContext<{
   fetcher?: Fetcher<unknown> | null
 } | null>(null)
 
-function NftProvider({ children, fetcher }: NftProviderType): JSX.Element {
+function NftProvider({
+  children,
+  fetcher,
+}: {
+  children: ReactNode
+  fetcher?: Fetcher<unknown> | FetcherDeclaration | null
+}): JSX.Element {
+  const normalizedFetcher = normalizeFetcher(fetcher)
   return (
-    <NftContext.Provider value={{ fetcher }}>{children}</NftContext.Provider>
+    <NftContext.Provider value={{ fetcher: normalizedFetcher }}>
+      {children}
+    </NftContext.Provider>
   )
-}
-
-const NFT_METADATA_DEFAULT = {
-  name: "",
-  description: "",
-  image: "",
 }
 
 function useNft(contractAddress: Address, tokenId: string): NftResult {

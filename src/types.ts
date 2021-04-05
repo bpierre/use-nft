@@ -1,3 +1,6 @@
+import type { EthersFetcherConfig } from "./fetchers/ethers/types"
+import type { EthereumFetcherConfig } from "./fetchers/ethereum/types"
+
 export type Address = string
 
 export type NftResultLoading = {
@@ -38,3 +41,26 @@ export type ContractMethod = {
   methodHash: string
   humanReadableAbi: [string]
 }
+
+export type Fetcher<Config> = {
+  config: Config
+  fetchNft: (contractAddress: Address, tokenId: string) => Promise<NftMetadata>
+}
+
+export type FetcherDeclarationEthers = [
+  name: "ethers",
+  config: EthersFetcherConfig
+]
+export type FetcherDeclarationEthereum = [
+  name: "ethereum",
+  config: EthereumFetcherConfig
+]
+export type FetcherDeclaration =
+  | FetcherDeclarationEthers
+  | FetcherDeclarationEthereum
+
+export type FetcherProp =
+  | Fetcher<unknown>
+  | FetcherDeclaration
+  | null
+  | undefined
