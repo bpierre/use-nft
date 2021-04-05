@@ -12520,9 +12520,9 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"rollpkg@npm:^0.5.2":
-  version: 0.5.2
-  resolution: "rollpkg@npm:0.5.2"
+"rollpkg@npm:^0.5.3":
+  version: 0.5.3
+  resolution: "rollpkg@npm:0.5.3"
   dependencies:
     "@rollup/plugin-commonjs": ^17.1.0
     "@rollup/plugin-json": ^4.1.0
@@ -12557,7 +12557,7 @@ resolve@^2.0.0-next.3:
     typescript: ">=3"
   bin:
     rollpkg: dist/cli.js
-  checksum: bfe4bde7dd22a4913fbeefe50fcc57f9f5f6898020804420a9d3428ec55dc80330f1b524f9d311b12897d02992bb1158280a973725e6358b71c5b61ca582983c
+  checksum: dec6f105c652488857aecf29b83c6373db445abc9c7baae845898a2d0186d9cef9bb41b17042c850c8ab23e652d7673957b449b667ecabfe7ebb561eda90fc21
   languageName: node
   linkType: hard
 
@@ -14767,7 +14767,7 @@ typescript@^4.2.3:
     prettier: ^2.2.1
     react: ^17.0.2
     react-dom: ^17.0.2
-    rollpkg: ^0.5.2
+    rollpkg: ^0.5.3
     swr: ^1.0.0-beta.3
     typescript: ^4.2.3
   peerDependencies:
