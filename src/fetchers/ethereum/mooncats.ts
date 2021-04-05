@@ -9,6 +9,9 @@ export function moonCatsCatId(config: EthereumFetcherConfig) {
     tokenId: string,
     method: ContractMethod
   ): Promise<string> {
+    if (config.ethereum === undefined) {
+      throw new Error("No Ethereum provider")
+    }
     const result = await ethCall(
       config.ethereum,
       contractAddress,
