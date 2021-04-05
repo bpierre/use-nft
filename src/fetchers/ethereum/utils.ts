@@ -16,16 +16,16 @@ export function uint256Hex(value: bigint): string {
   let result = ""
   for (let i = 0; i < 32; ++i) {
     result += (
-      "0" + ((value >> BigInt(8 * 32 - i * 8 - 8)) & 255n).toString(16)
+      "0" + ((value >> BigInt(8 * 32 - i * 8 - 8)) & BigInt(255)).toString(16)
     ).slice(-2)
   }
   return result
 }
 
 export function bytesToBigInt(bytes: Uint8Array): bigint {
-  let value = 0n
+  let value = BigInt(0)
   for (const byte of bytes) {
-    value = (value << 8n) + BigInt(byte)
+    value = (value << BigInt(8)) + BigInt(byte)
   }
   return value
 }
@@ -38,7 +38,7 @@ export function hexToUint8Array(hex: string): Uint8Array {
 }
 
 export function decodeBoolean(hex: string): boolean {
-  return bytesToBigInt(hexToUint8Array(hex)) !== 0n
+  return bytesToBigInt(hexToUint8Array(hex)) !== BigInt(0)
 }
 
 export function decodeString(hex: string): string {
