@@ -2440,9 +2440,9 @@ typescript@^4.2.3:
   languageName: node
   linkType: hard
 
-"use-nft-demo@workspace:.":
+"use-nft-website@workspace:.":
   version: 0.0.0-use.local
-  resolution: "use-nft-demo@workspace:."
+  resolution: "use-nft-website@workspace:."
   dependencies:
     "@emotion/react": ^11.1.5
     "@types/react": ^17.0.3
@@ -2459,9 +2459,9 @@ typescript@^4.2.3:
   languageName: unknown
   linkType: soft
 
-"use-nft@portal:..::locator=use-nft-demo%40workspace%3A.":
+"use-nft@portal:..::locator=use-nft-website%40workspace%3A.":
   version: 0.0.0-use.local
-  resolution: "use-nft@portal:..::locator=use-nft-demo%40workspace%3A."
+  resolution: "use-nft@portal:..::locator=use-nft-website%40workspace%3A."
   dependencies:
     swr: ^1.0.0-beta.3
   peerDependencies:
