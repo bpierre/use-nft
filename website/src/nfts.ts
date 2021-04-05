@@ -9,6 +9,13 @@ export default [
   ],
 
   [
+    "0x32b7495895264ac9d0b12d32afd435453458b1c6",
+    "5055",
+    "Decentraland",
+    "https://market.decentraland.org/contracts/0x32b7495895264ac9d0b12d32afd435453458b1c6/tokens/4087",
+  ],
+
+  [
     "0x3B3ee1931Dc30C1957379FAc9aba94D1C48a5405",
     "13201",
     "Foundation",
@@ -23,6 +30,13 @@ export default [
   ],
 
   [
+    "0xb932a70a57673d89f4acffbe830e8ed7f75fb9e0",
+    "22072",
+    "SuperRare",
+    "https://superrare.co/artwork-v2/pool-22072",
+  ],
+
+  [
     "0xabEFBc9fD2F806065b4f3C237d4b59D9A97Bcac7",
     "2299",
     "Zora",
@@ -30,10 +44,10 @@ export default [
   ],
 
   [
-    "0xb932a70a57673d89f4acffbe830e8ed7f75fb9e0",
-    "22072",
-    "SuperRare",
-    "https://superrare.co/artwork-v2/pool-22072",
+    "0x06012c8cf97bead5deae237070f9587f8e7a266d",
+    "1976426",
+    "CryptoKitties",
+    "https://www.cryptokitties.co/kitty/1976426",
   ],
 
   [
@@ -65,13 +79,6 @@ export default [
   ],
 
   [
-    "0x06012c8cf97bead5deae237070f9587f8e7a266d",
-    "1976426",
-    "CryptoKitties",
-    "https://www.cryptokitties.co/kitty/1976426",
-  ],
-
-  [
     "0x79986af15539de2db9a5086382daeda917a9cf0c",
     "1162",
     "Cryptovoxels",
@@ -83,5 +90,26 @@ export default [
     "8549",
     "MoonCats",
     "https://opensea.io/assets/0x7c40c393dc0f283f318791d746d894ddd3693572/8549",
+  ],
+
+  [
+    "0xfbeef911dc5821886e1dda71586d90ed28174b7d",
+    "307801",
+    "KnownOrigin",
+    "https://knownorigin.io/gallery/307800-red-forest-fires",
+  ],
+
+  [
+    "0xb55c5cac5014c662fdbf21a2c59cd45403c482fd",
+    "0x555559a5669969a96a656a995aa55555",
+    "Clovers",
+    "https://clovers.network/clovers/0xdfffdfffd557fd7ff55fdfdffff7ffff",
+  ],
+
+  [
+    "0x2a46f2ffd99e19a89476e2f62270e0a35bbf0756",
+    "52832",
+    "MakersPlace",
+    "https://makersplace.com/jeffreylee1/garden-delights-1-of-1-60178/",
   ],
 ] as NftList
