@@ -1,6 +1,7 @@
 import type { NftMetadata } from "../../types"
 
 import {
+  fixIncorrectImageField,
   fixNftMetadataMixedInJsonSchema,
   isNftMetadata,
   isNftMetadataMixedInJsonSchema,
@@ -26,6 +27,8 @@ export async function fetchMetadata(url: string): Promise<NftMetadata> {
   if (isNftMetadataMixedInJsonSchema(data)) {
     data = fixNftMetadataMixedInJsonSchema(data)
   }
+
+  data = fixIncorrectImageField(data)
 
   if (!isNftMetadata(data)) {
     throw new Error("Invalid data received")
