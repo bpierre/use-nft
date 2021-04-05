@@ -19,7 +19,7 @@ export default function ethereumFetcher(
       tokenId: string
     ): Promise<NftMetadata> {
       if (!isAddress(contractAddress)) {
-        throw new Error("Invalid contract address: " + contractAddress)
+        throw new Error(`Invalid contract address: ${contractAddress}`)
       }
 
       if (isCryptoPunks(contractAddress)) {
