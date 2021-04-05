@@ -146,6 +146,29 @@ export function normalizeNftMetadata(data: NftMetadata): NftMetadata {
   }
 }
 
+export function fixIncorrectImageField(
+  data: unknown
+): { image: string } | unknown {
+  if (!data || typeof data !== "object") {
+    return data
+  }
+
+  const _data = data as {
+    image: string
+    imageUrl: string
+  }
+
+  // makersplace.com is using `imageUrl` rather than `image`
+  if (
+    typeof _data?.image === "undefined" &&
+    typeof _data?.imageUrl === "string"
+  ) {
+    return { ..._data, image: _data?.imageUrl }
+  }
+
+  return data
+}
+
 // See NftMetadataMixedInJsonSchema for why this is needed.
 export function isNftMetadataMixedInJsonSchema(
   data: unknown
