@@ -10,8 +10,10 @@ type EthereumProviderEip1193 = {
   }) => Promise<unknown>
 }
 
-export default function useEthereum(): EthereumProviderEip1193 | null {
-  const [ethereum, setEthereum] = useState<EthereumProviderEip1193 | null>(null)
+export default function useEthereum(): EthereumProviderEip1193 | undefined {
+  const [ethereum, setEthereum] = useState<EthereumProviderEip1193 | undefined>(
+    undefined
+  )
 
   useEffect(() => {
     let cancelled = false

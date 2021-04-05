@@ -1,5 +1,5 @@
 {
-  "name": "use-nft-demo",
+  "name": "example-ethereum",
   "private": true,
   "version": "0.0.0",
   "scripts": {
@@ -9,12 +9,14 @@
   },
   "dependencies": {
     "@emotion/react": "^11.1.5",
+    "@metamask/detect-provider": "^1.2.0",
     "ethers": "^5.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-spring": "^9.0.0",
-    "use-nft": "portal:..",
-    "use-viewport": "git://github.com/aragon/use-viewport.git#commit=dd60132c8ab5c8f824e9dd08a7543a034c93141e"
+    "use-nft": "portal:../..",
+    "use-viewport": "git://github.com/aragon/use-viewport.git#commit=dd60132c8ab5c8f824e9dd08a7543a034c93141e",
+    "use-wallet": "git://github.com/bpierre/use-wallet.git#commit=f7063ae7d89d031f00b492cc766e84c4908da7e4"
   },
   "devDependencies": {
     "@types/react": "^17.0.3",
