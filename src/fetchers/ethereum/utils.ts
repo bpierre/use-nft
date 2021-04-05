@@ -24,7 +24,7 @@ export function uint256Hex(value: bigint): string {
 
 export function bytesToBigInt(bytes: Uint8Array): bigint {
   let value = 0n
-  for (let byte of bytes) {
+  for (const byte of bytes) {
     value = (value << 8n) + BigInt(byte)
   }
   return value

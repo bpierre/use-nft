@@ -23,10 +23,14 @@ export async function fetchStandardNftUrl(
   tokenId: string,
   { ethereum }: EthereumFetcherConfig
 ): Promise<string> {
-  const urlCall = (method: string) =>
-    ethCall(ethereum, contractAddress, method).then((result) =>
-      normalizeTokenUrl(decodeString(result), tokenId)
-    )
+  if (!ethereum) {
+    return ""
+  }
+
+  const urlCall = async (method: string): Promise<string> => {
+    const result = await ethCall(ethereum, contractAddress, method)
+    return normalizeTokenUrl(decodeString(result), tokenId)
+  }
 
   const isKnown721 = KNOWN_ERC721_LIKE.some((address) =>
     addressesEqual(address, contractAddress)

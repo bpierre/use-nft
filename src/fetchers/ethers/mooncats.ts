@@ -15,7 +15,7 @@ export function moonCatsCatId(config: EthersFetcherConfig) {
     ) as InstanceType<typeof Contract> & {
       _tokenIDToCatID: ContractFunction<string>
     }
-    const result = await wrappedContract[method.methodName](tokenId)
+    const result = await wrappedContract._tokenIDToCatID(tokenId)
     return result ?? ""
   }
 }

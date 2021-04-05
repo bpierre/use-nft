@@ -12,15 +12,21 @@ yarn add use-nft
 
 ## Usage
 
+useNft() uses a concept of “fetchers”, in order to provide different ways to retrieve data from Ethereum. If you use the [Ethers](https://github.com/ethers-io/ethers.js) in your app, using `ethersFetcher()` is recommended. Otherwise you can use `ethereumFetcher()`, which only requires a [standard Ethereum provider](https://eips.ethereum.org/EIPS/eip-1193), like the one provided by MetaMask.
+
 ```jsx
 import ethers from "ethers"
-import { ethersFetcher, NftProvider, useNft } from "use-nft"
+import { NftProvider, useNft } from "use-nft"
 
-// Create the fetcher. Here we are using the Ethers.js fetcher
-const provider ethers.getDefaultProvider()
-const fetcher = ethersFetcher({ ethers, provider })
+// We are using the "ethers" fetcher here.
+const fetcher = ["ethers", { ethers, provider: ethers.getDefaultProvider() }]
 
-// Wrap your app with <NftProvider /> and pass a fetcher
+// Alternatively, you can use the "ethereum" fetcher. Note
+// that we are using window.ethereum here (injected by wallets
+// like MetaMask), but any standard Ethereum provider would work.
+// const fetcher = ["ethereum", { ethereum }]
+
+// Wrap your app with <NftProvider />.
 function App() {
   return (
     <NftProvider fetcher={fetcher}>
@@ -29,27 +35,72 @@ function App() {
   )
 }
 
-// Pass the contract address and tokenId to useNft()
+// useNft() is now ready to be used in your app. Pass
+// the NFT contract and token ID to fetch the metadata.
 function Nft() {
-  const nft = useNft("0xd07dc4262bcdbf85190c01c996b4c06a461d2430", "90473")
+  const { loading, error, nft } = useNft(
+    "0xd07dc4262bcdbf85190c01c996b4c06a461d2430",
+    "90473"
+  )
 
-  // nft.loading is true during load
-  if (nft.loading) return "Loading…"
+  // nft.loading is true during load.
+  if (loading) return "Loading…"
 
-  // nft.error is true on error
-  if (nft.error) return "Error."
+  // nft.error is an Error instance in case of error.
+  if (error) return "Error."
 
-  // ready
+  // You can now display the NFT metadata.
   return (
     <section>
-      <img src={nft.result.image} alt="" />
-      <h1>{nft.result.name}</h1>
-      <p>{nft.result.description}</p>
+      <h1>{nft.name}</h1>
+      <img src={nft.image} alt="" />
+      <p>{nft.description}</p>
     </section>
   )
 }
 ```
 
+## API
+
+### NftProvider
+
+NftProvider requires one prop to be passed: `fetcher`. It can take a declaration for the embedded fetchers, or you can alternatively pass a custom fetcher.
+
+#### Ethers declaration
+
+```tsx
+<NftProvider fetcher={["ethers", { ethers, provider }]} />
+```
+
+- `ethers` is the default import of the Ethers library (note that only `{ Contract }` is needed, so you can pass this instead).
+- `provider` is a [provider](https://docs.ethers.io/v5/api/providers/) from the Ethers library (not to be mistaken with [standard Ethereum providers](https://eips.ethereum.org/EIPS/eip-1193)).
+
+#### Ethereum declaration
+
+```tsx
+<NftProvider fetcher={["ethereum", { ethereum }]} />
+```
+
+`ethereum` is a [standard Ethereum providers](https://eips.ethereum.org/EIPS/eip-1193).
+
+#### Custom declaration
+
+A fetcher is an object implementing this type:
+
+```tsx
+type Fetcher<Config> = {
+  config: Config
+  fetchNft: (contractAddress: Address, tokenId: string) => Promise<NftMetadata>
+}
+type NftMetadata = {
+  name: string
+  description: string
+  image: string
+}
+```
+
+See the implementation of the [Ethers](https://github.com/spectrexyz/use-nft/blob/38bd803f20e778b9bb684d682c194a812a94a05c/src/fetchers/ethers/index.tsx#L12-L42) and [Ethereum](https://github.com/spectrexyz/use-nft/blob/38bd803f20e778b9bb684d682c194a812a94a05c/src/fetchers/ethereum/index.tsx#L12-L42) fetchers for more details.
+
 ## License
 
-MIT
+[MIT](LICENSE)
