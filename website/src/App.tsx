@@ -1,6 +1,6 @@
 import React from "react"
 import { getDefaultProvider, Contract } from "ethers"
-import { NftProvider } from "use-nft"
+import { NftProvider, FetcherDeclarationEthers } from "use-nft"
 import Base from "./Base"
 import Footer from "./Footer"
 import Header from "./Header"
@@ -19,7 +19,7 @@ const fetcher = [
 
 function App() {
   return (
-    <NftProvider fetcher={fetcher}>
+    <NftProvider fetcher={fetcher as FetcherDeclarationEthers}>
       <Base>
         <Header />
         <NftGrid nfts={nfts} />
