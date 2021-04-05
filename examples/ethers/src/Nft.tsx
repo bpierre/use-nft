@@ -41,11 +41,10 @@ function Card({
     <a
       {...linkProps}
       css={css`
-        display: grid;
+        display: block;
         overflow: hidden;
         border-radius: 5px;
         height: 100%;
-
         &:focus:not(:focus-visible) {
           background: transparent;
           color: ${colors.accent};
@@ -82,7 +81,6 @@ function Card({
               position: absolute;
               bottom: 0;
               padding: 2px 10px;
-              border-radius: 0 0 0 3px;
               color: ${colors.accentOver2};
               background: ${colors.accent};
             `}
