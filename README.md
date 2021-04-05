@@ -62,11 +62,61 @@ function Nft() {
 
 ## API
 
-### NftProvider
+### useNft(contract: string, tokenId: string): NftResult
+
+The useNft() hook requires two arguments: the NFT `contract` address, and its token ID.
+
+The returned value is an object containing information about the loading state:
+
+```tsx
+const result  = useNft("0xd07dc4262bcdbf85190c01c996b4c06a461d2430", "90473")
+
+// one of "error", "loading" and "done"
+result.status
+
+// same as status === "loading"
+result.loading
+
+// undefined or Error instance when status === "error"
+result.error
+
+// call this function to retry in case of error
+result.reload
+
+// nft is undefined when status !== "done"
+result.nft
+
+// name of the NFT (or empty string)
+result.nft.name
+
+// description of the NFT (or empty string)
+result.nft.description
+
+// image / media URL of the NFT (or empty string)
+result.nft.description
+```
+
+As TypeScript type:
+
+```tsx
+type NftResult = {
+  status: "error" | "loading" | "done"
+  loading: boolean
+  reload: () => void
+  error?: Error
+  nft?: {
+    name: string
+    description: string
+    image: string
+  }
+}
+```
+
+### &lt;NftProvider />
 
 NftProvider requires one prop to be passed: `fetcher`. It can take a declaration for the embedded fetchers, or you can alternatively pass a custom fetcher.
 
-#### Ethers declaration
+#### With Ethers
 
 ```tsx
 <NftProvider fetcher={["ethers", { ethers, provider }]} />
@@ -75,7 +125,7 @@ NftProvider requires one prop to be passed: `fetcher`. It can take a declaration
 - `ethers` is the default import of the Ethers library (note that only `{ Contract }` is needed, so you can pass this instead).
 - `provider` is a [provider](https://docs.ethers.io/v5/api/providers/) from the Ethers library (not to be mistaken with [standard Ethereum providers](https://eips.ethereum.org/EIPS/eip-1193)).
 
-#### Ethereum declaration
+#### With an Ethereum provider
 
 ```tsx
 <NftProvider fetcher={["ethereum", { ethereum }]} />
@@ -83,14 +133,14 @@ NftProvider requires one prop to be passed: `fetcher`. It can take a declaration
 
 `ethereum` is a [standard Ethereum providers](https://eips.ethereum.org/EIPS/eip-1193).
 
-#### Custom declaration
+#### Custom fetcher
 
-A fetcher is an object implementing this type:
+A fetcher is an object implementing the `Fetcher` type:
 
 ```tsx
 type Fetcher<Config> = {
   config: Config
-  fetchNft: (contractAddress: Address, tokenId: string) => Promise<NftMetadata>
+  fetchNft: (contractAddress: string, tokenId: string) => Promise<NftMetadata>
 }
 type NftMetadata = {
   name: string
