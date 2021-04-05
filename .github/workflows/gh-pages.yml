@@ -5,8 +5,8 @@ on:
     branches:
       - main
     paths:
-      - 'demo/**'
-      - '.github/workflows/gh-pages.yml'
+      - "demo/**"
+      - ".github/workflows/gh-pages.yml"
 jobs:
   build-and-deploy:
     name: Build use-nft and deploy the website
@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build use-nft
-        run: yarn install --immutable && yarn build
+        run: yarn install --immutable && yarn build --noStats
 
       - name: Build demo/
         run: cd demo && yarn install --immutable && yarn build
