@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - "demo/**"
+      - "website/**"
       - ".github/workflows/gh-pages.yml"
 jobs:
   build-and-deploy:
@@ -18,11 +18,11 @@ jobs:
       - name: Build use-nft
         run: yarn install --immutable && yarn build --noStats
 
-      - name: Build demo/
-        run: cd demo && yarn install --immutable && yarn build
+      - name: Build website/
+        run: cd website && yarn install --immutable && yarn build
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.0
         with:
           branch: gh-pages
-          folder: demo/dist
+          folder: website/dist
