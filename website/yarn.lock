@@ -1262,6 +1262,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dequal@npm:2.0.2":
+  version: 2.0.2
+  resolution: "dequal@npm:2.0.2"
+  checksum: 86c7a2c59f7b0797ed397c74b5fcdb744e48fc19440b70ad6ac59f57550a96b0faef3f1cfd5760ec5e6d3f7cb101f634f1f80db4e727b1dc8389bf62d977c0a0
+  languageName: node
+  linkType: hard
+
 "ecc-jsbn@npm:~0.1.1":
   version: 0.1.2
   resolution: "ecc-jsbn@npm:0.1.2"
@@ -2355,12 +2362,14 @@ resolve@^1.19.0:
   languageName: node
   linkType: hard
 
-"swr@npm:^1.0.0-beta.3":
-  version: 1.0.0-beta.3
-  resolution: "swr@npm:1.0.0-beta.3"
+"swr@npm:^1.0.0-beta.5":
+  version: 1.0.0-beta.5
+  resolution: "swr@npm:1.0.0-beta.5"
+  dependencies:
+    dequal: 2.0.2
   peerDependencies:
     react: ^16.11.0 || ^17.0.0
-  checksum: 91897e837c1ddc252172c2ef237ff919d8634ea7f6340612cf3b23841212e0f85beb19644f2b35bd99047f11cf9e99a07662e1d7fbb79a652acc13ac98300755
+  checksum: c7a08be21d2a984997c41a02e275fe2fa5cbb809209d926e0e9d2e8c9e6848a9ddad569ee27b5b3a1dbe26f3bcd461ae01818903ca8d574d41912caaae41ced6
   languageName: node
   linkType: hard
 
@@ -2463,7 +2472,7 @@ typescript@^4.2.3:
   version: 0.0.0-use.local
   resolution: "use-nft@portal:..::locator=use-nft-website%40workspace%3A."
   dependencies:
-    swr: ^1.0.0-beta.3
+    swr: ^1.0.0-beta.5
   peerDependencies:
     react: ">=17"
   languageName: node
