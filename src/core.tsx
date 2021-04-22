@@ -92,15 +92,17 @@ function useNft(contractAddress: Address, tokenId: string): NftResult {
 
   const { fetcher } = context
 
-  const fetchNft = useCallback(
-    () =>
-      fetcher
-        ? fetcher.fetchNft(contractAddress, tokenId)
-        : { ...NFT_METADATA_DEFAULT },
-    [contractAddress, fetcher, tokenId]
-  )
+  const fetchNft = useCallback(() => {
+    return fetcher
+      ? fetcher.fetchNft(contractAddress, tokenId)
+      : { ...NFT_METADATA_DEFAULT }
+  }, [contractAddress, fetcher, tokenId])
 
-  const result = useSWR<NftMetadata, Error>(contractAddress + tokenId, fetchNft)
+  const result = useSWR<NftMetadata, Error>(
+    contractAddress + tokenId,
+    fetchNft,
+    { revalidateOnFocus: false }
+  )
 
   return useMemo(() => {
     const { error, data, revalidate } = result
