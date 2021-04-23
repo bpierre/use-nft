@@ -69,7 +69,7 @@ The useNft() hook requires two arguments: the NFT `contract` address, and its to
 The returned value is an object containing information about the loading state:
 
 ```tsx
-const result  = useNft("0xd07dc4262bcdbf85190c01c996b4c06a461d2430", "90473")
+const result = useNft("0xd07dc4262bcdbf85190c01c996b4c06a461d2430", "90473")
 
 // one of "error", "loading" and "done"
 result.status
@@ -151,35 +151,26 @@ type NftMetadata = {
 
 See the implementation of the [Ethers](https://github.com/spectrexyz/use-nft/blob/38bd803f20e778b9bb684d682c194a812a94a05c/src/fetchers/ethers/index.tsx#L12-L42) and [Ethereum](https://github.com/spectrexyz/use-nft/blob/38bd803f20e778b9bb684d682c194a812a94a05c/src/fetchers/ethereum/index.tsx#L12-L42) fetchers for more details.
 
-## Angular support
+### FetchWrapper
 
-To add support for this library, first install `core-js`
+This library comes with `FetchWrapper` to use the library with other frontend frameworks or with NodeJS.
 
-```
-npm i -s core-js
-```
-
-then add the following line to `src/polyfills.ts`
-
-```
-import 'core-js/features/promise';
+```js
+import { FetchWrapper } from "use-nft"
 ```
 
-To use this library, import the `NftProviderAngular` class.
+Pass the fetcher declaration to the `FetchWrapper` and call the `fetchNft` function to retreive the NFT data.
 
-```
-import { NftProviderAngular } from 'use-nft'
-```
-
-pass the fetcher declaration to the nftProvider and call the useNft function to retreive the NFT data.
-
-```
-const fetcher: FetcherDeclaration = ['ethers', { ethers, provider: ethers.getDefaultProvider() }];
-const nftProvider = new NftProviderAngular(fetcher);
-const result: NftMetadata = await nftProvider.useNft('0xd07dc4262bcdbf85190c01c996b4c06a461d2430', '90473');
+```js
+const fetcher = ["ethers", { ethers, provider: ethers.getDefaultProvider() }]
+const fetchWrapper = new FetchWrapper(fetcher)
+const result = await fetchWrapper.fetchNft(
+  "0xd07dc4262bcdbf85190c01c996b4c06a461d2430",
+  "90473"
+)
 ```
 
-the `useNft` function returns a promise which resolves to an `NftMetadata` object.
+The `fetchNft` function returns a promise which resolves to an `NftMetadata` object.
 
 ## License
 

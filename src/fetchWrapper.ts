@@ -19,7 +19,7 @@ const NFT_METADATA_DEFAULT = {
   image: "",
 } as NftMetadata
 
-export class NftProviderAngular {
+export class FetchWrapper {
   private fetcher: Fetcher<unknown>
 
   constructor(fetcher?: Fetcher<unknown> | FetcherDeclaration) {
@@ -65,7 +65,7 @@ export class NftProviderAngular {
     )
   }
 
-  public async useNft(
+  public async fetchNft(
     contractAddress: Address,
     tokenId: string
   ): Promise<NftMetadata> {
