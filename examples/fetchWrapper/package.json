@@ -1,0 +1,29 @@
+{
+  "name": "fetchwrapper",
+  "version": "1.0.0",
+  "description": "Example for FetchWrapper",
+  "main": "index.js",
+  "scripts": {
+    "dev": "esnext run index.js --watch",
+    "build": "esnext build index.js dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spectrexyz/use-nft.git"
+  },
+  "author": "Daniel Gretzke",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/spectrexyz/use-nft/issues"
+  },
+  "homepage": "https://github.com/spectrexyz/use-nft#readme",
+  "dependencies": {
+    "ethers": "^5.1.3",
+    "node-fetch": "^2.6.1",
+    "use-nft": "portal:../.."
+  },
+  "devDependencies": {
+    "esnext-scripts": "^2.1.1",
+    "nodemon": "^2.0.7"
+  }
+}

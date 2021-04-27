@@ -96,7 +96,8 @@ export function normalizeOpenSeaUrl(url: string, tokenId: string): string {
 
     // 0x%7Bid%7D" = 0x{id} (url encoded)
     if (
-      _url.host !== "api.opensea.io" ||
+      (_url.host !== "api.opensea.io" &&
+        _url.host !== "testnets-api.opensea.io") ||
       !_url.pathname.includes("0x%7Bid%7D")
     ) {
       return url

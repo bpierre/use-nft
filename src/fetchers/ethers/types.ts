@@ -1,9 +1,9 @@
 import type { Contract } from "@ethersproject/contracts"
-import type { BaseProvider } from "@ethersproject/providers"
-import type { Fetcher } from "../../core"
+import type { BaseProvider, JsonRpcProvider } from "@ethersproject/providers"
+import type { Fetcher } from "../../types"
 
 export type EthersFetcherConfig = {
   ethers: { Contract: typeof Contract }
-  provider: BaseProvider
+  provider: BaseProvider | JsonRpcProvider
 }
 export type EthersFetcher = Fetcher<EthersFetcherConfig>

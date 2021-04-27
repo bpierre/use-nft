@@ -9,6 +9,7 @@
     "sourceMap": true,
     "rootDir": "./src",
     "noUnusedLocals": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
+    "moduleResolution": "node"
   }
 }

@@ -1,4 +1,4 @@
-import type { Fetcher } from "../../core"
+import type { Fetcher } from "../../types"
 
 export type EthereumProviderEip1193 = {
   request: (args: {
