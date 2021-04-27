@@ -213,3 +213,15 @@ export function isNftMetadata(data: unknown): data is NftMetadata {
 export function addressesEqual(addr1: Address, addr2: Address): boolean {
   return addr1?.toLowerCase() === addr2?.toLowerCase()
 }
+
+// Promise.any() implementation from https://github.com/m0ppers/promise-any
+export function promiseAny<T>(promises: Promise<T>[]): Promise<T> {
+  return reversePromise(
+    Promise.all([...promises].map(reversePromise))
+  ) as Promise<T>
+}
+export function reversePromise(promise: Promise<unknown>) {
+  return new Promise((resolve, reject) =>
+    Promise.resolve(promise).then(reject, resolve)
+  )
+}
