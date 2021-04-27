@@ -20,7 +20,7 @@
   "dependencies": {
     "ethers": "^5.1.3",
     "node-fetch": "^2.6.1",
-    "use-nft": "file:../.."
+    "use-nft": "portal:../.."
   },
   "devDependencies": {
     "esnext-scripts": "^2.1.1",
