@@ -153,7 +153,7 @@ See the implementation of the [Ethers](https://github.com/spectrexyz/use-nft/blo
 
 ### FetchWrapper
 
-`FetchWrapper` is a class that allows to use the library with other frontend libraries than React, or with NodeJS. Unline the `useNft()` hook, `FetchWrapper#fetchNft()` does not retry, cache, or do anything else than attempting to fetch the NFT data once.
+`FetchWrapper` is a class that allows to use the library with other frontend libraries than React, or with NodeJS. Unlike the `useNft()` hook, `FetchWrapper#fetchNft()` does not retry, cache, or do anything else than attempting to fetch the NFT data once.
 
 ```js
 import { FetchWrapper } from "use-nft"
