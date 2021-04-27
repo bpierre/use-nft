@@ -1,7 +1,7 @@
 import type { Address } from "../../types"
 import type { EthereumFetcherConfig } from "./types"
 
-import { addressesEqual, normalizeTokenUrl } from "../../utils"
+import { addressesEqual, normalizeTokenUrl, promiseAny } from "../../utils"
 import { CRYPTOVOXELS } from "../../known-contracts"
 import {
   ERC1155_ID,
@@ -51,7 +51,7 @@ export async function fetchStandardNftUrl(
   ]
 
   try {
-    return Promise.any(
+    return promiseAny(
       calls.map(async ([supportsMethod, uriMethod]) => {
         // Check if the interface is supported first
         const supported = await ethCall(

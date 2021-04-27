@@ -2,7 +2,7 @@ import type { Contract, ContractFunction } from "@ethersproject/contracts"
 import type { Address } from "../../types"
 import type { EthersFetcherConfig } from "./types"
 
-import { normalizeTokenUrl } from "../../utils"
+import { normalizeTokenUrl, promiseAny } from "../../utils"
 
 const ABI = [
   // ERC-721
@@ -28,7 +28,7 @@ export async function fetchStandardNftUrl(
     supportsInterface: ContractFunction<boolean>
   }
 
-  const url = await Promise.any([
+  const url = await promiseAny([
     contract.uri(tokenId),
     contract.tokenURI(tokenId),
   ])
