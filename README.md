@@ -93,7 +93,7 @@ result.nft.name
 result.nft.description
 
 // image / media URL of the NFT (or empty string)
-result.nft.description
+result.nft.image
 ```
 
 As TypeScript type:
