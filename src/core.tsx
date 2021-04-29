@@ -1,4 +1,4 @@
-import type { ReactNode } from "react"
+import type { FC, ReactNode } from "react"
 import type {
   Address,
   Fetcher,
@@ -69,16 +69,12 @@ const NftContext = createContext<{
   fetcher?: Fetcher<unknown> | null
 } | null>(null)
 
-function NftProvider({
-  children,
-  fetcher,
-}: {
+const NftProvider: FC<{
   children: ReactNode
   fetcher?: Fetcher<unknown> | FetcherDeclaration | null
-}): JSX.Element {
-  const normalizedFetcher = normalizeFetcher(fetcher)
+}> = function NftProvider({ children, fetcher }) {
   return (
-    <NftContext.Provider value={{ fetcher: normalizedFetcher }}>
+    <NftContext.Provider value={{ fetcher: normalizeFetcher(fetcher) }}>
       {children}
     </NftContext.Provider>
   )
