@@ -4562,7 +4562,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ethers@npm:^5.1.3":
+"ethers@npm:^5.1.4":
   version: 5.1.4
   resolution: "ethers@npm:5.1.4"
   dependencies:
@@ -4773,7 +4773,7 @@ __metadata:
   resolution: "fetchwrapper@workspace:."
   dependencies:
     esnext-scripts: ^2.1.1
-    ethers: ^5.1.3
+    ethers: ^5.1.4
     node-fetch: ^2.6.1
     nodemon: ^2.0.7
     use-nft: "portal:../.."
@@ -9287,14 +9287,14 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"swr@npm:^1.0.0-beta.5":
-  version: 1.0.0-beta.5
-  resolution: "swr@npm:1.0.0-beta.5"
+"swr@npm:^1.0.0-beta.6":
+  version: 1.0.0-beta.6
+  resolution: "swr@npm:1.0.0-beta.6"
   dependencies:
     dequal: 2.0.2
   peerDependencies:
     react: ^16.11.0 || ^17.0.0
-  checksum: c7a08be21d2a984997c41a02e275fe2fa5cbb809209d926e0e9d2e8c9e6848a9ddad569ee27b5b3a1dbe26f3bcd461ae01818903ca8d574d41912caaae41ced6
+  checksum: b67113b40001be62389195341b0eb7ad10fdcb4d724166228781ba22a99f26f1d2d0a9f2b2252f7bc8695e500376390b1e552b0e3581d8ba1e9328a580318cfc
   languageName: node
   linkType: hard
 
@@ -9740,7 +9740,7 @@ resolve@^2.0.0-next.3:
   version: 0.0.0-use.local
   resolution: "use-nft@portal:../..::locator=fetchwrapper%40workspace%3A."
   dependencies:
-    swr: ^1.0.0-beta.5
+    swr: ^1.0.0-beta.6
   peerDependencies:
     react: ">=17"
   languageName: node
