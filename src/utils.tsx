@@ -221,8 +221,8 @@ export function promiseAny<T>(promises: Promise<T>[]): Promise<T> {
     Promise.all([...promises].map(reversePromise))
   ) as Promise<T>
 }
-export function reversePromise(promise: Promise<unknown>) {
-  return new Promise((resolve, reject) =>
+export function reversePromise(promise: Promise<unknown>): Promise<unknown> {
+  return new Promise((resolve, reject) => {
     Promise.resolve(promise).then(reject, resolve)
-  )
+  })
 }

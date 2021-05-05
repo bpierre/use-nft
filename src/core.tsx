@@ -1,4 +1,4 @@
-import type { ReactNode } from "react"
+import type { FC, ReactNode } from "react"
 import type {
   Address,
   Fetcher,
@@ -70,25 +70,23 @@ const NftContext = createContext<{
   cacheStorage: Map<string, unknown>
 } | null>(null)
 
-function NftProvider({
-  children,
-  fetcher,
-}: {
+const NftProvider: FC<{
   children: ReactNode
   fetcher?: Fetcher<unknown> | FetcherDeclaration | null
-}): JSX.Element {
-  const normalizedFetcher = normalizeFetcher(fetcher)
-
+}> = function NftProvider({ children, fetcher }) {
   const [cacheStorage, { cache: swrCache }] = useMemo(() => {
     const cache = new Map()
     return [cache, createCache(cache)]
   }, [])
 
+  const contextValue = {
+    cacheStorage,
+    fetcher: normalizeFetcher(fetcher),
+  }
+
   return (
     <SWRConfig value={{ cache: swrCache }}>
-      <NftContext.Provider value={{ cacheStorage, fetcher: normalizedFetcher }}>
-        {children}
-      </NftContext.Provider>
+      <NftContext.Provider value={contextValue}>{children}</NftContext.Provider>
     </SWRConfig>
   )
 }
