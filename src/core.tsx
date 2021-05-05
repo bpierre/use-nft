@@ -16,7 +16,7 @@ import type { EthersFetcherConfig } from "./fetchers/ethers/types"
 import type { EthereumFetcherConfig } from "./fetchers/ethereum/types"
 
 import React, { createContext, useCallback, useContext, useMemo } from "react"
-import useSWR from "swr"
+import useSWR, { SWRConfig, createCache } from "swr"
 import ethersFetcher from "./fetchers/ethers"
 import ethereumFetcher from "./fetchers/ethereum"
 
@@ -67,16 +67,27 @@ function normalizeFetcher(fetcher: FetcherProp): Fetcher<unknown> {
 
 const NftContext = createContext<{
   fetcher?: Fetcher<unknown> | null
+  cacheStorage: Map<string, unknown>
 } | null>(null)
 
 const NftProvider: FC<{
   children: ReactNode
   fetcher?: Fetcher<unknown> | FetcherDeclaration | null
 }> = function NftProvider({ children, fetcher }) {
+  const [cacheStorage, { cache: swrCache }] = useMemo(() => {
+    const cache = new Map()
+    return [cache, createCache(cache)]
+  }, [])
+
+  const contextValue = {
+    cacheStorage,
+    fetcher: normalizeFetcher(fetcher),
+  }
+
   return (
-    <NftContext.Provider value={{ fetcher: normalizeFetcher(fetcher) }}>
-      {children}
-    </NftContext.Provider>
+    <SWRConfig value={{ cache: swrCache }}>
+      <NftContext.Provider value={contextValue}>{children}</NftContext.Provider>
+    </SWRConfig>
   )
 }
 
@@ -86,7 +97,7 @@ function useNft(contractAddress: Address, tokenId: string): NftResult {
     throw new Error("Please wrap your app with <NftProvider />")
   }
 
-  const { fetcher } = context
+  const { fetcher, cacheStorage } = context
 
   const fetchNft = useCallback(() => {
     return fetcher
@@ -94,10 +105,16 @@ function useNft(contractAddress: Address, tokenId: string): NftResult {
       : { ...NFT_METADATA_DEFAULT }
   }, [contractAddress, fetcher, tokenId])
 
+  const cached = cacheStorage.has(contractAddress + tokenId)
+
   const result = useSWR<NftMetadata, Error>(
     contractAddress + tokenId,
     fetchNft,
-    { revalidateOnFocus: false }
+    {
+      revalidateOnMount: !cached,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    }
   )
 
   return useMemo(() => {
