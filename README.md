@@ -66,7 +66,7 @@ Any standard NFT ([EIP 721](https://eips.ethereum.org/EIPS/eip-721) or [EIP 1155
 
 This table keeps track of the NFT minting services that have been tested with useNft() and the adaptations needed.
 
-| Minting service                                      | Supported | Adaptations notes                                                     |
+| Service                                              | Supported | Specific adaptations done by useNft()                                 |
 | ---------------------------------------------------- | --------- | --------------------------------------------------------------------- |
 | [AITO](https://www.thisisaito.xyz/)                  | Yes       |                                                                       |
 | [Async Art](https://async.art/)                      | Yes       |                                                                       |
