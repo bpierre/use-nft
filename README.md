@@ -66,7 +66,7 @@ Any standard NFT ([EIP 721](https://eips.ethereum.org/EIPS/eip-721) or [EIP 1155
 
 This table keeps track of the NFT minting services that have been tested with useNft() and the adaptations needed.
 
-| Minting service                                      | Supported | Embedded adaptations                                                  |
+| Minting service                                      | Supported | Adaptations notes                                                     |
 | ---------------------------------------------------- | --------- | --------------------------------------------------------------------- |
 | [AITO](https://www.thisisaito.xyz/)                  | Yes       |                                                                       |
 | [Async Art](https://async.art/)                      | Yes       |                                                                       |
@@ -77,7 +77,7 @@ This table keeps track of the NFT minting services that have been tested with us
 | [Decentraland ](https://decentraland.org/)           | Partially | Parcels require a fix (not implemented yet). Wearables are supported. |
 | [Foundation](https://foundation.app/)                | Yes       |                                                                       |
 | [KnownOrigin](https://knownorigin.io/)               | Yes       |                                                                       |
-| [MakersPlace](https://makersplace.com/)              | Yes       | Fix the JSON format (`imageUrl` to `image`).                          |
+| [MakersPlace](https://makersplace.com/)              | Yes       | Incorrect JSON format (uses `imageUrl` instead of `image`).           |
 | [MoonCats](https://mooncatrescue.com/)               | Yes       | Non standard NFT, dedicated mechanism.                                |
 | [Nifty Gateway](https://niftygateway.com/)           | Yes       | Incorrect metadata URL.                                               |
 | [OpenSea](https://opensea.io/)                       | Yes       | Incorrect metadata URL.                                               |
