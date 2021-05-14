@@ -68,7 +68,7 @@ function ipfsUrlDefault(cid: string, path = ""): string {
   return `https://ipfs.io/ipfs/${cid}${path}`
 }
 
-const IPFS_PROTOCOL_RE = /^ipfs:\/\/ipfs\/([^/]+)(\/.+)?$/
+const IPFS_PROTOCOL_RE = /^ipfs:\/\/(?:ipfs\/)?([^/]+)(\/.+)?$/
 const IPFS_HASH_RE = /^Qm[1-9A-HJ-NP-Za-km-z]{44}$/
 
 export function ipfsUrl(
