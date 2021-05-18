@@ -154,7 +154,7 @@ function NftDetails({ nft }: { nft?: NftMetadata }) {
         {image.endsWith(".mp4") ? (
           <LoopVideo type="video/mp4" src={image} height="280" />
         ) : (
-          <img src={image} height="280" alt="" />
+          image && <img src={image} height="280" alt="" />
         )}
       </div>
       <h1
