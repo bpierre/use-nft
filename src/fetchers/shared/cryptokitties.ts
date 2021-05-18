@@ -1,8 +1,7 @@
 import type { Address, NftMetadata } from "../../types"
 
+import { CRYPTOKITTIES } from "../../known-contracts"
 import { addressesEqual } from "../../utils"
-
-const CRYPTOKITTIES_CONTRACT = "0x06012c8cf97BEaD5deAe237070F9587f8E7A266d"
 
 export async function cryptoKittiesMetadata(id: string): Promise<NftMetadata> {
   const res = await fetch(`https://api.cryptokitties.co/v3/kitties/${id}`)
@@ -19,5 +18,5 @@ export async function cryptoKittiesMetadata(id: string): Promise<NftMetadata> {
 }
 
 export function isCryptoKitties(contractAddress: Address): boolean {
-  return addressesEqual(contractAddress, CRYPTOKITTIES_CONTRACT)
+  return addressesEqual(contractAddress, CRYPTOKITTIES)
 }
