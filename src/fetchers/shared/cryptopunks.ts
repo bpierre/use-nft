@@ -1,8 +1,7 @@
 import type { Address, NftMetadata } from "../../types"
 
 import { addressesEqual } from "../../utils"
-
-const CRYPTOPUNKS_CONTRACT = "0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb"
+import { CRYPTOPUNKS } from "../../known-contracts"
 
 const CRYPTOPUNKS_DESCRIPTION = `
   10,000 unique collectible characters with proof of ownership stored on the
@@ -20,5 +19,5 @@ export function cryptoPunksMetadata(index: string): NftMetadata {
 }
 
 export function isCryptoPunks(contractAddress: Address): boolean {
-  return addressesEqual(contractAddress, CRYPTOPUNKS_CONTRACT)
+  return addressesEqual(contractAddress, CRYPTOPUNKS)
 }
