@@ -14,17 +14,17 @@ export default shuffle<[string, string, string, string]>([
   ],
 
   [
-    "0xd07dc4262bcdbf85190c01c996b4c06a461d2430",
-    "90473",
-    "Rarible",
-    "https://rarible.com/token/0xd07dc4262bcdbf85190c01c996b4c06a461d2430:90473",
-  ],
-
-  [
     "0x32b7495895264ac9d0b12d32afd435453458b1c6",
     "5055",
     "Decentraland Wearables",
     "https://market.decentraland.org/contracts/0x32b7495895264ac9d0b12d32afd435453458b1c6/tokens/4087",
+  ],
+
+  [
+    "0xd07dc4262bcdbf85190c01c996b4c06a461d2430",
+    "90473",
+    "Rarible",
+    "https://rarible.com/token/0xd07dc4262bcdbf85190c01c996b4c06a461d2430:90473",
   ],
 
   [
