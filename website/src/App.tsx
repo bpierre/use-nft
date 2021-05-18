@@ -5,7 +5,7 @@ import Base from "./Base"
 import Footer from "./Footer"
 import Header from "./Header"
 import NftGrid from "./NftGrid"
-import nfts from "./nfts"
+import nfts from "../../examples/nfts"
 
 const fetcher = [
   "ethers",

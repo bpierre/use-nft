@@ -4,7 +4,7 @@ import { NftProvider } from "use-nft"
 import Base from "./Base"
 import NftGrid from "./NftGrid"
 import NoEthereum from "./NoEthereum"
-import nfts from "./nfts"
+import nfts from "../../nfts"
 import useEthereum from "./use-ethereum"
 
 function App() {

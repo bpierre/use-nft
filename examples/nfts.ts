@@ -1,18 +1,23 @@
-export type NftList = [string, string, string, string][]
-
-export default [
+export default shuffle<[string, string, string, string]>([
   [
     "0xf87e31492faf9a91b02ee0deaad50d51d56d5d4d",
     "29264283555200707857850216239132066185199",
-    "Decentraland Parcel",
+    "Decentraland Parcels",
     "https://market.decentraland.org/contracts/0xf87e31492faf9a91b02ee0deaad50d51d56d5d4d/tokens/29264283555200707857850216239132066185199",
   ],
 
   [
     "0x959e104e1a4db6317fa58f8295f586e1a978c297",
     "3168",
-    "Decentraland Estate",
+    "Decentraland Estates",
     "https://market.decentraland.org/contracts/0x959e104e1a4db6317fa58f8295f586e1a978c297/tokens/3168",
+  ],
+
+  [
+    "0x32b7495895264ac9d0b12d32afd435453458b1c6",
+    "5055",
+    "Decentraland Wearables",
+    "https://market.decentraland.org/contracts/0x32b7495895264ac9d0b12d32afd435453458b1c6/tokens/4087",
   ],
 
   [
@@ -20,13 +25,6 @@ export default [
     "90473",
     "Rarible",
     "https://rarible.com/token/0xd07dc4262bcdbf85190c01c996b4c06a461d2430:90473",
-  ],
-
-  [
-    "0x32b7495895264ac9d0b12d32afd435453458b1c6",
-    "5055",
-    "Decentraland",
-    "https://market.decentraland.org/contracts/0x32b7495895264ac9d0b12d32afd435453458b1c6/tokens/4087",
   ],
 
   [
@@ -92,12 +90,12 @@ export default [
     "https://async.art/art/master/0xb6dae651468e9593e4581705a09c10a76ac1e0c8-1230",
   ],
 
-  [
-    "0x79986af15539de2db9a5086382daeda917a9cf0c",
-    "1162",
-    "Cryptovoxels",
-    "https://www.cryptovoxels.com/parcels/1162",
-  ],
+  // [
+  //   "0x79986af15539de2db9a5086382daeda917a9cf0c",
+  //   "1162",
+  //   "Cryptovoxels",
+  //   "https://www.cryptovoxels.com/parcels/1162",
+  // ],
 
   [
     "0x7c40c393dc0f283f318791d746d894ddd3693572",
@@ -113,12 +111,12 @@ export default [
     "https://knownorigin.io/gallery/307800-red-forest-fires",
   ],
 
-  [
-    "0xb55c5cac5014c662fdbf21a2c59cd45403c482fd",
-    "0x555559a5669969a96a656a995aa55555",
-    "Clovers",
-    "https://clovers.network/clovers/0xdfffdfffd557fd7ff55fdfdffff7ffff",
-  ],
+  // [
+  //   "0xb55c5cac5014c662fdbf21a2c59cd45403c482fd",
+  //   "0x555559a5669969a96a656a995aa55555",
+  //   "Clovers",
+  //   "https://clovers.network/clovers/0xdfffdfffd557fd7ff55fdfdffff7ffff",
+  // ],
 
   [
     "0x2a46f2ffd99e19a89476e2f62270e0a35bbf0756",
@@ -126,4 +124,13 @@ export default [
     "MakersPlace",
     "https://makersplace.com/jeffreylee1/garden-delights-1-of-1-60178/",
   ],
-] as NftList
+])
+
+function shuffle<T = unknown>(arr: T[]): T[] {
+  const _arr = [...arr]
+  for (let i = _arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[_arr[i], _arr[j]] = [_arr[j], _arr[i]]
+  }
+  return _arr
+}

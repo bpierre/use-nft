@@ -66,26 +66,26 @@ Any standard NFT ([EIP 721](https://eips.ethereum.org/EIPS/eip-721) or [EIP 1155
 
 This table keeps track of the NFT minting services that have been tested with useNft() and the adaptations needed.
 
-| NFT minting service                                  | Supported | Specific adaptations done by useNft()                                 |
-| ---------------------------------------------------- | --------- | --------------------------------------------------------------------- |
-| [AITO](https://www.thisisaito.xyz/)                  | Yes       |                                                                       |
-| [Async Art](https://async.art/)                      | Yes       |                                                                       |
-| [Clovers](https://clovers.network/)                  | Yes       |                                                                       |
-| [CryptoKitties](https://www.cryptokitties.co/)       | Yes       | Non standard NFT, dedicated mechanism.                                |
-| [CryptoPunks](https://www.larvalabs.com/cryptopunks) | Yes       | Non standard NFT, dedicated mechanism.                                |
-| [Cryptovoxels](https://www.cryptovoxels.com/)        | Yes       |                                                                       |
-| [Decentraland ](https://decentraland.org/)           | Partially | Parcels require a fix (not implemented yet). Wearables are supported. |
-| [Foundation](https://foundation.app/)                | Yes       |                                                                       |
-| [KnownOrigin](https://knownorigin.io/)               | Yes       |                                                                       |
-| [MakersPlace](https://makersplace.com/)              | Yes       | Incorrect JSON format (uses `imageUrl` instead of `image`).           |
-| [MoonCats](https://mooncatrescue.com/)               | Yes       | Non standard NFT, dedicated mechanism.                                |
-| [Nifty Gateway](https://niftygateway.com/)           | Yes       | Incorrect metadata URL.                                               |
-| [OpenSea](https://opensea.io/)                       | Yes       | Incorrect metadata URL.                                               |
-| [Portion.io](https://app.portion.io/)                | Yes       | Non-standard JSON format.                                             |
-| [Rarible](https://rarible.com/)                      | Yes       |                                                                       |
-| [SuperRare](https://superrare.co/)                   | Yes       |                                                                       |
-| [Uniswap V3](https://uniswap.org/)                   | Yes       |                                                                       |
-| [Zora](https://zora.co/)                             | Yes       |                                                                       |
+| NFT minting service                                  | Supported | Specific adaptations done by useNft()                                                  |
+| ---------------------------------------------------- | --------- | -------------------------------------------------------------------------------------- |
+| [AITO](https://www.thisisaito.xyz/)                  | Yes       |                                                                                        |
+| [Async Art](https://async.art/)                      | Yes       |                                                                                        |
+| [Clovers](https://clovers.network/)                  | Yes       |                                                                                        |
+| [CryptoKitties](https://www.cryptokitties.co/)       | Yes       | Non standard NFT, dedicated mechanism.                                                 |
+| [CryptoPunks](https://www.larvalabs.com/cryptopunks) | Yes       | Non standard NFT, dedicated mechanism.                                                 |
+| [Cryptovoxels](https://www.cryptovoxels.com/)        | Yes       |                                                                                        |
+| [Decentraland ](https://decentraland.org/)           | Yes       | Estate and parcels are fetched from The Graph. Wearables are fetched as standard NFTs. |
+| [Foundation](https://foundation.app/)                | Yes       |                                                                                        |
+| [KnownOrigin](https://knownorigin.io/)               | Yes       |                                                                                        |
+| [MakersPlace](https://makersplace.com/)              | Yes       | Incorrect JSON format (uses `imageUrl` instead of `image`).                            |
+| [MoonCats](https://mooncatrescue.com/)               | Yes       | Non standard NFT, dedicated mechanism.                                                 |
+| [Nifty Gateway](https://niftygateway.com/)           | Yes       | Incorrect metadata URL.                                                                |
+| [OpenSea](https://opensea.io/)                       | Yes       | Incorrect metadata URL.                                                                |
+| [Portion.io](https://app.portion.io/)                | Yes       | Non-standard JSON format.                                                              |
+| [Rarible](https://rarible.com/)                      | Yes       |                                                                                        |
+| [SuperRare](https://superrare.co/)                   | Yes       |                                                                                        |
+| [Uniswap V3](https://uniswap.org/)                   | Yes       |                                                                                        |
+| [Zora](https://zora.co/)                             | Yes       |                                                                                        |
 
 ## API
 
