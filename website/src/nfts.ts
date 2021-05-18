@@ -2,6 +2,20 @@ export type NftList = [string, string, string, string][]
 
 export default [
   [
+    "0xf87e31492faf9a91b02ee0deaad50d51d56d5d4d",
+    "29264283555200707857850216239132066185199",
+    "Decentraland Parcel",
+    "https://market.decentraland.org/contracts/0xf87e31492faf9a91b02ee0deaad50d51d56d5d4d/tokens/29264283555200707857850216239132066185199",
+  ],
+
+  [
+    "0x959e104e1a4db6317fa58f8295f586e1a978c297",
+    "3168",
+    "Decentraland Estate",
+    "https://market.decentraland.org/contracts/0x959e104e1a4db6317fa58f8295f586e1a978c297/tokens/3168",
+  ],
+
+  [
     "0xd07dc4262bcdbf85190c01c996b4c06a461d2430",
     "90473",
     "Rarible",

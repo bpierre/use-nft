@@ -5,6 +5,14 @@ import { isAddress } from "../../utils"
 import { fetchMetadata } from "../shared/fetch-metadata"
 import { cryptoPunksMetadata, isCryptoPunks } from "../shared/cryptopunks"
 import { cryptoKittiesMetadata, isCryptoKitties } from "../shared/cryptokitties"
+import {
+  isDecentralandEstate,
+  decentralandEstateMetadata,
+} from "../shared/decentraland-estate"
+import {
+  isDecentralandParcel,
+  decentralandParcelMetadata,
+} from "../shared/decentraland-parcel"
 import { moonCatsMetadata, isMoonCats } from "../shared/mooncats"
 import { moonCatsCatId } from "./mooncats"
 import { fetchStandardNftUrl } from "./standard-nft"
@@ -20,6 +28,14 @@ export default function ethereumFetcher(
     ): Promise<NftMetadata> {
       if (!isAddress(contractAddress)) {
         throw new Error(`Invalid contract address: ${contractAddress}`)
+      }
+
+      if (isDecentralandParcel(contractAddress)) {
+        return decentralandParcelMetadata(tokenId)
+      }
+
+      if (isDecentralandEstate(contractAddress)) {
+        return decentralandEstateMetadata(tokenId)
       }
 
       if (isCryptoPunks(contractAddress)) {

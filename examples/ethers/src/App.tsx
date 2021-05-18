@@ -4,7 +4,7 @@ import { getDefaultProvider, Contract } from "ethers"
 
 import Base from "./Base"
 import NftGrid from "./NftGrid"
-import nfts from "./nfts"
+import nfts from "../../nfts"
 
 const ethersConfig = {
   ethers: { Contract },
