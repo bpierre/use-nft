@@ -6,9 +6,11 @@ import { CRYPTOVOXELS } from "../../known-contracts"
 import {
   ERC1155_ID,
   ERC721_ID,
-  decodeString,
+  decodeAddress,
   decodeBoolean,
+  decodeString,
   ethCall,
+  methodOwnerOfErc721,
   methodUriErc1155,
   methodUriErc721,
   supportsInterfaceMethodErc165,
@@ -18,13 +20,13 @@ import {
 // but are missing ERC165’s supportsInterface()
 const KNOWN_ERC721_LIKE = [CRYPTOVOXELS]
 
-export async function fetchStandardNftUrl(
+export async function fetchStandardNftContractData(
   contractAddress: Address,
   tokenId: string,
   { ethereum }: EthereumFetcherConfig
-): Promise<string> {
+): Promise<[string, Address]> {
   if (!ethereum) {
-    return ""
+    return ["", ""]
   }
 
   const urlCall = async (method: string): Promise<string> => {
@@ -32,11 +34,23 @@ export async function fetchStandardNftUrl(
     return normalizeTokenUrl(decodeString(result), tokenId)
   }
 
-  const isKnown721 = KNOWN_ERC721_LIKE.some((address) =>
+  // call ownerOf() even on 1155 contracts, just in case it exists
+  const ownerPromise = ethCall(
+    ethereum,
+    contractAddress,
+    methodOwnerOfErc721(BigInt(tokenId))
+  )
+    .then(decodeAddress)
+    .catch(() => "")
+
+  const isKnown721Like = KNOWN_ERC721_LIKE.some((address) =>
     addressesEqual(address, contractAddress)
   )
-  if (isKnown721) {
-    return urlCall(methodUriErc721(BigInt(tokenId)))
+  if (isKnown721Like) {
+    return Promise.all([
+      urlCall(methodUriErc721(BigInt(tokenId))),
+      ownerPromise,
+    ])
   }
 
   const calls = [
@@ -60,15 +74,15 @@ export async function fetchStandardNftUrl(
           supportsMethod
         ).then(decodeBoolean)
 
-        // throw for the Promise.any()
+        // throw for the Promise.any() to skip this branch
         if (!supported) {
           throw new Error("Unsupported method")
         }
 
-        return urlCall(uriMethod)
+        return Promise.all([urlCall(uriMethod), ownerPromise])
       })
     )
   } catch (err) {
-    return ""
+    return ["", ""]
   }
 }

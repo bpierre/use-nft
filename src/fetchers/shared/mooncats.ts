@@ -48,6 +48,7 @@ export async function moonCatsMetadata(
       `The (unofficial) wrapped version of MoonCats Rescue. ` +
       `Original cat ID: ${catId}.`,
     image,
+    owner: "",
   }
 }
 

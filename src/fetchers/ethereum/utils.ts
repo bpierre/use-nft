@@ -5,6 +5,7 @@ import type { EthereumProviderEip1193 } from "./types"
 // See https://docs.soliditylang.org/en/v0.5.3/abi-spec.html#function-selector-and-argument-encoding
 const URI_METHOD_ERC721 = "0xc87b56dd" // tokenURI(uint256)
 const URI_METHOD_ERC1155 = "0x0e89341c" // uri(uint256)
+const OWNER_OF_METHOD_ERC721 = "0x6352211e" // ownerOf(uint256)
 const SUPPORTS_INTERFACE_METHOD_ERC165 = "0x01ffc9a7" // supportsInterface(bytes4)
 
 // ERC165 identifiers
@@ -49,12 +50,29 @@ export function decodeString(hex: string): string {
   return new TextDecoder().decode(bytes)
 }
 
+export function decodeAddress(hex: string): string {
+  const data = hexToUint8Array(hex)
+  const bytes = data.subarray(0, 32)
+  const decoded = bytesToBigInt(bytes)
+  if (decoded >= BigInt(2) ** BigInt(160))
+    throw new Error(
+      `Encoded value is bigger than the largest possible address.  Decoded value: 0x${decoded.toString(
+        16
+      )}.`
+    )
+  return `0x${decoded.toString(16)}`
+}
+
 export function methodUriErc721(tokenId: bigint): string {
   return URI_METHOD_ERC721 + uint256Hex(tokenId)
 }
 
 export function methodUriErc1155(id: bigint): string {
   return URI_METHOD_ERC1155 + uint256Hex(id)
+}
+
+export function methodOwnerOfErc721(tokenId: bigint): string {
+  return OWNER_OF_METHOD_ERC721 + uint256Hex(tokenId)
 }
 
 export function supportsInterfaceMethodErc165(interfaceId: string): string {

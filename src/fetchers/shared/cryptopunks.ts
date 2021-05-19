@@ -12,9 +12,10 @@ const CRYPTOPUNKS_DESCRIPTION = `
 
 export function cryptoPunksMetadata(index: string): NftMetadata {
   return {
-    name: `CryptoPunk ${index}`,
     description: CRYPTOPUNKS_DESCRIPTION,
     image: `https://www.larvalabs.com/cryptopunks/cryptopunk${index}.png`,
+    name: `CryptoPunk ${index}`,
+    owner: "",
   }
 }
 

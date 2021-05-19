@@ -1,4 +1,4 @@
-import type { NftMetadata } from "../../types"
+import type { NftJsonMetadata } from "../../types"
 
 import {
   fixIncorrectImageField,
@@ -8,7 +8,7 @@ import {
   normalizeNftMetadata,
 } from "../../utils"
 
-export async function fetchMetadata(url: string): Promise<NftMetadata> {
+export async function fetchMetadata(url: string): Promise<NftJsonMetadata> {
   const res = await fetch(url)
 
   if (!res.ok) {

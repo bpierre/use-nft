@@ -41,7 +41,15 @@
           "*.tsx"
         ],
         "rules": {
-          "import/no-default-export": "off"
+          "import/no-default-export": "off",
+          "import/no-unresolved": [
+            "error",
+            {
+              "ignore": [
+                "^react$"
+              ]
+            }
+          ]
         }
       }
     ]

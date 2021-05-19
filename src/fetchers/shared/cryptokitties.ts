@@ -11,9 +11,10 @@ export async function cryptoKittiesMetadata(id: string): Promise<NftMetadata> {
     image_url: string
   }
   return {
-    name: data?.name ?? "Unknown",
     description: data?.bio ?? "−",
     image: data?.image_url ?? "",
+    name: data?.name ?? "Unknown",
+    owner: "",
   }
 }
 

@@ -131,9 +131,9 @@ function NftDetails({ nft }: { nft?: NftMetadata }) {
     return null
   }
 
+  const { image, } = nft
   const name = nft.name || "Untitled"
   const description = nft.description || "−"
-  const image = nft.image || ""
   return (
     <>
       <div
