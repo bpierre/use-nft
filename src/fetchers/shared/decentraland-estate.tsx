@@ -62,9 +62,10 @@ export async function decentralandEstateMetadata(
   const nft = data?.nfts?.[0]
 
   return {
-    name: nft?.name ?? "Unknown",
     description: nft?.estate?.data?.description ?? "−",
     image: nft?.image ?? "",
+    name: nft?.name ?? "Unknown",
+    owner: nft?.owner?.address ?? "",
   }
 }
 

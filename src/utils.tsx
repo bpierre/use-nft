@@ -1,4 +1,4 @@
-import type { Address, NftMetadata } from "./types"
+import type { Address, NftMetadata, NftJsonMetadata } from "./types"
 
 // Some NFT minting services misinterpreted the JSON schema from the EIP as
 // literal JSON, e.g. portion.io:
@@ -140,7 +140,7 @@ export function normalizeImageUrl(url: string): string {
   return ipfsUrl(url)
 }
 
-export function normalizeNftMetadata(data: NftMetadata): NftMetadata {
+export function normalizeNftMetadata(data: NftJsonMetadata): NftJsonMetadata {
   return {
     ...data,
     image: normalizeImageUrl(data.image),
@@ -192,7 +192,7 @@ export function isNftMetadataMixedInJsonSchema(
 
 export function fixNftMetadataMixedInJsonSchema(
   data: NftMetadataMixedInJsonSchema
-): NftMetadata {
+): NftJsonMetadata {
   return {
     name: data?.properties?.name?.description || "",
     description: data?.properties?.description?.description || "",

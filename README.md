@@ -55,6 +55,7 @@ function Nft() {
       <h1>{nft.name}</h1>
       <img src={nft.image} alt="" />
       <p>{nft.description}</p>
+      <p>Owner: {nft.owner}</p>
     </section>
   )
 }
@@ -121,6 +122,9 @@ result.nft.description
 
 // image / media URL of the NFT (or empty string)
 result.nft.image
+
+// current owner of the NFT (or empty string)
+result.nft.owner
 ```
 
 As TypeScript type:
@@ -132,9 +136,10 @@ type NftResult = {
   reload: () => void
   error?: Error
   nft?: {
-    name: string
     description: string
     image: string
+    name: string
+    owner: string
   }
 }
 ```

@@ -15,7 +15,7 @@ import {
 } from "../shared/decentraland-parcel"
 import { moonCatsMetadata, isMoonCats } from "../shared/mooncats"
 import { moonCatsCatId } from "./mooncats"
-import { fetchStandardNftUrl } from "./standard-nft"
+import { fetchStandardNftContractData } from "./standard-nft"
 
 export default function ethersFetcher(
   config: EthersFetcherConfig
@@ -50,9 +50,15 @@ export default function ethersFetcher(
         return moonCatsMetadata(tokenId, moonCatsCatId(config))
       }
 
-      return fetchMetadata(
-        await fetchStandardNftUrl(contractAddress, tokenId, config)
+      const [metadataUrl, owner] = await fetchStandardNftContractData(
+        contractAddress,
+        tokenId,
+        config
       )
+
+      const metadata = await fetchMetadata(metadataUrl)
+
+      return { ...metadata, owner }
     },
   }
 }

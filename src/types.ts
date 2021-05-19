@@ -30,9 +30,16 @@ export type NftResultDone = {
 export type NftResult = NftResultLoading | NftResultError | NftResultDone
 
 export type NftMetadata = {
-  name: string
   description: string
   image: string
+  name: string
+  owner: Address
+}
+
+export type NftJsonMetadata = {
+  description: string
+  image: string
+  name: string
 }
 
 export type ContractMethod = {

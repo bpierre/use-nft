@@ -20,6 +20,7 @@ export default shuffle<[string, string, string, string]>([
     "https://market.decentraland.org/contracts/0x32b7495895264ac9d0b12d32afd435453458b1c6/tokens/4087",
   ],
 
+  // ERC-1155
   [
     "0xd07dc4262bcdbf85190c01c996b4c06a461d2430",
     "90473",
@@ -76,6 +77,7 @@ export default shuffle<[string, string, string, string]>([
     "https://niftygateway.com/itemdetail/secondary/0x1a9efe6d9a7a977a938f03b1a549bdd9cd316432/11000010006",
   ],
 
+  // ERC-1155
   [
     "0x495f947276749ce646f68ac8c248420045cb7b5e",
     "63990428236934811571513178702512145453357596655980286527887248477662016962561",

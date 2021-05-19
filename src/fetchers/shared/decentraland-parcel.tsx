@@ -67,44 +67,13 @@ export async function decentralandParcelMetadata(
   const parcel = nft?.parcel
 
   return {
-    name: nft?.name ?? `Parcel ${parcel?.x},${parcel?.y}`,
     description: parcel?.data?.description ?? "−",
     image: nft?.image ?? "",
+    name: nft?.name ?? `Parcel ${parcel?.x},${parcel?.y}`,
+    owner: nft?.owner?.address ?? "",
   }
 }
 
 export function isDecentralandParcel(contractAddress: Address): boolean {
   return addressesEqual(contractAddress, DECENTRALAND_PARCEL)
 }
-
-// query NFTByTokenId($contractAddress: String, $tokenId: String) {
-//   nfts(
-//     where: { contractAddress: $contractAddress, tokenId: $tokenId }
-//     first: 1
-//   ) {
-//     id
-//     name
-//     image
-//     contractAddress
-//     tokenId
-//     category
-//     owner {
-//       address
-//     }
-//     parcel {
-//       x
-//       y
-//       data {
-//         description
-//       }
-//     }
-//     estate {
-//       size
-//       data {
-//         description
-//       }
-//     }
-//     ens {
-//       subdomain
-//     }
-//   }
