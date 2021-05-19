@@ -152,9 +152,23 @@ function NftDetails({ nft }: { nft?: NftMetadata }) {
         `}
       >
         {image.endsWith(".mp4") ? (
-          <LoopVideo type="video/mp4" src={image} height="280" />
+          <LoopVideo
+            type="video/mp4"
+            src={`https://ik.imagekit.io/p/${image}?tr=n-card`}
+            height="280"
+          />
         ) : (
-          image && <img src={image} height="280" alt="" />
+          image && (
+            <img
+              src={
+                image.startsWith("http")
+                  ? `https://ik.imagekit.io/p/${image}?tr=n-card`
+                  : image
+              }
+              height="280"
+              alt=""
+            />
+          )
         )}
       </div>
       <h1
