@@ -58,7 +58,7 @@ export default function ethersFetcher(
 
       const metadata = await fetchMetadata(metadataUrl)
 
-      return { ...metadata, metadataUrl, owner }
+      return { ...metadata, owner, metadataUrl }
     },
   }
 }

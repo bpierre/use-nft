@@ -56,7 +56,8 @@ function Nft() {
       <img src={nft.image} alt="" />
       <p>{nft.description}</p>
       <p>Owner: {nft.owner}</p>
-    </section>
+      <p>Metadata URL: {nft.metadataUrl}</p>
+</section>
   )
 }
 ```
@@ -125,6 +126,10 @@ result.nft.image
 
 // current owner of the NFT (or empty string)
 result.nft.owner
+
+// url of the json containing the NFT's metadata
+result.nft.metadataUrl
+
 ```
 
 As TypeScript type:
@@ -140,6 +145,7 @@ type NftResult = {
     image: string
     name: string
     owner: string
+    metadataUrl?: string
   }
 }
 ```
