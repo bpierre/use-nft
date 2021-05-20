@@ -92,12 +92,12 @@ export default shuffle<[string, string, string, string]>([
     "https://async.art/art/master/0xb6dae651468e9593e4581705a09c10a76ac1e0c8-1230",
   ],
 
-  // [
-  //   "0x79986af15539de2db9a5086382daeda917a9cf0c",
-  //   "1162",
-  //   "Cryptovoxels",
-  //   "https://www.cryptovoxels.com/parcels/1162",
-  // ],
+  [
+    "0x79986af15539de2db9a5086382daeda917a9cf0c",
+    "1162",
+    "Cryptovoxels",
+    "https://www.cryptovoxels.com/parcels/1162",
+  ],
 
   [
     "0x7c40c393dc0f283f318791d746d894ddd3693572",
@@ -113,18 +113,32 @@ export default shuffle<[string, string, string, string]>([
     "https://knownorigin.io/gallery/307800-red-forest-fires",
   ],
 
-  // [
-  //   "0xb55c5cac5014c662fdbf21a2c59cd45403c482fd",
-  //   "0x555559a5669969a96a656a995aa55555",
-  //   "Clovers",
-  //   "https://clovers.network/clovers/0xdfffdfffd557fd7ff55fdfdffff7ffff",
-  // ],
+  [
+    "0xb55c5cac5014c662fdbf21a2c59cd45403c482fd",
+    "0x555559a5669969a96a656a995aa55555",
+    "Clovers",
+    "https://clovers.network/clovers/0xdfffdfffd557fd7ff55fdfdffff7ffff",
+  ],
 
   [
     "0x2a46f2ffd99e19a89476e2f62270e0a35bbf0756",
     "52832",
     "MakersPlace",
     "https://makersplace.com/jeffreylee1/garden-delights-1-of-1-60178/",
+  ],
+
+  [
+    "0xd07dc4262bcdbf85190c01c996b4c06a461d2430",
+    "344495",
+    "Aito",
+    "https://thisisaito.xyz/n/0xd07dc4262bcdbf85190c01c996b4c06a461d2430/344495",
+  ],
+
+  [
+    "0x6c7B6cc55d4098400aC787C8793205D3E86C37C9",
+    "84",
+    "JOYWORLD",
+    "https://www.joy.world/joy/the-fry-cult",
   ],
 ])
 
