@@ -4,7 +4,8 @@ import { CRYPTOKITTIES } from "../../known-contracts"
 import { addressesEqual } from "../../utils"
 
 export async function cryptoKittiesMetadata(id: string): Promise<NftMetadata> {
-  const res = await fetch(`https://api.cryptokitties.co/v3/kitties/${id}`)
+  const metadataUrl = `https://api.cryptokitties.co/v3/kitties/${id}`;
+  const res = await fetch(metadataUrl)
   const data = (await res.json()) as {
     name: string
     bio: string
@@ -15,6 +16,7 @@ export async function cryptoKittiesMetadata(id: string): Promise<NftMetadata> {
     image: data?.image_url ?? "",
     name: data?.name ?? "Unknown",
     owner: "",
+    metadataUrl,
   }
 }
 
