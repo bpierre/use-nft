@@ -33,6 +33,7 @@ export type NftMetadata = {
   description: string
   image: string
   name: string
+  metadataUrl: string
   owner: Address
 }
 
