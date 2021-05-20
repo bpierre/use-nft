@@ -66,7 +66,7 @@ function Title() {
       >
         {randomEmoji()}
       </span>{" "}
-      = {small && <br />}useNft({small ? "addr" : "address"}, id)
+      = {small && <br />}useNft()
     </h1>
   )
 }
@@ -79,7 +79,7 @@ function Description() {
         text-align: center;
       `}
     >
-      Fetch NFT metadata from anywhere.
+      Fetch metadata from any <abbr title="Non-fungible token">NFT</abbr>
     </p>
   )
 }
