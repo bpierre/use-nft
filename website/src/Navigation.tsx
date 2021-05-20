@@ -3,8 +3,15 @@ import { css } from "@emotion/react"
 
 function Navigation({ swap = false }: { swap?: boolean }) {
   const links = [
-    <a key="by" href="https://spectre.xyz/" target="_blank">
-      by spectre_
+    <a
+      key="by"
+      href="https://spectre.xyz/"
+      target="_blank"
+      css={css`
+        text-transform: lowercase;
+      `}
+    >
+      by Spectre
     </a>,
     <a key="docs" href="https://github.com/spectrexyz/use-nft" target="_blank">
       code & docs
