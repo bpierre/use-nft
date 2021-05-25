@@ -6,11 +6,6 @@ import type { EthereumProviderEip1193 } from "./types"
 const URI_METHOD_ERC721 = "0xc87b56dd" // tokenURI(uint256)
 const URI_METHOD_ERC1155 = "0x0e89341c" // uri(uint256)
 const OWNER_OF_METHOD_ERC721 = "0x6352211e" // ownerOf(uint256)
-const SUPPORTS_INTERFACE_METHOD_ERC165 = "0x01ffc9a7" // supportsInterface(bytes4)
-
-// ERC165 identifiers
-export const ERC721_ID = "0x80ac58cd"
-export const ERC1155_ID = "0xd9b67a26"
 
 // Utilities adapted from https://github.com/Zoltu/ethereum-abi-encoder/
 export function uint256Hex(value: bigint): string {
@@ -36,10 +31,6 @@ export function hexToUint8Array(hex: string): Uint8Array {
   return new Uint8Array(
     (hex.match(/.{1,2}/g) ?? []).map((byte) => parseInt(byte, 16))
   )
-}
-
-export function decodeBoolean(hex: string): boolean {
-  return bytesToBigInt(hexToUint8Array(hex)) !== BigInt(0)
 }
 
 export function decodeString(hex: string): string {
@@ -73,13 +64,6 @@ export function methodUriErc1155(id: bigint): string {
 
 export function methodOwnerOfErc721(tokenId: bigint): string {
   return OWNER_OF_METHOD_ERC721 + uint256Hex(tokenId)
-}
-
-export function supportsInterfaceMethodErc165(interfaceId: string): string {
-  return (
-    SUPPORTS_INTERFACE_METHOD_ERC165 +
-    interfaceId.replace(/^0x/, "").padEnd(64, "0")
-  )
 }
 
 export function ethCall(
