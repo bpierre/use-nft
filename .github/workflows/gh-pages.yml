@@ -19,6 +19,8 @@ jobs:
         run: yarn install --immutable && yarn build --noStats
 
       - name: Build website/
+        env:
+          VITE_INFURA_KEY: ${{ secrets.INFURA_KEY }}
         run: cd website && yarn install --immutable && yarn build
 
       - name: Deploy

@@ -8,9 +8,7 @@ import nfts from "../../nfts"
 
 const ethersConfig = {
   ethers: { Contract },
-  provider: getDefaultProvider("homestead", {
-    infura: import.meta.env.VITE_INFURA_KEY,
-  }),
+  provider: getDefaultProvider("homestead"),
 }
 
 function App() {
