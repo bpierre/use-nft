@@ -43,14 +43,6 @@ function isFetcherDeclarationEthereum(
 }
 
 function normalizeFetcher(fetcher: FetcherProp): Fetcher<unknown> {
-  // default fetcher
-  if (!fetcher) {
-    return {
-      config: {},
-      fetchNft: () => Promise.resolve(NFT_METADATA_DEFAULT),
-    } as Fetcher<Record<string, never>>
-  }
-
   // ethers
   if (isFetcherDeclarationEthers(fetcher)) {
     return ethersFetcher(fetcher[1]) as Fetcher<EthersFetcherConfig>
@@ -72,8 +64,12 @@ const NftContext = createContext<{
 
 const NftProvider: FC<{
   children: ReactNode
-  fetcher?: Fetcher<unknown> | FetcherDeclaration | null
+  fetcher: Fetcher<unknown> | FetcherDeclaration
 }> = function NftProvider({ children, fetcher }) {
+  if (!fetcher) {
+    throw new Error("Please set the fetcher prop on <NftProvider />")
+  }
+
   const [cacheStorage, { cache: swrCache }] = useMemo(() => {
     const cache = new Map()
     return [cache, createCache(cache)]
