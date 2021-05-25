@@ -10,21 +10,18 @@ const ABI = [
   "function ownerOf(uint256 _tokenId) external view returns (address)",
   // ERC-1155
   "function uri(uint256 _id) external view returns (string)",
-  // ERC-165
-  "function supportsInterface(bytes4 interfaceID) external view returns (bool)",
 ]
 
 type NftContract = InstanceType<typeof Contract> & {
   ownerOf: ContractFunction<string>
-  supportsInterface: ContractFunction<boolean>
   tokenURI: ContractFunction<string>
   uri: ContractFunction<string>
 }
 
 async function url(contract: NftContract, tokenId: string): Promise<string> {
   const uri = await promiseAny([
-    contract.uri(tokenId),
     contract.tokenURI(tokenId),
+    contract.uri(tokenId),
   ])
   return normalizeTokenUrl(uri, tokenId)
 }

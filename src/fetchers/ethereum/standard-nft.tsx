@@ -1,24 +1,15 @@
 import type { Address } from "../../types"
 import type { EthereumFetcherConfig } from "./types"
 
-import { addressesEqual, normalizeTokenUrl, promiseAny } from "../../utils"
-import { CRYPTOVOXELS } from "../../known-contracts"
+import { normalizeTokenUrl, promiseAny } from "../../utils"
 import {
-  ERC1155_ID,
-  ERC721_ID,
   decodeAddress,
-  decodeBoolean,
   decodeString,
   ethCall,
   methodOwnerOfErc721,
   methodUriErc1155,
   methodUriErc721,
-  supportsInterfaceMethodErc165,
 } from "./utils"
-
-// Contracts implementing ERC721’s tokenURI()
-// but are missing ERC165’s supportsInterface()
-const KNOWN_ERC721_LIKE = [CRYPTOVOXELS]
 
 export async function fetchStandardNftContractData(
   contractAddress: Address,
@@ -27,11 +18,6 @@ export async function fetchStandardNftContractData(
 ): Promise<[string, Address]> {
   if (!ethereum) {
     return ["", ""]
-  }
-
-  const urlCall = async (method: string): Promise<string> => {
-    const result = await ethCall(ethereum, contractAddress, method)
-    return normalizeTokenUrl(decodeString(result), tokenId)
   }
 
   // call ownerOf() even on 1155 contracts, just in case it exists
@@ -43,43 +29,17 @@ export async function fetchStandardNftContractData(
     .then(decodeAddress)
     .catch(() => "")
 
-  const isKnown721Like = KNOWN_ERC721_LIKE.some((address) =>
-    addressesEqual(address, contractAddress)
-  )
-  if (isKnown721Like) {
-    return Promise.all([
-      urlCall(methodUriErc721(BigInt(tokenId))),
-      ownerPromise,
-    ])
-  }
-
   const calls = [
-    [
-      supportsInterfaceMethodErc165(ERC721_ID),
-      methodUriErc721(BigInt(tokenId)),
-    ],
-    [
-      supportsInterfaceMethodErc165(ERC1155_ID),
-      methodUriErc1155(BigInt(tokenId)),
-    ],
+    methodUriErc721(BigInt(tokenId)),
+    methodUriErc1155(BigInt(tokenId)),
   ]
 
   try {
     return promiseAny(
-      calls.map(async ([supportsMethod, uriMethod]) => {
-        // Check if the interface is supported first
-        const supported = await ethCall(
-          ethereum,
-          contractAddress,
-          supportsMethod
-        ).then(decodeBoolean)
-
-        // throw for the Promise.any() to skip this branch
-        if (!supported) {
-          throw new Error("Unsupported method")
-        }
-
-        return Promise.all([urlCall(uriMethod), ownerPromise])
+      calls.map(async (callMethod) => {
+        const urlString = await ethCall(ethereum, contractAddress, callMethod)
+        const url = normalizeTokenUrl(decodeString(urlString), tokenId)
+        return Promise.all([url, ownerPromise])
       })
     )
   } catch (err) {
