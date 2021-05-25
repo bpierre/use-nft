@@ -67,8 +67,4 @@ export type FetcherDeclaration =
   | FetcherDeclarationEthers
   | FetcherDeclarationEthereum
 
-export type FetcherProp =
-  | Fetcher<unknown>
-  | FetcherDeclaration
-  | null
-  | undefined
+export type FetcherProp = Fetcher<unknown> | FetcherDeclaration
