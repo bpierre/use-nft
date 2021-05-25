@@ -1,12 +1,10 @@
-import type { NftList } from "./nfts"
-
 import React, { useEffect, useState } from "react"
 import { css } from "@emotion/react"
 import { useTrail, animated } from "react-spring"
 import Nft from "./Nft"
 
 type NftGridProps = {
-  nfts: NftList
+  nfts: Array<[string, string, string, string]>
 }
 
 function NftGrid({ nfts }: NftGridProps) {
