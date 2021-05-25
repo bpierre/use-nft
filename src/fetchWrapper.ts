@@ -22,7 +22,7 @@ const NFT_METADATA_DEFAULT = {
 export class FetchWrapper {
   private fetcher: Fetcher<unknown>
 
-  constructor(fetcher?: Fetcher<unknown> | FetcherDeclaration) {
+  constructor(fetcher: Fetcher<unknown> | FetcherDeclaration) {
     this.fetcher = this.normalizeFetcher(fetcher)
   }
 
