@@ -57,7 +57,7 @@ function Nft() {
       <p>{nft.description}</p>
       <p>Owner: {nft.owner}</p>
       <p>Metadata URL: {nft.metadataUrl}</p>
-</section>
+    </section>
   )
 }
 ```
