@@ -122,7 +122,7 @@ type NftResult = {
 }
 ```
 
-### `&lt;NftProvider />`
+### `<NftProvider />`
 
 NftProvider requires a prop to be passed: `fetcher`. It can take a declaration for the embedded fetchers, or you can alternatively pass a custom fetcher.
 
