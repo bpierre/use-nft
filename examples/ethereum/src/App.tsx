@@ -7,12 +7,10 @@ import NoEthereum from "./NoEthereum"
 import nfts from "../../nfts"
 import useEthereum from "./use-ethereum"
 
-const imageProxy = (url) =>
+const imageProxy = (url: string) =>
   `https://ik.imagekit.io/p/${encodeURIComponent(url)}?tr=n-card`
-const jsonProxy = (url) =>
+const jsonProxy = (url: string) =>
   `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`
-const ipfsUrl = (cid, path = "") =>
-  `https://gateway.pinata.cloud/ipfs/${cid}${path}`
 
 function App() {
   const ethereum = useEthereum()
@@ -21,7 +19,6 @@ function App() {
     <NftProvider
       fetcher={["ethereum", { ethereum }]}
       imageProxy={imageProxy}
-      ipfsUrl={ipfsUrl}
       jsonProxy={jsonProxy}
     >
       <Base>{connected ? <NftGrid nfts={nfts} /> : <NoEthereum />}</Base>

@@ -18,9 +18,9 @@ const fetcher = [
   },
 ]
 
-const imageProxy = (url) =>
+const imageProxy = (url: string) =>
   `https://ik.imagekit.io/p/${encodeURIComponent(url)}?tr=n-card`
-const jsonProxy = (url) =>
+const jsonProxy = (url: string) =>
   `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`
 
 function App() {
