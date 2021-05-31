@@ -1,5 +1,5 @@
 import type { EthersFetcherConfig } from "./fetchers/ethers/types"
-import type { EthereumFetcherConfig } from "./fetchers/ethereum/types"
+import type { EthereumFetcherConfigDeclaration } from "./fetchers/ethereum/types"
 
 export type Address = string
 
