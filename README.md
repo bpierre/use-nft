@@ -243,13 +243,13 @@ This table keeps track of the NFT minting services that have been tested with us
 | [Clovers](https://clovers.network/)                  | Yes       |                                                                                        |
 | [CryptoKitties](https://www.cryptokitties.co/)       | Yes       | Non standard NFT, dedicated mechanism.                                                 |
 | [CryptoPunks](https://www.larvalabs.com/cryptopunks) | Yes       | Non standard NFT, dedicated mechanism.                                                 |
-| [Meebits](https://meebits.larvalabs.com/)            | Yes       | CORS restricted, requires a JSON proxy to be set (see `jsonProxy`).                    |
 | [Cryptovoxels](https://www.cryptovoxels.com/)        | Yes       |                                                                                        |
 | [Decentraland ](https://decentraland.org/)           | Yes       | Estate and parcels are fetched from The Graph. Wearables are fetched as standard NFTs. |
 | [Foundation](https://foundation.app/)                | Yes       |                                                                                        |
 | [JOYWORLD](https://www.joy.world/joys)               | Yes       |                                                                                        |
 | [KnownOrigin](https://knownorigin.io/)               | Yes       |                                                                                        |
 | [MakersPlace](https://makersplace.com/)              | Yes       | Incorrect JSON format (uses `imageUrl` instead of `image`).                            |
+| [Meebits](https://meebits.larvalabs.com/)            | Yes       | CORS restricted, requires a JSON proxy to be set (see `jsonProxy`).                    |
 | [MoonCats](https://mooncatrescue.com/)               | Yes       | Non standard NFT, dedicated mechanism.                                                 |
 | [Nifty Gateway](https://niftygateway.com/)           | Yes       | Incorrect metadata URL.                                                                |
 | [OpenSea](https://opensea.io/)                       | Yes       | Incorrect metadata URL.                                                                |
