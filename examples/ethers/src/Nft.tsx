@@ -131,7 +131,7 @@ function NftDetails({ nft }: { nft?: NftMetadata }) {
     return null
   }
 
-  const { image, } = nft
+  const { image } = nft
   const name = nft.name || "Untitled"
   const description = nft.description || "−"
   return (
@@ -151,7 +151,7 @@ function NftDetails({ nft }: { nft?: NftMetadata }) {
           }
         `}
       >
-        {image.endsWith(".mp4") ? (
+        {image.includes(".mp4") ? (
           <LoopVideo type="video/mp4" src={image} height="280" />
         ) : (
           image && <img src={image} height="280" alt="" />

@@ -1,8 +1,12 @@
-import type { Address, NftMetadata } from "../../types"
+import type {
+  Address,
+  FetchContext,
+  ImageProxyFn,
+  NftMetadata,
+} from "../../types"
 import type { EthersFetcher, EthersFetcherConfig } from "./types"
 
 import { isAddress } from "../../utils"
-import { fetchMetadata } from "../shared/fetch-metadata"
 import { cryptoPunksMetadata, isCryptoPunks } from "../shared/cryptopunks"
 import { cryptoKittiesMetadata, isCryptoKitties } from "../shared/cryptokitties"
 import {
@@ -17,6 +21,49 @@ import { moonCatsMetadata, isMoonCats } from "../shared/mooncats"
 import { moonCatsCatId } from "./mooncats"
 import { fetchStandardNftContractData } from "./standard-nft"
 
+async function fetchNftMetadata(
+  contractAddress: Address,
+  tokenId: string,
+  config: EthersFetcherConfig,
+  fetchContext: FetchContext
+): Promise<NftMetadata> {
+  if (isDecentralandParcel(contractAddress)) {
+    return decentralandParcelMetadata(tokenId)
+  }
+
+  if (isDecentralandEstate(contractAddress)) {
+    return decentralandEstateMetadata(tokenId)
+  }
+
+  if (isCryptoPunks(contractAddress)) {
+    return cryptoPunksMetadata(tokenId)
+  }
+
+  if (isCryptoKitties(contractAddress)) {
+    return cryptoKittiesMetadata(tokenId, fetchContext)
+  }
+
+  if (isMoonCats(contractAddress)) {
+    return moonCatsMetadata(tokenId, moonCatsCatId(config), fetchContext)
+  }
+
+  return fetchStandardNftContractData(
+    contractAddress,
+    tokenId,
+    config,
+    fetchContext
+  )
+}
+
+function addProxyImage(
+  metadata: NftMetadata,
+  imageProxy: ImageProxyFn
+): NftMetadata {
+  return metadata.image.startsWith("http")
+    ? { ...metadata, image: imageProxy(metadata.image) }
+    : metadata
+}
+
 export default function ethersFetcher(
   config: EthersFetcherConfig
 ): EthersFetcher {
@@ -24,41 +71,19 @@ export default function ethersFetcher(
     config,
     async fetchNft(
       contractAddress: Address,
-      tokenId: string
+      tokenId: string,
+      fetchContext: FetchContext
     ): Promise<NftMetadata> {
       if (!isAddress(contractAddress)) {
         throw new Error(`Invalid contract address: ${contractAddress}`)
       }
-
-      if (isDecentralandParcel(contractAddress)) {
-        return decentralandParcelMetadata(tokenId)
-      }
-
-      if (isDecentralandEstate(contractAddress)) {
-        return decentralandEstateMetadata(tokenId)
-      }
-
-      if (isCryptoPunks(contractAddress)) {
-        return cryptoPunksMetadata(tokenId)
-      }
-
-      if (isCryptoKitties(contractAddress)) {
-        return cryptoKittiesMetadata(tokenId)
-      }
-
-      if (isMoonCats(contractAddress)) {
-        return moonCatsMetadata(tokenId, moonCatsCatId(config))
-      }
-
-      const [metadataUrl, owner] = await fetchStandardNftContractData(
+      const metadata = await fetchNftMetadata(
         contractAddress,
         tokenId,
-        config
+        config,
+        fetchContext
       )
-
-      const metadata = await fetchMetadata(metadataUrl)
-
-      return { ...metadata, owner, metadataUrl }
+      return addProxyImage(metadata, fetchContext.imageProxy)
     },
   }
 }

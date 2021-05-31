@@ -92,12 +92,12 @@ export default shuffle<[string, string, string, string]>([
     "https://async.art/art/master/0xb6dae651468e9593e4581705a09c10a76ac1e0c8-1230",
   ],
 
-  [
-    "0x79986af15539de2db9a5086382daeda917a9cf0c",
-    "1162",
-    "Cryptovoxels",
-    "https://www.cryptovoxels.com/parcels/1162",
-  ],
+  // [
+  //   "0x79986af15539de2db9a5086382daeda917a9cf0c",
+  //   "1162",
+  //   "Cryptovoxels",
+  //   "https://www.cryptovoxels.com/parcels/1162",
+  // ],
 
   [
     "0x7c40c393dc0f283f318791d746d894ddd3693572",
@@ -139,6 +139,13 @@ export default shuffle<[string, string, string, string]>([
     "84",
     "JOYWORLD",
     "https://www.joy.world/joy/the-fry-cult",
+  ],
+
+  [
+    "0x7bd29408f11d2bfc23c34f18275bbf23bb716bc7",
+    "13396",
+    "Meebit",
+    "https://meebits.larvalabs.com/meebits/detail?index=13396",
   ],
 ])
 

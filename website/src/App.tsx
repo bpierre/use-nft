@@ -18,9 +18,18 @@ const fetcher = [
   },
 ]
 
+const imageProxy = (url) =>
+  `https://ik.imagekit.io/p/${encodeURIComponent(url)}?tr=n-card`
+const jsonProxy = (url) =>
+  `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`
+
 function App() {
   return (
-    <NftProvider fetcher={fetcher as FetcherDeclarationEthers}>
+    <NftProvider
+      fetcher={fetcher as FetcherDeclarationEthers}
+      imageProxy={imageProxy}
+      jsonProxy={jsonProxy}
+    >
       <Base>
         <Header />
         <NftGrid nfts={nfts} />

@@ -6,4 +6,5 @@ export type EthersFetcherConfig = {
   ethers: { Contract: typeof Contract }
   provider: BaseProvider | JsonRpcProvider
 }
+
 export type EthersFetcher = Fetcher<EthersFetcherConfig>

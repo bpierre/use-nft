@@ -1,10 +1,13 @@
-import type { Address, NftMetadata } from "../../types"
+import type { Address, FetchContext, NftMetadata } from "../../types"
 
 import { CRYPTOKITTIES } from "../../known-contracts"
 import { addressesEqual } from "../../utils"
 
-export async function cryptoKittiesMetadata(id: string): Promise<NftMetadata> {
-  const metadataUrl = `https://api.cryptokitties.co/v3/kitties/${id}`;
+export async function cryptoKittiesMetadata(
+  id: string,
+  { jsonProxy }: FetchContext
+): Promise<NftMetadata> {
+  const metadataUrl = jsonProxy(`https://api.cryptokitties.co/v3/kitties/${id}`)
   const res = await fetch(metadataUrl)
   const data = (await res.json()) as {
     name: string

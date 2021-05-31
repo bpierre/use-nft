@@ -1,15 +1,17 @@
 import type {
   Address,
+  FetchContext,
   Fetcher,
   FetcherDeclaration,
-  FetcherDeclarationEthers,
   FetcherDeclarationEthereum,
+  FetcherDeclarationEthers,
   FetcherProp,
   NftMetadata,
 } from "./types"
 import type { EthersFetcherConfig } from "./fetchers/ethers/types"
 import type { EthereumFetcherConfig } from "./fetchers/ethereum/types"
 
+import { identity, ipfsUrlDefault } from "./utils"
 import ethersFetcher from "./fetchers/ethers"
 import ethereumFetcher from "./fetchers/ethereum"
 
@@ -67,8 +69,18 @@ export class FetchWrapper {
 
   public async fetchNft(
     contractAddress: Address,
-    tokenId: string
+    tokenId: string,
+    fetchContext: {
+      imageProxy?: FetchContext["imageProxy"]
+      ipfsUrl?: FetchContext["ipfsUrl"]
+      jsonProxy?: FetchContext["jsonProxy"]
+    }
   ): Promise<NftMetadata> {
-    return await this.fetcher.fetchNft(contractAddress, tokenId)
+    return await this.fetcher.fetchNft(contractAddress, tokenId, {
+      imageProxy: identity,
+      ipfsUrl: ipfsUrlDefault,
+      jsonProxy: identity,
+      ...fetchContext,
+    })
   }
 }

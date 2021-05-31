@@ -1,7 +1,8 @@
 import type { Contract, ContractFunction } from "@ethersproject/contracts"
-import type { Address } from "../../types"
+import type { Address, FetchContext, NftMetadata } from "../../types"
 import type { EthersFetcherConfig } from "./types"
 
+import { fetchMetadata } from "../shared/fetch-metadata"
 import { normalizeTokenUrl, promiseAny } from "../../utils"
 
 const ABI = [
@@ -18,27 +19,40 @@ type NftContract = InstanceType<typeof Contract> & {
   uri: ContractFunction<string>
 }
 
-async function url(contract: NftContract, tokenId: string): Promise<string> {
+async function url(
+  contract: NftContract,
+  tokenId: string,
+  fetchContext: FetchContext
+): Promise<string> {
   const uri = await promiseAny([
     contract.tokenURI(tokenId),
     contract.uri(tokenId),
   ])
-  return normalizeTokenUrl(uri, tokenId)
+  return normalizeTokenUrl(uri, tokenId, fetchContext)
 }
 
 export async function fetchStandardNftContractData(
   contractAddress: Address,
   tokenId: string,
-  config: EthersFetcherConfig
-): Promise<[string, Address]> {
+  config: EthersFetcherConfig,
+  fetchContext: FetchContext
+): Promise<NftMetadata> {
   const contract = new config.ethers.Contract(
     contractAddress,
     ABI,
     config.provider
   ) as NftContract
 
-  return Promise.all([
-    url(contract, tokenId),
+  const [metadataUrl, owner] = await Promise.all([
+    url(contract, tokenId, fetchContext),
     contract.ownerOf(tokenId).catch(() => ""),
   ])
+
+  const metadata = await fetchMetadata(metadataUrl, fetchContext)
+
+  return {
+    ...metadata,
+    owner,
+    metadataUrl,
+  }
 }

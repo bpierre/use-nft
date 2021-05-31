@@ -67,8 +67,9 @@ export async function decentralandParcelMetadata(
   const parcel = nft?.parcel
 
   return {
-    description: parcel?.data?.description ?? "−",
+    description: parcel?.data?.description ?? "-",
     image: nft?.image ?? "",
+    metadataUrl: '',
     name: nft?.name ?? `Parcel ${parcel?.x},${parcel?.y}`,
     owner: nft?.owner?.address ?? "",
   }
