@@ -121,7 +121,7 @@ import{r as e,N as t,R as n,H as r,L as o,j as a,c as i,G as d,u as s,a as c,b a
             object-fit: cover;
             object-position: 50% 50%;
           }
-        `},t.endsWith(".mp4")?a(ge,{type:"video/mp4",src:t,height:"280"}):t&&a("img",{src:t,height:"280",alt:""})),a("h1",{css:i`
+        `},t.includes(".mp4")?a(ge,{type:"video/mp4",src:t,height:"280"}):t&&a("img",{src:t,height:"280",alt:""})),a("h1",{css:i`
           display: flex;
           align-items: center;
           width: 100%;
