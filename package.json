@@ -55,7 +55,10 @@
     ]
   },
   "jest": {
-    "preset": "rollpkg"
+    "preset": "rollpkg",
+    "transform": {
+      "\\.(ts|tsx)$": "ts-jest"
+    }
   },
   "devDependencies": {
     "@ethersproject/contracts": "^5.2.0",
@@ -72,10 +75,12 @@
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "jest": "^27.0.3",
+    "jest-watch-typeahead": "^0.6.4",
     "prettier": "^2.3.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "rollpkg": "^0.5.7",
+    "ts-jest": "^27.0.2",
     "typescript": "^4.3.2"
   },
   "dependencies": {
