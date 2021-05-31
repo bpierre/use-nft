@@ -1,6 +1,7 @@
-import type { Address } from "../../types"
-import type { EthereumFetcherConfig } from "./types"
+import type { Address, FetchContext, NftMetadata } from "../../types"
+import type { EthereumFetcherConfig, EthereumProviderEip1193 } from "./types"
 
+import { fetchMetadata } from "../shared/fetch-metadata"
 import { normalizeTokenUrl, promiseAny } from "../../utils"
 import {
   decodeAddress,
@@ -11,38 +12,42 @@ import {
   methodUriErc721,
 } from "./utils"
 
+function uriMethods(tokenId: string): string[] {
+  return [methodUriErc721(BigInt(tokenId)), methodUriErc1155(BigInt(tokenId))]
+}
+
+async function url(
+  contractAddress: Address,
+  tokenId: string,
+  ethereum: EthereumProviderEip1193,
+  fetchContext: FetchContext
+): Promise<string> {
+  const uri = await promiseAny(
+    uriMethods(tokenId).map((method) =>
+      ethCall(ethereum, contractAddress, method)
+    )
+  )
+  return normalizeTokenUrl(decodeString(uri), tokenId, fetchContext)
+}
+
 export async function fetchStandardNftContractData(
   contractAddress: Address,
   tokenId: string,
-  { ethereum }: EthereumFetcherConfig
-): Promise<[string, Address]> {
-  if (!ethereum) {
-    return ["", ""]
-  }
+  { ethereum }: EthereumFetcherConfig,
+  fetchContext: FetchContext
+): Promise<NftMetadata> {
+  const [metadataUrl, owner] = await Promise.all([
+    url(contractAddress, tokenId, ethereum, fetchContext),
+    ethCall(ethereum, contractAddress, methodOwnerOfErc721(BigInt(tokenId)))
+      .then(decodeAddress)
+      .catch(() => ""),
+  ])
 
-  // call ownerOf() even on 1155 contracts, just in case it exists
-  const ownerPromise = ethCall(
-    ethereum,
-    contractAddress,
-    methodOwnerOfErc721(BigInt(tokenId))
-  )
-    .then(decodeAddress)
-    .catch(() => "")
+  const metadata = await fetchMetadata(metadataUrl, fetchContext)
 
-  const calls = [
-    methodUriErc721(BigInt(tokenId)),
-    methodUriErc1155(BigInt(tokenId)),
-  ]
-
-  try {
-    return promiseAny(
-      calls.map(async (callMethod) => {
-        const urlString = await ethCall(ethereum, contractAddress, callMethod)
-        const url = normalizeTokenUrl(decodeString(urlString), tokenId)
-        return Promise.all([url, ownerPromise])
-      })
-    )
-  } catch (err) {
-    return ["", ""]
+  return {
+    ...metadata,
+    owner,
+    metadataUrl,
   }
 }

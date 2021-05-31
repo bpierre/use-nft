@@ -1,11 +1,15 @@
 import type { FC, ReactNode } from "react"
 import type {
   Address,
+  FetchContext,
   Fetcher,
   FetcherDeclaration,
-  FetcherDeclarationEthers,
   FetcherDeclarationEthereum,
+  FetcherDeclarationEthers,
   FetcherProp,
+  ImageProxyFn,
+  IpfsUrlFn,
+  JsonProxyFn,
   NftMetadata,
   NftResult,
   NftResultDone,
@@ -13,12 +17,13 @@ import type {
   NftResultLoading,
 } from "./types"
 import type { EthersFetcherConfig } from "./fetchers/ethers/types"
-import type { EthereumFetcherConfig } from "./fetchers/ethereum/types"
+import type { EthereumFetcherConfigDeclaration } from "./fetchers/ethereum/types"
 
 import React, { createContext, useCallback, useContext, useMemo } from "react"
 import useSWR, { SWRConfig, createCache } from "swr"
 import ethersFetcher from "./fetchers/ethers"
 import ethereumFetcher from "./fetchers/ethereum"
+import { identity, ipfsUrlDefault } from "./utils"
 
 const NFT_METADATA_DEFAULT = {
   name: "",
@@ -50,7 +55,7 @@ function normalizeFetcher(fetcher: FetcherProp): Fetcher<unknown> {
 
   // ethereum
   if (isFetcherDeclarationEthereum(fetcher)) {
-    return ethereumFetcher(fetcher[1]) as Fetcher<EthereumFetcherConfig>
+    return ethereumFetcher(fetcher[1]) as Fetcher<EthereumFetcherConfigDeclaration>
   }
 
   // custom fetcher (or wrong value)
@@ -58,14 +63,26 @@ function normalizeFetcher(fetcher: FetcherProp): Fetcher<unknown> {
 }
 
 const NftContext = createContext<{
-  fetcher?: Fetcher<unknown> | null
   cacheStorage: Map<string, unknown>
+  fetcher: Fetcher<unknown> | null
+  imageProxy: ImageProxyFn
+  ipfsUrl: IpfsUrlFn
+  jsonProxy: JsonProxyFn
 } | null>(null)
 
 const NftProvider: FC<{
   children: ReactNode
   fetcher: Fetcher<unknown> | FetcherDeclaration
-}> = function NftProvider({ children, fetcher }) {
+  imageProxy?: ImageProxyFn
+  ipfsUrl?: IpfsUrlFn
+  jsonProxy?: JsonProxyFn
+}> = function NftProvider({
+  children,
+  fetcher,
+  imageProxy = identity,
+  ipfsUrl = ipfsUrlDefault,
+  jsonProxy = identity,
+}) {
   if (!fetcher) {
     throw new Error("Please set the fetcher prop on <NftProvider />")
   }
@@ -75,14 +92,17 @@ const NftProvider: FC<{
     return [cache, createCache(cache)]
   }, [])
 
-  const contextValue = {
+  const context = {
     cacheStorage,
     fetcher: normalizeFetcher(fetcher),
+    imageProxy,
+    ipfsUrl,
+    jsonProxy,
   }
 
   return (
     <SWRConfig value={{ cache: swrCache }}>
-      <NftContext.Provider value={contextValue}>{children}</NftContext.Provider>
+      <NftContext.Provider value={context}>{children}</NftContext.Provider>
     </SWRConfig>
   )
 }
@@ -93,13 +113,17 @@ function useNft(contractAddress: Address, tokenId: string): NftResult {
     throw new Error("Please wrap your app with <NftProvider />")
   }
 
-  const { fetcher, cacheStorage } = context
+  const { cacheStorage, fetcher, imageProxy, ipfsUrl, jsonProxy } = context
+  const fetchContext = useMemo<FetchContext>(
+    () => ({ imageProxy, ipfsUrl, jsonProxy }),
+    [imageProxy, ipfsUrl, jsonProxy]
+  )
 
   const fetchNft = useCallback(() => {
     return fetcher
-      ? fetcher.fetchNft(contractAddress, tokenId)
+      ? fetcher.fetchNft(contractAddress, tokenId, fetchContext)
       : { ...NFT_METADATA_DEFAULT }
-  }, [contractAddress, fetcher, tokenId])
+  }, [contractAddress, fetcher, fetchContext, tokenId])
 
   const cached = cacheStorage.has(contractAddress + tokenId)
 

@@ -1,5 +1,5 @@
 import type { EthersFetcherConfig } from "./fetchers/ethers/types"
-import type { EthereumFetcherConfig } from "./fetchers/ethereum/types"
+import type { EthereumFetcherConfigDeclaration } from "./fetchers/ethereum/types"
 
 export type Address = string
 
@@ -34,7 +34,7 @@ export type NftMetadata = {
   image: string
   name: string
   owner: Address
-  metadataUrl?: string
+  metadataUrl: string
 }
 
 export type NftJsonMetadata = {
@@ -52,7 +52,11 @@ export type ContractMethod = {
 
 export type Fetcher<Config> = {
   config: Config
-  fetchNft: (contractAddress: Address, tokenId: string) => Promise<NftMetadata>
+  fetchNft: (
+    contractAddress: Address,
+    tokenId: string,
+    fetchContext: FetchContext
+  ) => Promise<NftMetadata>
 }
 
 export type FetcherDeclarationEthers = [
@@ -61,10 +65,20 @@ export type FetcherDeclarationEthers = [
 ]
 export type FetcherDeclarationEthereum = [
   name: "ethereum",
-  config: EthereumFetcherConfig
+  config: EthereumFetcherConfigDeclaration
 ]
 export type FetcherDeclaration =
   | FetcherDeclarationEthers
   | FetcherDeclarationEthereum
 
 export type FetcherProp = Fetcher<unknown> | FetcherDeclaration
+
+export type ImageProxyFn = (url: string) => string
+export type JsonProxyFn = (url: string) => string
+export type IpfsUrlFn = (cid: string, path?: string) => string
+
+export type FetchContext = {
+  imageProxy: ImageProxyFn
+  ipfsUrl: IpfsUrlFn
+  jsonProxy: JsonProxyFn
+}

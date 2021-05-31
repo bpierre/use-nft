@@ -1,7 +1,9 @@
 import {
   fetchImage,
-  ipfsUrl,
+  ipfsUrlFromString,
+  ipfsUrlDefault,
   isAddress,
+  identity,
   normalizeImageUrl,
   normalizeNftMetadata,
   normalizeNiftyGatewayUrl,
@@ -14,21 +16,31 @@ const IPFS_HASH_1 =
   "bafybeidi7zwejfcqc7whjlhzg7dj7bhhclgx4gbvllasl5uvkqbybkowqu"
 const IPFS_HASH_2 = "Qma3dJMpFjcXQU9Ziwqa73ZmCdBajJzgbS26uUGwXP8NaV"
 
-describe("ipfsUrl()", () => {
+const FETCH_CONTEXT = {
+  imageProxy: identity,
+  ipfsUrl: ipfsUrlDefault,
+  jsonProxy: identity,
+}
+
+describe("ipfsUrlFromString()", () => {
   it("normalizes IPFS protocol URLs", () => {
-    expect(ipfsUrl(`ipfs://ipfs/${IPFS_HASH_1}`)).toBe(
-      `https://ipfs.io/ipfs/${IPFS_HASH_1}`
-    )
+    expect(
+      ipfsUrlFromString(`ipfs://ipfs/${IPFS_HASH_1}`, ipfsUrlDefault)
+    ).toBe(`https://ipfs.io/ipfs/${IPFS_HASH_1}`)
   })
   it("normalizes IPFS hashes", () => {
-    expect(ipfsUrl(IPFS_HASH_2)).toBe(`https://ipfs.io/ipfs/${IPFS_HASH_2}`)
+    expect(ipfsUrlFromString(IPFS_HASH_2, ipfsUrlDefault)).toBe(
+      `https://ipfs.io/ipfs/${IPFS_HASH_2}`
+    )
   })
   it("lets unrecognized URLs pass", () => {
-    expect(ipfsUrl("http://example.com/")).toBe("http://example.com/")
+    expect(ipfsUrlFromString("http://example.com/", ipfsUrlDefault)).toBe(
+      "http://example.com/"
+    )
   })
   it("uses the IPFS URL builder when passed", () => {
     expect(
-      ipfsUrl(
+      ipfsUrlFromString(
         `ipfs://ipfs/${IPFS_HASH_1}/a/b/c`,
         (cid, path) => `_${cid}_${path}_`
       )
@@ -115,38 +127,43 @@ describe("normalizeNiftyGatewayUrl()", () => {
 
 describe("normalizeTokenUrl()", () => {
   it("normalizes Nifty Gateway API URLs", () => {
-    expect(normalizeTokenUrl("https://api.niftygateway.com/abcdef", "1")).toBe(
-      "https://api.niftygateway.com/abcdef/"
-    )
+    expect(
+      normalizeTokenUrl(
+        "https://api.niftygateway.com/abcdef",
+        "1",
+        FETCH_CONTEXT
+      )
+    ).toBe("https://api.niftygateway.com/abcdef/")
   })
   it("normalizes OpenSea API URLs", () => {
     expect(
       normalizeTokenUrl(
         "https://api.opensea.io/api/v1/metadata/0x495f947276749Ce646f68AC8c248420045cb7b5e/0x{id}",
-        "1"
+        "1",
+        FETCH_CONTEXT
       )
     ).toBe(
       "https://api.opensea.io/api/v1/metadata/0x495f947276749Ce646f68AC8c248420045cb7b5e/1?format=json"
     )
   })
   it("normalizes IPFS URLs", () => {
-    expect(normalizeTokenUrl(`ipfs://ipfs/${IPFS_HASH_1}`, "1")).toBe(
-      `https://ipfs.io/ipfs/${IPFS_HASH_1}`
-    )
+    expect(
+      normalizeTokenUrl(`ipfs://ipfs/${IPFS_HASH_1}`, "1", FETCH_CONTEXT)
+    ).toBe(`https://ipfs.io/ipfs/${IPFS_HASH_1}`)
   })
   it("returns other URLs", () => {
-    expect(normalizeTokenUrl("https://example.com/abcdef", "1")).toBe(
-      "https://example.com/abcdef"
-    )
+    expect(
+      normalizeTokenUrl("https://example.com/abcdef", "1", FETCH_CONTEXT)
+    ).toBe("https://example.com/abcdef")
   })
   it("returns malformed URLs", () => {
-    expect(normalizeTokenUrl("a", "1")).toBe("a")
+    expect(normalizeTokenUrl("a", "1", FETCH_CONTEXT)).toBe("a")
   })
 })
 
 describe("normalizeImageUrl()", () => {
   it("normalizes IPFS URLs", () => {
-    expect(normalizeImageUrl(`ipfs://ipfs/${IPFS_HASH_1}`)).toBe(
+    expect(normalizeImageUrl(`ipfs://ipfs/${IPFS_HASH_1}`, FETCH_CONTEXT)).toBe(
       `https://ipfs.io/ipfs/${IPFS_HASH_1}`
     )
   })
@@ -155,11 +172,14 @@ describe("normalizeImageUrl()", () => {
 describe("normalizeNftMetadata()", () => {
   it("normalizes the NFT metadata", () => {
     expect(
-      normalizeNftMetadata({
-        name: "",
-        description: "",
-        image: `ipfs://ipfs/${IPFS_HASH_1}`,
-      })
+      normalizeNftMetadata(
+        {
+          name: "",
+          description: "",
+          image: `ipfs://ipfs/${IPFS_HASH_1}`,
+        },
+        FETCH_CONTEXT
+      )
     ).toStrictEqual({
       name: "",
       description: "",

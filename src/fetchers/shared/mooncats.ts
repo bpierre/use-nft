@@ -1,6 +1,17 @@
-import type { Address, NftMetadata, ContractMethod } from "../../types"
+import type {
+  Address,
+  ContractMethod,
+  FetchContext,
+  IpfsUrlFn,
+  NftMetadata,
+} from "../../types"
 
-import { addressesEqual, fetchImage, frameImage, ipfsUrl } from "../../utils"
+import {
+  addressesEqual,
+  fetchImage,
+  frameImage,
+  ipfsUrlFromString,
+} from "../../utils"
 
 const MOONCATS_WRAPPED: ContractMethod = {
   address: "0x7c40c393dc0f283f318791d746d894ddd3693572",
@@ -15,9 +26,15 @@ const MOONCATS_WRAPPED: ContractMethod = {
 const MOONCATS_IPFS_CID =
   "bafybeidk4zunuq56w2pf2sncexohlyqae62dzplljkbwswa7jwywh2dava"
 
-export async function imageUrl(catId: string): Promise<string | null> {
+export async function imageUrl(
+  catId: string,
+  ipfsUrl: IpfsUrlFn
+): Promise<string | null> {
   const dir = catId.slice(4, 6)
-  const url = ipfsUrl(`ipfs://ipfs/${MOONCATS_IPFS_CID}/${dir}/${catId}.png`)
+  const url = ipfsUrlFromString(
+    `ipfs://ipfs/${MOONCATS_IPFS_CID}/${dir}/${catId}.png`,
+    ipfsUrl
+  )
   const image = await fetchImage(url)
 
   // Here we increase the resolution of the MoonCats PNG files (4x without
@@ -33,7 +50,8 @@ export async function moonCatsMetadata(
     contractAddress: Address,
     tokenId: string,
     method: ContractMethod
-  ) => Promise<string>
+  ) => Promise<string>,
+  fetchContext: FetchContext
 ): Promise<NftMetadata> {
   const catId = await getCatId(
     MOONCATS_WRAPPED.address,
@@ -41,13 +59,14 @@ export async function moonCatsMetadata(
     MOONCATS_WRAPPED
   )
 
-  const image = (await imageUrl(catId)) ?? ""
+  const image = (await imageUrl(catId, fetchContext.ipfsUrl)) ?? ""
   return {
-    name: `Wrapped MoonCat #${tokenId}`,
     description:
       `The (unofficial) wrapped version of MoonCats Rescue. ` +
       `Original cat ID: ${catId}.`,
     image,
+    metadataUrl: "",
+    name: `Wrapped MoonCat #${tokenId}`,
     owner: "",
   }
 }

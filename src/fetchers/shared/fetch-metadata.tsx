@@ -1,4 +1,4 @@
-import type { NftJsonMetadata } from "../../types"
+import type { FetchContext, NftJsonMetadata } from "../../types"
 
 import {
   fixIncorrectImageField,
@@ -8,7 +8,10 @@ import {
   normalizeNftMetadata,
 } from "../../utils"
 
-export async function fetchMetadata(url: string): Promise<NftJsonMetadata> {
+export async function fetchMetadata(
+  url: string,
+  fetchContext: FetchContext
+): Promise<NftJsonMetadata> {
   const res = await fetch(url)
 
   if (!res.ok) {
@@ -34,9 +37,12 @@ export async function fetchMetadata(url: string): Promise<NftJsonMetadata> {
     throw new Error("Invalid data received")
   }
 
-  return normalizeNftMetadata({
-    name: data.name || "",
-    image: data.image || "",
-    description: data.description || "",
-  })
+  return normalizeNftMetadata(
+    {
+      name: data.name || "",
+      image: data.image || "",
+      description: data.description || "",
+    },
+    fetchContext
+  )
 }

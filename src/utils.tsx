@@ -1,4 +1,10 @@
-import type { Address, NftMetadata, NftJsonMetadata } from "./types"
+import type {
+  Address,
+  FetchContext,
+  IpfsUrlFn,
+  NftMetadata,
+  NftJsonMetadata,
+} from "./types"
 
 // Some NFT minting services misinterpreted the JSON schema from the EIP as
 // literal JSON, e.g. portion.io:
@@ -13,12 +19,14 @@ type NftMetadataMixedInJsonSchema = {
   }
 }
 
-type IpfsUrlBuilder = (cid: string, path?: string) => string
-
 const RARIBLE_MATCH_RE = /^https:\/\/rarible\.com\/token\/(0x[a-fA-F0-9]{40}):([0-9]+)/
 
 export function isAddress(value: string): value is Address {
   return /^0x[a-fA-F0-9]{40}$/.test(value)
+}
+
+export function identity<T = unknown>(arg: T): T {
+  return arg
 }
 
 export function parseNftUrl(url: string): [string, string] | null {
@@ -64,29 +72,31 @@ export function frameImage(
   return canvas.toDataURL()
 }
 
-function ipfsUrlDefault(cid: string, path = ""): string {
+export function ipfsUrlDefault(cid: string, path = ""): string {
   return `https://ipfs.io/ipfs/${cid}${path}`
 }
 
 const IPFS_PROTOCOL_RE = /^ipfs:\/\/(?:ipfs\/)?([^/]+)(\/.+)?$/
 const IPFS_HASH_RE = /^Qm[1-9A-HJ-NP-Za-km-z]{44}$/
 
-export function ipfsUrl(
-  url: string,
-  ipfsUrl: IpfsUrlBuilder = ipfsUrlDefault
+export function ipfsUrlFromString(
+  ipfsString: string,
+  ipfsUrl: IpfsUrlFn
 ): string {
-  const ipfsProtocolMatch = IPFS_PROTOCOL_RE.exec(url)
+  // ipfs:// URI
+  const ipfsProtocolMatch = IPFS_PROTOCOL_RE.exec(ipfsString)
   if (ipfsProtocolMatch) {
     const [, cid, path = ""] = ipfsProtocolMatch
     return ipfsUrl(cid, path)
   }
 
-  // not perfect, but should be enough
-  if (IPFS_HASH_RE.test(url)) {
-    return ipfsUrl(url)
+  // standalone cid, probably
+  if (IPFS_HASH_RE.test(ipfsString)) {
+    return ipfsUrl(ipfsString)
   }
 
-  return url
+  // maybe URL
+  return ipfsString
 }
 
 export function normalizeOpenSeaUrl(url: string, tokenId: string): string {
@@ -129,21 +139,36 @@ export function normalizeNiftyGatewayUrl(url: string): string {
   }
 }
 
-export function normalizeTokenUrl(url: string, tokenId: string): string {
+export function normalizeTokenUrl(
+  url: string,
+  tokenId: string,
+  fetchContext: FetchContext
+): string {
   url = normalizeOpenSeaUrl(url, tokenId)
   url = normalizeNiftyGatewayUrl(url)
-  url = ipfsUrl(url)
+  url = ipfsUrlFromString(url, fetchContext.ipfsUrl)
+
+  if (url.startsWith("http")) {
+    url = fetchContext.jsonProxy(url)
+  }
+
   return url
 }
 
-export function normalizeImageUrl(url: string): string {
-  return ipfsUrl(url)
+export function normalizeImageUrl(
+  url: string,
+  fetchContext: FetchContext
+): string {
+  return ipfsUrlFromString(url, fetchContext.ipfsUrl)
 }
 
-export function normalizeNftMetadata(data: NftJsonMetadata): NftJsonMetadata {
+export function normalizeNftMetadata(
+  data: NftJsonMetadata,
+  fetchContext: FetchContext
+): NftJsonMetadata {
   return {
     ...data,
-    image: normalizeImageUrl(data.image),
+    image: normalizeImageUrl(data.image, fetchContext),
   }
 }
 

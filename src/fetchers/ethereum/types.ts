@@ -7,8 +7,12 @@ export type EthereumProviderEip1193 = {
   }) => Promise<unknown>
 }
 
-export type EthereumFetcherConfig = {
+export type EthereumFetcherConfigDeclaration = {
   ethereum?: EthereumProviderEip1193
+}
+
+export type EthereumFetcherConfig = {
+  ethereum: EthereumProviderEip1193
 }
 
 export type EthereumFetcher = Fetcher<EthereumFetcherConfig>

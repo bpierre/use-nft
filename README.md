@@ -64,7 +64,7 @@ function Nft() {
 
 ## API
 
-### useNft(contract: string, tokenId: string): NftResult
+### `useNft(contract, tokenId)`
 
 The useNft() hook requires two arguments: the NFT `contract` address, and its token ID.
 
@@ -102,7 +102,6 @@ result.nft.owner
 
 // url of the json containing the NFT's metadata
 result.nft.metadataUrl
-
 ```
 
 As TypeScript type:
@@ -123,11 +122,13 @@ type NftResult = {
 }
 ```
 
-### &lt;NftProvider />
+### `<NftProvider />`
 
-NftProvider requires one prop to be passed: `fetcher`. It can take a declaration for the embedded fetchers, or you can alternatively pass a custom fetcher.
+NftProvider requires a prop to be passed: `fetcher`. It can take a declaration for the embedded fetchers, or you can alternatively pass a custom fetcher.
 
-#### With Ethers
+#### `fetcher`
+
+##### With Ethers.js
 
 ```tsx
 <NftProvider fetcher={["ethers", { ethers, provider }]} />
@@ -136,7 +137,7 @@ NftProvider requires one prop to be passed: `fetcher`. It can take a declaration
 - `ethers` is the default import of the Ethers library (note that only `{ Contract }` is needed, so you can pass this instead).
 - `provider` is a [provider](https://docs.ethers.io/v5/api/providers/) from the Ethers library (not to be mistaken with [standard Ethereum providers](https://eips.ethereum.org/EIPS/eip-1193)).
 
-#### With an Ethereum provider
+##### With an Ethereum provider
 
 ```tsx
 <NftProvider fetcher={["ethereum", { ethereum }]} />
@@ -144,7 +145,7 @@ NftProvider requires one prop to be passed: `fetcher`. It can take a declaration
 
 `ethereum` is a [standard Ethereum providers](https://eips.ethereum.org/EIPS/eip-1193).
 
-#### Custom fetcher
+##### Custom fetcher
 
 A fetcher is an object implementing the `Fetcher` type:
 
@@ -162,6 +163,42 @@ type NftMetadata = {
 
 See the implementation of the [Ethers](https://github.com/spectrexyz/use-nft/blob/38bd803f20e778b9bb684d682c194a812a94a05c/src/fetchers/ethers/index.tsx#L12-L42) and [Ethereum](https://github.com/spectrexyz/use-nft/blob/38bd803f20e778b9bb684d682c194a812a94a05c/src/fetchers/ethereum/index.tsx#L12-L42) fetchers for more details.
 
+#### `ipfsUrl`
+
+A function that allows to define the IPFS gateway (defaults to `https://ipfs.io/`).
+
+Default value:
+
+```js
+function ipfsUrl(cid, path = "") {
+  return `https://ipfs.io/ipfs/${cid}${path}`
+}
+```
+
+#### `imageProxy`
+
+Allows to proxy the image URL. This is useful to optimize (compress / resize) the raw NFT images by passing the URL to a service.
+
+Default value:
+
+```js
+function imageProxy(url) {
+  return url
+}
+```
+
+#### `jsonProxy`
+
+Allows to proxy the JSON URL. This is useful to get around the CORS limitations of certain NFT services.
+
+Default value:
+
+```js
+function jsonProxy(url) {
+  return url
+}
+```
+
 ### FetchWrapper
 
 `FetchWrapper` is a class that allows to use the library with other frontend libraries than React, or with NodeJS. Unlike the `useNft()` hook, `FetchWrapper#fetchNft()` does not retry, cache, or do anything else than attempting to fetch the NFT data once.
@@ -173,8 +210,18 @@ import { FetchWrapper } from "use-nft"
 Pass the fetcher declaration to the `FetchWrapper` and call the `fetchNft` function to retreive the NFT data.
 
 ```js
+// See the documentation for <NftProvider /> fetcher prop
 const fetcher = ["ethers", { ethers, provider: ethers.getDefaultProvider() }]
+
 const fetchWrapper = new FetchWrapper(fetcher)
+
+// You can also pass options to the constructor (same as the <NftProvider /> props):
+// const fetchWrapper = new FetchWrapper(fetcher, {
+//   ipfsUrl: (cid, path) => `…`,
+//   imageProxy: (url) => `…`,
+//   jsonProxy: (url) => `…`,
+// })
+
 const result = await fetchWrapper.fetchNft(
   "0xd07dc4262bcdbf85190c01c996b4c06a461d2430",
   "90473"
@@ -196,6 +243,7 @@ This table keeps track of the NFT minting services that have been tested with us
 | [Clovers](https://clovers.network/)                  | Yes       |                                                                                        |
 | [CryptoKitties](https://www.cryptokitties.co/)       | Yes       | Non standard NFT, dedicated mechanism.                                                 |
 | [CryptoPunks](https://www.larvalabs.com/cryptopunks) | Yes       | Non standard NFT, dedicated mechanism.                                                 |
+| [Meebits](https://meebits.larvalabs.com/)            | Yes       | CORS restricted, requires a JSON proxy to be set (see `jsonProxy`).                    |
 | [Cryptovoxels](https://www.cryptovoxels.com/)        | Yes       |                                                                                        |
 | [Decentraland ](https://decentraland.org/)           | Yes       | Estate and parcels are fetched from The Graph. Wearables are fetched as standard NFTs. |
 | [Foundation](https://foundation.app/)                | Yes       |                                                                                        |

@@ -151,7 +151,7 @@ function NftDetails({ nft }: { nft?: NftMetadata }) {
           }
         `}
       >
-        {image.endsWith(".mp4") ? (
+        {image.includes(".mp4") ? (
           <LoopVideo type="video/mp4" src={image} height="280" />
         ) : (
           image && <img src={image} height="280" alt="" />
