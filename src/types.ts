@@ -59,13 +59,10 @@ export type Fetcher<Config> = {
   ) => Promise<NftMetadata>
 }
 
-export type FetcherDeclarationEthers = [
-  name: "ethers",
-  config: EthersFetcherConfig
-]
+export type FetcherDeclarationEthers = ["ethers", EthersFetcherConfig]
 export type FetcherDeclarationEthereum = [
-  name: "ethereum",
-  config: EthereumFetcherConfigDeclaration
+  "ethereum",
+  EthereumFetcherConfigDeclaration
 ]
 export type FetcherDeclaration =
   | FetcherDeclarationEthers

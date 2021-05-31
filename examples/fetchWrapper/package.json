@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/spectrexyz/use-nft#readme",
   "dependencies": {
-    "ethers": "^5.1.4",
+    "ethers": "^5.2.0",
     "node-fetch": "^2.6.1",
     "use-nft": "portal:../.."
   },
