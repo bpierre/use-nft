@@ -64,7 +64,7 @@ function Nft() {
 
 ## API
 
-### useNft(contract: string, tokenId: string): NftResult
+### `useNft(contract, tokenId)`
 
 The useNft() hook requires two arguments: the NFT `contract` address, and its token ID.
 
