@@ -6,6 +6,9 @@ import type {
   FetcherDeclarationEthereum,
   FetcherDeclarationEthers,
   FetcherProp,
+  ImageProxyFn,
+  IpfsUrlFn,
+  JsonProxyFn,
   NftMetadata,
 } from "./types"
 import type { EthersFetcherConfig } from "./fetchers/ethers/types"
@@ -15,6 +18,12 @@ import { identity, ipfsUrlDefault } from "./utils"
 import ethersFetcher from "./fetchers/ethers"
 import ethereumFetcher from "./fetchers/ethereum"
 
+type FetchWrapperOptions = {
+  imageProxy?: ImageProxyFn
+  ipfsUrl?: IpfsUrlFn
+  jsonProxy?: JsonProxyFn
+}
+
 const NFT_METADATA_DEFAULT = {
   name: "",
   description: "",
@@ -23,9 +32,26 @@ const NFT_METADATA_DEFAULT = {
 
 export class FetchWrapper {
   private fetcher: Fetcher<unknown>
+  private fetchContext: FetchContext
 
-  constructor(fetcher: Fetcher<unknown> | FetcherDeclaration) {
+  constructor(
+    fetcher: Fetcher<unknown> | FetcherDeclaration,
+    options: FetchWrapperOptions = {}
+  ) {
     this.fetcher = this.normalizeFetcher(fetcher)
+    this.fetchContext = this.fetchContextFromOptions(options)
+  }
+
+  private fetchContextFromOptions({
+    imageProxy,
+    ipfsUrl,
+    jsonProxy,
+  }: FetchWrapperOptions): FetchContext {
+    return {
+      imageProxy: imageProxy ?? identity,
+      ipfsUrl: ipfsUrl ?? ipfsUrlDefault,
+      jsonProxy: jsonProxy ?? identity,
+    }
   }
 
   private normalizeFetcher(fetcher: FetcherProp): Fetcher<unknown> {
@@ -69,18 +95,12 @@ export class FetchWrapper {
 
   public async fetchNft(
     contractAddress: Address,
-    tokenId: string,
-    fetchContext: {
-      imageProxy?: FetchContext["imageProxy"]
-      ipfsUrl?: FetchContext["ipfsUrl"]
-      jsonProxy?: FetchContext["jsonProxy"]
-    }
+    tokenId: string
   ): Promise<NftMetadata> {
-    return await this.fetcher.fetchNft(contractAddress, tokenId, {
-      imageProxy: identity,
-      ipfsUrl: ipfsUrlDefault,
-      jsonProxy: identity,
-      ...fetchContext,
-    })
+    return await this.fetcher.fetchNft(
+      contractAddress,
+      tokenId,
+      this.fetchContext
+    )
   }
 }

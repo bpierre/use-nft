@@ -210,8 +210,18 @@ import { FetchWrapper } from "use-nft"
 Pass the fetcher declaration to the `FetchWrapper` and call the `fetchNft` function to retreive the NFT data.
 
 ```js
+// See the documentation for <NftProvider /> fetcher prop
 const fetcher = ["ethers", { ethers, provider: ethers.getDefaultProvider() }]
+
 const fetchWrapper = new FetchWrapper(fetcher)
+
+// You can also pass options to the constructor (same as the <NftProvider /> props):
+// const fetchWrapper = new FetchWrapper(fetcher, {
+//   ipfsUrl: (cid, path) => `…`,
+//   imageProxy: (url) => `…`,
+//   jsonProxy: (url) => `…`,
+// })
+
 const result = await fetchWrapper.fetchNft(
   "0xd07dc4262bcdbf85190c01c996b4c06a461d2430",
   "90473"

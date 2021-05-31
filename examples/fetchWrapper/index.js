@@ -18,6 +18,8 @@ const fetchNfts = async () => {
   )
 
   console.log(nft)
+
+  return null
 }
 
 fetchNfts()
