@@ -15,11 +15,14 @@ yarn add use-nft
 useNft() uses a concept of “fetchers”, in order to provide different ways to retrieve data from Ethereum. If you use the [Ethers](https://github.com/ethers-io/ethers.js) in your app, using `ethersFetcher()` is recommended. Otherwise you can use `ethereumFetcher()`, which only requires a [standard Ethereum provider](https://eips.ethereum.org/EIPS/eip-1193), like the one provided by MetaMask.
 
 ```jsx
-import ethers from "ethers"
+import { getDefaultProvider, Contract } from "ethers"
 import { NftProvider, useNft } from "use-nft"
 
 // We are using the "ethers" fetcher here.
-const fetcher = ["ethers", { ethers, provider: ethers.getDefaultProvider() }]
+const ethersConfig = {
+  ethers: { Contract },
+  provider: getDefaultProvider("homestead")
+}
 
 // Alternatively, you can use the "ethereum" fetcher. Note
 // that we are using window.ethereum here (injected by wallets
@@ -29,7 +32,7 @@ const fetcher = ["ethers", { ethers, provider: ethers.getDefaultProvider() }]
 // Wrap your app with <NftProvider />.
 function App() {
   return (
-    <NftProvider fetcher={fetcher}>
+    <NftProvider fetcher={["ethers", ethersConfig]}>
       <Nft />
     </NftProvider>
   )
@@ -44,10 +47,10 @@ function Nft() {
   )
 
   // nft.loading is true during load.
-  if (loading) return "Loading…"
+  if (loading) return <>Loading…</>
 
   // nft.error is an Error instance in case of error.
-  if (error) return "Error."
+  if (error || !nft) return <>Error.</>
 
   // You can now display the NFT metadata.
   return (
