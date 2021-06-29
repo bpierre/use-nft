@@ -84,6 +84,6 @@
     "typescript": "^4.3.4"
   },
   "dependencies": {
-    "swr": "^1.0.0-beta.6"
+    "swr": "^1.0.0-beta.7"
   }
 }
