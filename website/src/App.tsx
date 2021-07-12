@@ -18,8 +18,9 @@ const fetcher = [
   },
 ]
 
-const imageProxy = (url: string) =>
-  `https://ik.imagekit.io/p/${encodeURIComponent(url)}?tr=n-card`
+// const imageProxy = (url: string) =>
+//   `https://ik.imagekit.io/p/${encodeURIComponent(url)}?tr=n-card`
+
 const jsonProxy = (url: string) =>
   `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`
 
@@ -27,7 +28,6 @@ function App() {
   return (
     <NftProvider
       fetcher={fetcher as FetcherDeclarationEthers}
-      imageProxy={imageProxy}
       jsonProxy={jsonProxy}
     >
       <Base>
