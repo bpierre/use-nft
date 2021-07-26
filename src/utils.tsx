@@ -251,3 +251,13 @@ export function reversePromise(promise: Promise<unknown>): Promise<unknown> {
     Promise.resolve(promise).then(reject, resolve)
   })
 }
+
+// To replace with AggregateError when useNft() will target ES2021 environments
+export class MultipleErrors extends Error {
+  errors: Error[]
+  constructor(message: string, errors: Error[]) {
+    super(message)
+    this.name = "MultipleErrors"
+    this.errors = errors
+  }
+}
