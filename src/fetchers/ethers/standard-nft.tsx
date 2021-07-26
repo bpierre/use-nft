@@ -3,7 +3,7 @@ import type { Address, FetchContext, NftMetadata } from "../../types"
 import type { EthersFetcherConfig } from "./types"
 
 import { fetchMetadata } from "../shared/fetch-metadata"
-import { normalizeTokenUrl, promiseAny } from "../../utils"
+import { MultipleErrors, normalizeTokenUrl, promiseAny } from "../../utils"
 
 const ABI = [
   // ERC-721
@@ -27,7 +27,13 @@ async function url(
   const uri = await promiseAny([
     contract.tokenURI(tokenId),
     contract.uri(tokenId),
-  ])
+  ]).catch((errors) => {
+    throw new MultipleErrors(
+      "An error occurred while trying to fetch the token URI from the NFT" +
+        " contract. See the “errors” property on this error for details.",
+      errors
+    )
+  })
   return normalizeTokenUrl(uri, tokenId, fetchContext)
 }
 

@@ -2,7 +2,7 @@ import type { Address, FetchContext, NftMetadata } from "../../types"
 import type { EthereumFetcherConfig, EthereumProviderEip1193 } from "./types"
 
 import { fetchMetadata } from "../shared/fetch-metadata"
-import { normalizeTokenUrl, promiseAny } from "../../utils"
+import { MultipleErrors, normalizeTokenUrl, promiseAny } from "../../utils"
 import {
   decodeAddress,
   decodeString,
@@ -26,7 +26,13 @@ async function url(
     uriMethods(tokenId).map((method) =>
       ethCall(ethereum, contractAddress, method)
     )
-  )
+  ).catch((errors) => {
+    throw new MultipleErrors(
+      "An error occurred while trying to fetch the token URI from the NFT" +
+        " contract. See the “errors” property on this error for details.",
+      errors
+    )
+  })
   return normalizeTokenUrl(decodeString(uri), tokenId, fetchContext)
 }
 
