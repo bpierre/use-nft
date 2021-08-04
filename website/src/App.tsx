@@ -28,6 +28,7 @@ function App() {
   return (
     <NftProvider
       fetcher={fetcher as FetcherDeclarationEthers}
+      imageProxy={imageProxy}
       jsonProxy={jsonProxy}
     >
       <Base>
