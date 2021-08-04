@@ -265,3 +265,11 @@ This table keeps track of the NFT minting services that have been tested with us
 ## License
 
 [MIT](LICENSE)
+
+## Special Thanks 🙏
+
+Thanks to [ImageKit.io](https://imagekit.io/) for supporting the project by providing a free plan.
+
+<a href="https://imagekit.io/">
+  <img width="220" alt="ImageKit" src="https://user-images.githubusercontent.com/36158/128070654-9628ec2f-1006-4e9d-a36a-7051bb5a641b.png">
+</a>
