@@ -1,15 +1,16 @@
 import {
   fetchImage,
-  ipfsUrlFromString,
-  ipfsUrlDefault,
-  isAddress,
   identity,
+  ipfsUrlDefault,
+  ipfsUrlFromString,
+  isAddress,
   normalizeImageUrl,
   normalizeNftMetadata,
   normalizeNiftyGatewayUrl,
   normalizeOpenSeaUrl,
   normalizeTokenUrl,
   parseNftUrl,
+  urlExtensionType,
 } from "../src/utils"
 
 const IPFS_HASH_1 =
@@ -185,5 +186,13 @@ describe("normalizeNftMetadata()", () => {
       description: "",
       image: `https://ipfs.io/ipfs/${IPFS_HASH_1}`,
     })
+  })
+})
+
+describe("urlExtensionType()", () => {
+  it("guesses the asset type from the URL", () => {
+    expect(urlExtensionType("something.jpg")).toBe("image")
+    expect(urlExtensionType("something.mov")).toBe("video")
+    expect(urlExtensionType("something.xyz")).toBe("unknown")
   })
 })

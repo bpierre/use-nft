@@ -74,37 +74,40 @@ The useNft() hook requires two arguments: the NFT `contract` address, and its to
 The returned value is an object containing information about the loading state:
 
 ```tsx
-const result = useNft("0xd07dc4262bcdbf85190c01c996b4c06a461d2430", "90473")
+const { status, loading, error, reload, nft } = useNft("0xd07dc4262bcdbf85190c01c996b4c06a461d2430", "90473")
 
 // one of "error", "loading" and "done"
-result.status
+status
 
 // same as status === "loading"
-result.loading
+loading
 
 // undefined or Error instance when status === "error"
-result.error
+error
 
 // call this function to retry in case of error
-result.reload
+reload
 
 // nft is undefined when status !== "done"
-result.nft
+nft
 
 // name of the NFT (or empty string)
-result.nft.name
+nft.name
 
 // description of the NFT (or empty string)
-result.nft.description
+nft.description
 
 // image / media URL of the NFT (or empty string)
-result.nft.image
+nft.image
+
+// the type of media: "image", "video" or "unknown"
+nft.imageType
 
 // current owner of the NFT (or empty string)
-result.nft.owner
+nft.owner
 
 // url of the json containing the NFT's metadata
-result.nft.metadataUrl
+nft.metadataUrl
 ```
 
 As TypeScript type:
@@ -118,6 +121,7 @@ type NftResult = {
   nft?: {
     description: string
     image: string
+    imageType: "image" | "video" | "unknown"
     name: string
     owner: string
     metadataUrl?: string
@@ -185,7 +189,7 @@ Allows to proxy the image URL. This is useful to optimize (compress / resize) th
 Default value:
 
 ```js
-function imageProxy(url) {
+function imageProxy(url, metadata) {
   return url
 }
 ```

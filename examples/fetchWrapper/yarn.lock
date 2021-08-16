@@ -9287,14 +9287,14 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"swr@npm:^1.0.0-beta.6":
-  version: 1.0.0-beta.6
-  resolution: "swr@npm:1.0.0-beta.6"
+"swr@npm:^1.0.0-beta.10":
+  version: 1.0.0-beta.10
+  resolution: "swr@npm:1.0.0-beta.10"
   dependencies:
     dequal: 2.0.2
   peerDependencies:
     react: ^16.11.0 || ^17.0.0
-  checksum: b67113b40001be62389195341b0eb7ad10fdcb4d724166228781ba22a99f26f1d2d0a9f2b2252f7bc8695e500376390b1e552b0e3581d8ba1e9328a580318cfc
+  checksum: 6895e0bc2d849cfb805857fa1f8dbb792136b9bb5177e401f21b0e96e41b2e427de289ee820d4d75850b500e50d8695d89985cf8ea164a5db0e38f45e57bffb8
   languageName: node
   linkType: hard
 
@@ -9740,7 +9740,7 @@ resolve@^2.0.0-next.3:
   version: 0.0.0-use.local
   resolution: "use-nft@portal:../..::locator=fetchwrapper%40workspace%3A."
   dependencies:
-    swr: ^1.0.0-beta.6
+    swr: ^1.0.0-beta.10
   peerDependencies:
     react: ">=17"
   languageName: node

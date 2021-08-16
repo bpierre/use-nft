@@ -32,9 +32,10 @@ export type NftResult = NftResultLoading | NftResultError | NftResultDone
 export type NftMetadata = {
   description: string
   image: string
+  imageType: "image" | "video" | "unknown"
+  metadataUrl: string
   name: string
   owner: Address
-  metadataUrl: string
 }
 
 export type NftJsonMetadata = {
@@ -70,7 +71,7 @@ export type FetcherDeclaration =
 
 export type FetcherProp = Fetcher<unknown> | FetcherDeclaration
 
-export type ImageProxyFn = (url: string) => string
+export type ImageProxyFn = (url: string, metadata: NftMetadata) => string
 export type JsonProxyFn = (url: string) => string
 export type IpfsUrlFn = (cid: string, path?: string) => string
 

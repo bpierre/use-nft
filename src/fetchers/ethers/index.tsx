@@ -60,7 +60,7 @@ function addProxyImage(
   imageProxy: ImageProxyFn
 ): NftMetadata {
   return metadata.image.startsWith("http")
-    ? { ...metadata, image: imageProxy(metadata.image) }
+    ? { ...metadata, image: imageProxy(metadata.image, metadata) }
     : metadata
 }
 
