@@ -65,6 +65,7 @@ export async function moonCatsMetadata(
       `The (unofficial) wrapped version of MoonCats Rescue. ` +
       `Original cat ID: ${catId}.`,
     image,
+    imageType: image ? "image" : "unknown",
     metadataUrl: "",
     name: `Wrapped MoonCat #${tokenId}`,
     owner: "",

@@ -14,12 +14,14 @@ export async function cryptoKittiesMetadata(
     bio: string
     image_url: string
   }
+  const image = data?.image_url ?? ""
   return {
     description: data?.bio ?? "−",
-    image: data?.image_url ?? "",
+    image,
+    imageType: image ? "image" : "unknown",
+    metadataUrl,
     name: data?.name ?? "Unknown",
     owner: "",
-    metadataUrl,
   }
 }
 

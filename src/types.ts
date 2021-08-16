@@ -32,9 +32,10 @@ export type NftResult = NftResultLoading | NftResultError | NftResultDone
 export type NftMetadata = {
   description: string
   image: string
+  imageType: "image" | "video" | "unknown"
+  metadataUrl: string
   name: string
   owner: Address
-  metadataUrl: string
 }
 
 export type NftJsonMetadata = {

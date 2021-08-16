@@ -261,3 +261,13 @@ export class MultipleErrors extends Error {
     this.errors = errors
   }
 }
+
+const IMAGE_EXT_RE = /\.(?:png|svg|jpg|jepg|gif|webp|jxl|avif)$/
+const VIDEO_EXT_RE = /\.(?:mp4|mov|webm|ogv)$/
+
+// Guess a file type from the extension used in a URL
+export function urlExtensionType(url: string): NftMetadata["imageType"] {
+  if (IMAGE_EXT_RE.test(url)) return "image"
+  if (VIDEO_EXT_RE.test(url)) return "video"
+  return "unknown"
+}

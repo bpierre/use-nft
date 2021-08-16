@@ -14,6 +14,7 @@ export function cryptoPunksMetadata(index: string): NftMetadata {
   return {
     description: CRYPTOPUNKS_DESCRIPTION,
     image: `https://www.larvalabs.com/cryptopunks/cryptopunk${index}.png`,
+    imageType: "image",
     metadataUrl: "",
     name: `CryptoPunk ${index}`,
     owner: "",

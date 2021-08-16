@@ -2,7 +2,12 @@ import type { Address, FetchContext, NftMetadata } from "../../types"
 import type { EthereumFetcherConfig, EthereumProviderEip1193 } from "./types"
 
 import { fetchMetadata } from "../shared/fetch-metadata"
-import { MultipleErrors, normalizeTokenUrl, promiseAny } from "../../utils"
+import {
+  MultipleErrors,
+  normalizeTokenUrl,
+  promiseAny,
+  urlExtensionType,
+} from "../../utils"
 import {
   decodeAddress,
   decodeString,
@@ -50,10 +55,12 @@ export async function fetchStandardNftContractData(
   ])
 
   const metadata = await fetchMetadata(metadataUrl, fetchContext)
+  const imageType = urlExtensionType(metadata.image)
 
   return {
     ...metadata,
-    owner,
+    imageType,
     metadataUrl,
+    owner,
   }
 }

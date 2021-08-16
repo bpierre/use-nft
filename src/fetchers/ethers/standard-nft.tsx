@@ -3,7 +3,12 @@ import type { Address, FetchContext, NftMetadata } from "../../types"
 import type { EthersFetcherConfig } from "./types"
 
 import { fetchMetadata } from "../shared/fetch-metadata"
-import { MultipleErrors, normalizeTokenUrl, promiseAny } from "../../utils"
+import {
+  MultipleErrors,
+  normalizeTokenUrl,
+  promiseAny,
+  urlExtensionType,
+} from "../../utils"
 
 const ABI = [
   // ERC-721
@@ -55,10 +60,12 @@ export async function fetchStandardNftContractData(
   ])
 
   const metadata = await fetchMetadata(metadataUrl, fetchContext)
+  const imageType = urlExtensionType(metadata.image)
 
   return {
     ...metadata,
-    owner,
+    imageType,
     metadataUrl,
+    owner,
   }
 }
