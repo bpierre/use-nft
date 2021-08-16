@@ -69,6 +69,7 @@ export async function moonCatsMetadata(
     metadataUrl: "",
     name: `Wrapped MoonCat #${tokenId}`,
     owner: "",
+    rawData: null,
   }
 }
 

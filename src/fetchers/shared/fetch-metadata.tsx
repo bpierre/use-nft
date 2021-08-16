@@ -18,10 +18,10 @@ export async function fetchMetadata(
     throw new Error("Error when trying to request " + url)
   }
 
-  let rawData: Record<string, unknown>
+  let rawData
 
   try {
-    rawData = await res.json()
+    rawData = (await res.json()) as Record<string, unknown>
   } catch (err) {
     // If it can’t be parsed as JSON, it must be an image URL
     rawData = { name: "", description: "", image: url }
