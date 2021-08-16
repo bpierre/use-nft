@@ -11,18 +11,12 @@ const ethersConfig = {
   provider: getDefaultProvider("homestead"),
 }
 
-const imageProxy = (url: string) =>
-  `https://ik.imagekit.io/p/${encodeURIComponent(url)}?tr=n-card`
 const jsonProxy = (url: string) =>
   `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`
 
 function App() {
   return (
-    <NftProvider
-      fetcher={["ethers", ethersConfig]}
-      imageProxy={imageProxy}
-      jsonProxy={jsonProxy}
-    >
+    <NftProvider fetcher={["ethers", ethersConfig]} jsonProxy={jsonProxy}>
       <Base>
         <NftGrid nfts={nfts} />
       </Base>
