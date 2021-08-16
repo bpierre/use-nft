@@ -22,6 +22,7 @@ export async function cryptoKittiesMetadata(
     metadataUrl,
     name: data?.name ?? "Unknown",
     owner: "",
+    rawData: data,
   }
 }
 

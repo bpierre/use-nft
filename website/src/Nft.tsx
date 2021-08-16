@@ -16,6 +16,7 @@ type NftProps = {
 
 function Nft({ contract, tokenId, service, url }: NftProps) {
   const { nft, loading, error, reload } = useNft(contract, tokenId)
+
   return (
     <Card url={nft && url} label={service}>
       {(() => {

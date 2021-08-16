@@ -108,6 +108,9 @@ nft.owner
 
 // url of the json containing the NFT's metadata
 nft.metadataUrl
+
+// the raw NFT metadata, or null if non applicable
+nft.rawData
 ```
 
 As TypeScript type:
@@ -125,6 +128,7 @@ type NftResult = {
     name: string
     owner: string
     metadataUrl?: string
+    rawData: Record<string, unknown> | null
   }
 }
 ```

@@ -173,8 +173,8 @@ export function normalizeNftMetadata(
 }
 
 export function fixIncorrectImageField(
-  data: unknown
-): { image: string } | unknown {
+  data: Record<string, unknown>
+): Record<string, unknown> {
   if (!data || typeof data !== "object") {
     return data
   }
@@ -219,9 +219,10 @@ export function fixNftMetadataMixedInJsonSchema(
   data: NftMetadataMixedInJsonSchema
 ): NftJsonMetadata {
   return {
-    name: data?.properties?.name?.description || "",
-    description: data?.properties?.description?.description || "",
-    image: data?.properties?.image?.description || "",
+    name: data.properties?.name?.description || "",
+    description: data.properties?.description?.description || "",
+    image: data.properties?.image?.description || "",
+    rawData: { ...data },
   }
 }
 
