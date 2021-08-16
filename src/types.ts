@@ -71,7 +71,7 @@ export type FetcherDeclaration =
 
 export type FetcherProp = Fetcher<unknown> | FetcherDeclaration
 
-export type ImageProxyFn = (url: string) => string
+export type ImageProxyFn = (url: string, metadata: NftMetadata) => string
 export type JsonProxyFn = (url: string) => string
 export type IpfsUrlFn = (cid: string, path?: string) => string
 

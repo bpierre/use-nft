@@ -189,7 +189,7 @@ Allows to proxy the image URL. This is useful to optimize (compress / resize) th
 Default value:
 
 ```js
-function imageProxy(url) {
+function imageProxy(url, metadata) {
   return url
 }
 ```

@@ -18,8 +18,8 @@ const fetcher = [
   },
 ]
 
-const imageProxy = (url: string) =>
-  url.endsWith(".mp4")
+const imageProxy = (url: string, metadata: NftMetadata) =>
+  metadata.imageType === "video"
     ? url
     : `https://ik.imagekit.io/p/${encodeURIComponent(url)}?tr=n-card`
 
