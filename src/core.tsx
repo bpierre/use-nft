@@ -55,7 +55,9 @@ function normalizeFetcher(fetcher: FetcherProp): Fetcher<unknown> {
 
   // ethereum
   if (isFetcherDeclarationEthereum(fetcher)) {
-    return ethereumFetcher(fetcher[1]) as Fetcher<EthereumFetcherConfigDeclaration>
+    return ethereumFetcher(fetcher[1]) as Fetcher<
+      EthereumFetcherConfigDeclaration
+    >
   }
 
   // custom fetcher (or wrong value)
@@ -138,9 +140,12 @@ function useNft(contractAddress: Address, tokenId: string): NftResult {
   )
 
   return useMemo(() => {
-    const { error, data, revalidate } = result
+    const { error, data, mutate } = result
 
-    const reload = () => revalidate()
+    const reload = () =>
+      mutate()
+        .then(() => true)
+        .catch(() => false)
 
     if (error === undefined && data === undefined) {
       return {
