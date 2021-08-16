@@ -63,7 +63,7 @@
   "devDependencies": {
     "@ethersproject/contracts": "^5.4.1",
     "@ethersproject/providers": "^5.4.3",
-    "@types/react": "^17.0.17",
+    "@types/react": "^17.0.18",
     "@types/react-dom": "^17.0.9",
     "@typescript-eslint/eslint-plugin": "^4.29.1",
     "@typescript-eslint/parser": "^4.29.1",
@@ -84,6 +84,6 @@
     "typescript": "^4.3.5"
   },
   "dependencies": {
-    "swr": "^1.0.0-beta.9"
+    "swr": "^1.0.0-beta.10"
   }
 }
