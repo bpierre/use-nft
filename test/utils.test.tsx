@@ -178,6 +178,7 @@ describe("normalizeNftMetadata()", () => {
           name: "",
           description: "",
           image: `ipfs://ipfs/${IPFS_HASH_1}`,
+          rawData: null,
         },
         FETCH_CONTEXT
       )
@@ -185,6 +186,7 @@ describe("normalizeNftMetadata()", () => {
       name: "",
       description: "",
       image: `https://ipfs.io/ipfs/${IPFS_HASH_1}`,
+      rawData: null,
     })
   })
 })

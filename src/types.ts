@@ -36,12 +36,14 @@ export type NftMetadata = {
   metadataUrl: string
   name: string
   owner: Address
+  rawData: Record<string, unknown> | null
 }
 
 export type NftJsonMetadata = {
   description: string
   image: string
   name: string
+  rawData: Record<string, unknown> | null
 }
 
 export type ContractMethod = {

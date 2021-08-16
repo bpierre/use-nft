@@ -18,6 +18,7 @@ export function cryptoPunksMetadata(index: string): NftMetadata {
     metadataUrl: "",
     name: `CryptoPunk ${index}`,
     owner: "",
+    rawData: null,
   }
 }
 

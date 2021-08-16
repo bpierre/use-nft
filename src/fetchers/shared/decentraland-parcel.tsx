@@ -74,6 +74,7 @@ export async function decentralandParcelMetadata(
     metadataUrl: "",
     name: nft?.name ?? `Parcel ${parcel?.x},${parcel?.y}`,
     owner: nft?.owner?.address ?? "",
+    rawData: data,
   }
 }
 

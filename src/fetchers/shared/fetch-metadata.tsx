@@ -18,14 +18,16 @@ export async function fetchMetadata(
     throw new Error("Error when trying to request " + url)
   }
 
-  let data: unknown
+  let rawData
 
   try {
-    data = await res.json()
+    rawData = (await res.json()) as Record<string, unknown>
   } catch (err) {
     // If it can’t be parsed as JSON, it must be an image URL
-    data = { name: "", description: "", image: url }
+    rawData = { name: "", description: "", image: url }
   }
+
+  let data = { ...rawData }
 
   if (isNftMetadataMixedInJsonSchema(data)) {
     data = fixNftMetadataMixedInJsonSchema(data)
@@ -39,9 +41,10 @@ export async function fetchMetadata(
 
   return normalizeNftMetadata(
     {
-      name: data.name || "",
-      image: data.image || "",
       description: data.description || "",
+      image: data.image || "",
+      name: data.name || "",
+      rawData,
     },
     fetchContext
   )
