@@ -1,7 +1,7 @@
 import type { NftMetadata } from "use-nft"
 
 import React from "react"
-import { providers, Contract } from "ethers"
+import { providers } from "ethers"
 import { NftProvider, FetcherDeclarationEthers } from "use-nft"
 import Base from "./Base"
 import Footer from "./Footer"
@@ -12,7 +12,6 @@ import nfts from "../../examples/nfts"
 const fetcher = [
   "ethers",
   {
-    ethers: { Contract },
     provider: new providers.InfuraProvider(
       "homestead",
       import.meta.env.VITE_INFURA_KEY

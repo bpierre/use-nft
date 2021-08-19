@@ -4,7 +4,11 @@ import type {
   ImageProxyFn,
   NftMetadata,
 } from "../../types"
-import type { EthersFetcher, EthersFetcherConfig } from "./types"
+import type {
+  EthersFetcher,
+  EthersFetcherConfig,
+  EthersFetcherConfigEthersLoaded,
+} from "./types"
 
 import { isAddress } from "../../utils"
 import { cryptoPunksMetadata, isCryptoPunks } from "../shared/cryptopunks"
@@ -20,6 +24,29 @@ import {
 import { moonCatsMetadata, isMoonCats } from "../shared/mooncats"
 import { moonCatsCatId } from "./mooncats"
 import { fetchStandardNftContractData } from "./standard-nft"
+
+const ETHERS_NOT_FOUND =
+  "Ethers couldn’t be imported. " +
+  "Please add the ethers module to your project dependencies, " +
+  "or inject it in the Ethers fetcher options."
+
+async function loadEthers(
+  config: EthersFetcherConfig
+): Promise<EthersFetcherConfigEthersLoaded> {
+  if (config.ethers?.Contract) {
+    return config as EthersFetcherConfigEthersLoaded
+  }
+
+  try {
+    const ethers = await import("@ethersproject/contracts")
+    if (!ethers?.Contract) {
+      throw new Error()
+    }
+    return { ...config, ethers }
+  } catch (err) {
+    throw new Error(ETHERS_NOT_FOUND)
+  }
+}
 
 async function fetchNftMetadata(
   contractAddress: Address,
@@ -43,14 +70,20 @@ async function fetchNftMetadata(
     return cryptoKittiesMetadata(tokenId, fetchContext)
   }
 
+  const configWithEthersLoaded = await loadEthers(config)
+
   if (isMoonCats(contractAddress)) {
-    return moonCatsMetadata(tokenId, moonCatsCatId(config), fetchContext)
+    return moonCatsMetadata(
+      tokenId,
+      moonCatsCatId(configWithEthersLoaded),
+      fetchContext
+    )
   }
 
   return fetchStandardNftContractData(
     contractAddress,
     tokenId,
-    config,
+    configWithEthersLoaded,
     fetchContext
   )
 }
