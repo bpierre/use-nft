@@ -8,7 +8,8 @@
   "description": "useNft() allows to access the metadata of any NFT (EIP 721, EIP 1155 and more) on the Ethereum blockchain.",
   "keywords": [
     "nft",
-    "ethereum"
+    "ethereum",
+    "react"
   ],
   "bugs": "https://github.com/spectrexyz/use-nft/issues",
   "main": "dist/use-nft.cjs.js",
@@ -27,8 +28,48 @@
     "test:watch": "jest --watchAll",
     "coverage": "npx live-server coverage/lcov-report"
   },
+  "dependencies": {
+    "swr": "^1.0.0-beta.10"
+  },
+  "devDependencies": {
+    "@ethersproject/contracts": "^5.4.1",
+    "@ethersproject/providers": "^5.4.3",
+    "@types/react": "^17.0.18",
+    "@types/react-dom": "^17.0.9",
+    "@typescript-eslint/eslint-plugin": "^4.29.1",
+    "@typescript-eslint/parser": "^4.29.1",
+    "eslint": "^7.32.0",
+    "eslint-plugin-import": "^2.24.0",
+    "eslint-plugin-jest": "^24.4.0",
+    "eslint-plugin-jest-dom": "^3.9.0",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "ethers": "^5.4.5",
+    "jest": "^27.0.6",
+    "jest-watch-typeahead": "^0.6.4",
+    "prettier": "^2.3.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "rollpkg": "^0.5.7",
+    "ts-jest": "^27.0.4",
+    "typescript": "^4.3.5"
+  },
   "peerDependencies": {
+    "@ethersproject/contracts": ">=5.2.0 <6",
+    "ethers": ">=5.2.0 <6",
     "react": ">=17"
+  },
+  "peerDependenciesMeta": {
+    "@ethersproject/contracts": {
+      "optional": true
+    },
+    "ethers": {
+      "optional": true
+    }
+  },
+  "resolutions": {
+    "package-build-stats": "7.2.4"
   },
   "eslintConfig": {
     "extends": [
@@ -59,31 +100,5 @@
     "transform": {
       "\\.(ts|tsx)$": "ts-jest"
     }
-  },
-  "devDependencies": {
-    "@ethersproject/contracts": "^5.4.1",
-    "@ethersproject/providers": "^5.4.3",
-    "@types/react": "^17.0.18",
-    "@types/react-dom": "^17.0.9",
-    "@typescript-eslint/eslint-plugin": "^4.29.1",
-    "@typescript-eslint/parser": "^4.29.1",
-    "eslint": "^7.32.0",
-    "eslint-plugin-import": "^2.24.0",
-    "eslint-plugin-jest": "^24.4.0",
-    "eslint-plugin-jest-dom": "^3.9.0",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-react": "^7.24.0",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "jest": "^27.0.6",
-    "jest-watch-typeahead": "^0.6.4",
-    "prettier": "^2.3.2",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "rollpkg": "^0.5.7",
-    "ts-jest": "^27.0.4",
-    "typescript": "^4.3.5"
-  },
-  "dependencies": {
-    "swr": "^1.0.0-beta.10"
   }
 }

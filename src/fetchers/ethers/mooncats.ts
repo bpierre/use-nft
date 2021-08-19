@@ -1,8 +1,8 @@
 import type { Contract, ContractFunction } from "@ethersproject/contracts"
 import type { Address, ContractMethod } from "../../types"
-import type { EthersFetcherConfig } from "./types"
+import type { EthersFetcherConfigEthersLoaded } from "./types"
 
-export function moonCatsCatId(config: EthersFetcherConfig) {
+export function moonCatsCatId(config: EthersFetcherConfigEthersLoaded) {
   return async function moonCatsCatId(
     contractAddress: Address,
     tokenId: string,

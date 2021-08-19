@@ -1,6 +1,6 @@
 import type { Contract, ContractFunction } from "@ethersproject/contracts"
 import type { Address, FetchContext, NftMetadata } from "../../types"
-import type { EthersFetcherConfig } from "./types"
+import type { EthersFetcherConfigEthersLoaded } from "./types"
 
 import { fetchMetadata } from "../shared/fetch-metadata"
 import {
@@ -45,7 +45,7 @@ async function url(
 export async function fetchStandardNftContractData(
   contractAddress: Address,
   tokenId: string,
-  config: EthersFetcherConfig,
+  config: EthersFetcherConfigEthersLoaded,
   fetchContext: FetchContext
 ): Promise<NftMetadata> {
   const contract = new config.ethers.Contract(

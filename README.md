@@ -15,13 +15,12 @@ yarn add use-nft
 useNft() uses a concept of “fetchers”, in order to provide different ways to retrieve data from Ethereum. If you use the [Ethers](https://github.com/ethers-io/ethers.js) in your app, using `ethersFetcher()` is recommended. Otherwise you can use `ethereumFetcher()`, which only requires a [standard Ethereum provider](https://eips.ethereum.org/EIPS/eip-1193), like the one provided by MetaMask.
 
 ```jsx
-import { getDefaultProvider, Contract } from "ethers"
+import { getDefaultProvider, } from "ethers"
 import { NftProvider, useNft } from "use-nft"
 
 // We are using the "ethers" fetcher here.
 const ethersConfig = {
-  ethers: { Contract },
-  provider: getDefaultProvider("homestead")
+  provider: getDefaultProvider("homestead"),
 }
 
 // Alternatively, you can use the "ethereum" fetcher. Note
@@ -74,7 +73,10 @@ The useNft() hook requires two arguments: the NFT `contract` address, and its to
 The returned value is an object containing information about the loading state:
 
 ```tsx
-const { status, loading, error, reload, nft } = useNft("0xd07dc4262bcdbf85190c01c996b4c06a461d2430", "90473")
+const { status, loading, error, reload, nft } = useNft(
+  "0xd07dc4262bcdbf85190c01c996b4c06a461d2430",
+  "90473"
+)
 
 // one of "error", "loading" and "done"
 status
@@ -141,12 +143,19 @@ NftProvider requires a prop to be passed: `fetcher`. It can take a declaration f
 
 ##### With Ethers.js
 
-```tsx
-<NftProvider fetcher={["ethers", { ethers, provider }]} />
+Make sure to add either `ethers` or `@ethersproject/contracts` to your app:
+
+```console
+yarn add ethers
 ```
 
-- `ethers` is the default import of the Ethers library (note that only `{ Contract }` is needed, so you can pass this instead).
-- `provider` is a [provider](https://docs.ethers.io/v5/api/providers/) from the Ethers library (not to be mistaken with [standard Ethereum providers](https://eips.ethereum.org/EIPS/eip-1193)).
+Then:
+
+```tsx
+<NftProvider fetcher={["ethers", { provider }]} />
+```
+
+Where `provider` is a [provider](https://docs.ethers.io/v5/api/providers/) from the [Ethers](https://docs.ethers.io/) library (not to be mistaken with [standard Ethereum providers](https://eips.ethereum.org/EIPS/eip-1193)).
 
 ##### With an Ethereum provider
 
@@ -154,7 +163,7 @@ NftProvider requires a prop to be passed: `fetcher`. It can take a declaration f
 <NftProvider fetcher={["ethereum", { ethereum }]} />
 ```
 
-`ethereum` is a [standard Ethereum providers](https://eips.ethereum.org/EIPS/eip-1193).
+Where `ethereum` is a [standard Ethereum provider](https://eips.ethereum.org/EIPS/eip-1193).
 
 ##### Custom fetcher
 
@@ -222,7 +231,7 @@ Pass the fetcher declaration to the `FetchWrapper` and call the `fetchNft` funct
 
 ```js
 // See the documentation for <NftProvider /> fetcher prop
-const fetcher = ["ethers", { ethers, provider: ethers.getDefaultProvider() }]
+const fetcher = ["ethers", { provider: ethers.getDefaultProvider() }]
 
 const fetchWrapper = new FetchWrapper(fetcher)
 
