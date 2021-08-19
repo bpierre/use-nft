@@ -46,18 +46,10 @@ export async function imageUrl(
 
 export async function moonCatsMetadata(
   tokenId: string,
-  getCatId: (
-    contractAddress: Address,
-    tokenId: string,
-    method: ContractMethod
-  ) => Promise<string>,
+  getCatId: (tokenId: string, method: ContractMethod) => Promise<string>,
   fetchContext: FetchContext
 ): Promise<NftMetadata> {
-  const catId = await getCatId(
-    MOONCATS_WRAPPED.address,
-    tokenId,
-    MOONCATS_WRAPPED
-  )
+  const catId = await getCatId(tokenId, MOONCATS_WRAPPED)
 
   const image = (await imageUrl(catId, fetchContext.ipfsUrl)) ?? ""
   return {

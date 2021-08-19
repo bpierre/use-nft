@@ -22,6 +22,7 @@ import {
   decentralandParcelMetadata,
 } from "../shared/decentraland-parcel"
 import { moonCatsMetadata, isMoonCats } from "../shared/mooncats"
+import { cryptoPunksImage } from "./cryptopunks"
 import { moonCatsCatId } from "./mooncats"
 import { fetchStandardNftContractData } from "./standard-nft"
 
@@ -39,12 +40,12 @@ async function fetchNftMetadata(
     return decentralandEstateMetadata(tokenId)
   }
 
-  if (isCryptoPunks(contractAddress)) {
-    return cryptoPunksMetadata(tokenId)
-  }
-
   if (isCryptoKitties(contractAddress)) {
     return cryptoKittiesMetadata(tokenId, fetchContext)
+  }
+
+  if (isCryptoPunks(contractAddress)) {
+    return cryptoPunksMetadata(tokenId, cryptoPunksImage(config))
   }
 
   if (isMoonCats(contractAddress)) {
