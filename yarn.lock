@@ -15331,14 +15331,14 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"swr@npm:^1.0.0-beta.10":
-  version: 1.0.0-beta.10
-  resolution: "swr@npm:1.0.0-beta.10"
+"swr@npm:1.0.0-beta.13":
+  version: 1.0.0-beta.13
+  resolution: "swr@npm:1.0.0-beta.13"
   dependencies:
     dequal: 2.0.2
   peerDependencies:
     react: ^16.11.0 || ^17.0.0
-  checksum: 6895e0bc2d849cfb805857fa1f8dbb792136b9bb5177e401f21b0e96e41b2e427de289ee820d4d75850b500e50d8695d89985cf8ea164a5db0e38f45e57bffb8
+  checksum: fb552f2d4f4d0e15ee981ffab081ac8cc04a3684c5f60e90ec95949cd92b7006fc0ab8cfd36e2c1d1cf2892623d86753d7c2107d817148b71f044b370e718d0c
   languageName: node
   linkType: hard
 
@@ -16215,7 +16215,7 @@ typescript@^4.3.5:
     react: ^17.0.2
     react-dom: ^17.0.2
     rollpkg: ^0.5.7
-    swr: ^1.0.0-beta.10
+    swr: 1.0.0-beta.13
     ts-jest: ^27.0.4
     typescript: ^4.3.5
   peerDependencies:
