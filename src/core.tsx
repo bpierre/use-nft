@@ -20,7 +20,7 @@ import type { EthersFetcherConfig } from "./fetchers/ethers/types"
 import type { EthereumFetcherConfigDeclaration } from "./fetchers/ethereum/types"
 
 import React, { createContext, useCallback, useContext, useMemo } from "react"
-import useSWR, { SWRConfig, createCache } from "swr"
+import useSWR, { useSWRConfig, SWRConfig } from "swr"
 import ethersFetcher from "./fetchers/ethers"
 import ethereumFetcher from "./fetchers/ethereum"
 import { identity, ipfsUrlDefault } from "./utils"
@@ -55,9 +55,9 @@ function normalizeFetcher(fetcher: FetcherProp): Fetcher<unknown> {
 
   // ethereum
   if (isFetcherDeclarationEthereum(fetcher)) {
-    return ethereumFetcher(fetcher[1]) as Fetcher<
-      EthereumFetcherConfigDeclaration
-    >
+    return ethereumFetcher(
+      fetcher[1]
+    ) as Fetcher<EthereumFetcherConfigDeclaration>
   }
 
   // custom fetcher (or wrong value)
@@ -65,7 +65,6 @@ function normalizeFetcher(fetcher: FetcherProp): Fetcher<unknown> {
 }
 
 const NftContext = createContext<{
-  cacheStorage: Map<string, unknown>
   fetcher: Fetcher<unknown> | null
   imageProxy: ImageProxyFn
   ipfsUrl: IpfsUrlFn
@@ -89,13 +88,7 @@ const NftProvider: FC<{
     throw new Error("Please set the fetcher prop on <NftProvider />")
   }
 
-  const [cacheStorage, { cache: swrCache }] = useMemo(() => {
-    const cache = new Map()
-    return [cache, createCache(cache)]
-  }, [])
-
   const context = {
-    cacheStorage,
     fetcher: normalizeFetcher(fetcher),
     imageProxy,
     ipfsUrl,
@@ -103,7 +96,7 @@ const NftProvider: FC<{
   }
 
   return (
-    <SWRConfig value={{ cache: swrCache }}>
+    <SWRConfig value={{ provider: () => new Map() }}>
       <NftContext.Provider value={context}>{children}</NftContext.Provider>
     </SWRConfig>
   )
@@ -115,7 +108,7 @@ function useNft(contractAddress: Address, tokenId: string): NftResult {
     throw new Error("Please wrap your app with <NftProvider />")
   }
 
-  const { cacheStorage, fetcher, imageProxy, ipfsUrl, jsonProxy } = context
+  const { fetcher, imageProxy, ipfsUrl, jsonProxy } = context
   const fetchContext = useMemo<FetchContext>(
     () => ({ imageProxy, ipfsUrl, jsonProxy }),
     [imageProxy, ipfsUrl, jsonProxy]
@@ -127,7 +120,8 @@ function useNft(contractAddress: Address, tokenId: string): NftResult {
       : { ...NFT_METADATA_DEFAULT }
   }, [contractAddress, fetcher, fetchContext, tokenId])
 
-  const cached = cacheStorage.has(contractAddress + tokenId)
+  const { cache } = useSWRConfig()
+  const cached = cache.has(contractAddress + tokenId)
 
   const result = useSWR<NftMetadata, Error>(
     contractAddress + tokenId,
