@@ -29,7 +29,7 @@
     "coverage": "npx live-server coverage/lcov-report"
   },
   "dependencies": {
-    "swr": "1.0.0-beta.13"
+    "swr": "1.0.1"
   },
   "devDependencies": {
     "@ethersproject/contracts": "^5.4.1",
