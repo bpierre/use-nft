@@ -1,15 +1,26 @@
 {
-  "extends": "rollpkg/configs/tsconfig.json",
   "include": ["src", "types"],
   "compilerOptions": {
-    "target": "ES2018",
-    "lib": ["DOM", "ESNext"],
-    "importHelpers": true,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
     "declaration": true,
-    "sourceMap": true,
-    "rootDir": "./src",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "importHelpers": true,
+    "jsx": "react",
+    "jsxFactory": "React.createElement",
+    "lib": ["DOM", "ESNext"],
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "moduleResolution": "node"
+    "rootDir": "./src",
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "ESNext"
   }
 }
