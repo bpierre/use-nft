@@ -12,16 +12,19 @@
     "react"
   ],
   "bugs": "https://github.com/spectrexyz/use-nft/issues",
-  "main": "dist/use-nft.cjs.js",
-  "module": "dist/use-nft.esm.js",
+  "type": "module",
+  "module": "dist/use-nft.js",
+  "main": "dist/use-nft.cjs",
+  "source": "src/index.tsx",
+  "unpkg": "dist/use-nft.umd.js",
   "types": "dist/index.d.ts",
   "sideEffects": false,
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "rollpkg build",
-    "dev": "rollpkg watch",
+    "build": "microbundle",
+    "dev": "microbundle watch",
     "prepublishOnly": "npm run build",
     "lint": "eslint src",
     "test": "jest",
@@ -48,10 +51,10 @@
     "ethers": "^5.4.5",
     "jest": "^27.0.6",
     "jest-watch-typeahead": "^0.6.4",
+    "microbundle": "^0.13.3",
     "prettier": "^2.3.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "rollpkg": "^0.5.7",
     "ts-jest": "^27.0.4",
     "typescript": "^4.3.5"
   },
