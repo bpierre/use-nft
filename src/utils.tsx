@@ -2,8 +2,8 @@ import type {
   Address,
   FetchContext,
   IpfsUrlFn,
-  NftMetadata,
   NftJsonMetadata,
+  NftMetadata,
 } from "./types"
 
 // Some NFT minting services misinterpreted the JSON schema from the EIP as

@@ -20,7 +20,7 @@ import type { EthersFetcherConfig } from "./fetchers/ethers/types"
 import type { EthereumFetcherConfigDeclaration } from "./fetchers/ethereum/types"
 
 import React, { createContext, useCallback, useContext, useMemo } from "react"
-import useSWR, { useSWRConfig, SWRConfig } from "swr"
+import useSWR, { SWRConfig, useSWRConfig } from "swr"
 import ethersFetcher from "./fetchers/ethers"
 import ethereumFetcher from "./fetchers/ethereum"
 import { identity, ipfsUrlDefault } from "./utils"
@@ -121,7 +121,7 @@ function useNft(contractAddress: Address, tokenId: string): NftResult {
   }, [contractAddress, fetcher, fetchContext, tokenId])
 
   const { cache } = useSWRConfig()
-  const cached = cache.has(contractAddress + tokenId)
+  const cached = (cache.get(contractAddress + tokenId) ?? false) as boolean
 
   const result = useSWR<NftMetadata, Error>(
     contractAddress + tokenId,

@@ -14,14 +14,14 @@ import { isAddress } from "../../utils"
 import { cryptoPunksMetadata, isCryptoPunks } from "../shared/cryptopunks"
 import { cryptoKittiesMetadata, isCryptoKitties } from "../shared/cryptokitties"
 import {
-  isDecentralandEstate,
   decentralandEstateMetadata,
+  isDecentralandEstate,
 } from "../shared/decentraland-estate"
 import {
-  isDecentralandParcel,
   decentralandParcelMetadata,
+  isDecentralandParcel,
 } from "../shared/decentraland-parcel"
-import { moonCatsMetadata, isMoonCats } from "../shared/mooncats"
+import { isMoonCats, moonCatsMetadata } from "../shared/mooncats"
 import { cryptoPunksImage } from "./cryptopunks"
 import { moonCatsCatId } from "./mooncats"
 import { fetchStandardNftContractData } from "./standard-nft"
