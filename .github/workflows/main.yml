@@ -23,7 +23,7 @@ jobs:
         with:
           version: 6.16.0
           run_install:
-            - args: [--frozen-lockfile]
+            args: [--frozen-lockfile]
 
       - name: Test
         run: pnpm test --ci --coverage --maxWorkers=2
