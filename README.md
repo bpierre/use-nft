@@ -7,7 +7,7 @@ useNft() allows to access the metadata of any NFT ([EIP 721](https://eips.ethere
 ## Install
 
 ```console
-yarn add use-nft
+npm install --save use-nft
 ```
 
 ## Usage
@@ -146,7 +146,7 @@ NftProvider requires a prop to be passed: `fetcher`. It can take a declaration f
 Make sure to add either `ethers` or `@ethersproject/contracts` to your app:
 
 ```console
-yarn add ethers
+npm install --save ethers
 ```
 
 Then:
