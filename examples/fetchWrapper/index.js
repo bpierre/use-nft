@@ -3,9 +3,9 @@ const FetchWrapper = require("use-nft").FetchWrapper
 
 // nodejs does not have a fetch function, set it here
 // not required for applications that run in a browser
-const fetch = require("node-fetch")
 if (!globalThis.fetch) {
-  globalThis.fetch = fetch
+  globalThis.fetch = (...args) =>
+    import("node-fetch").then(({ default: fetch }) => fetch(...args))
 }
 
 const fetchNfts = async () => {
