@@ -12,9 +12,6 @@ import {
   parseNftUrl,
   urlExtensionType,
 } from "../src/utils"
-import {
-      fetchMetadata
-} from "../src/fetchers/shared/fetch-metadata"
 
 const IPFS_HASH_1 =
   "bafybeidi7zwejfcqc7whjlhzg7dj7bhhclgx4gbvllasl5uvkqbybkowqu"
@@ -200,75 +197,4 @@ describe("urlExtensionType()", () => {
     expect(urlExtensionType("something.mov")).toBe("video")
     expect(urlExtensionType("something.xyz")).toBe("unknown")
   })
-})
-
-// Below are two Boring Ape NFTs that error before expect() test. Note they both only have image and attributes keys in the metadata
-describe("error1()", () => {
-      it("checks fetchMetadata() function", async () => {
-            let data = await fetchMetadata(
-                  'https://ipfs.io/ipfs/QmeSjSinHpPnmXmspMjwiXyN6zS4E9zccariGR3jxcaWtq/6262',
-                  FETCH_CONTEXT
-            );
-            expect(data).toStrictEqual({
-                  name: "",
-                  description: "",
-                  image: `https://ipfs.io/ipfs/QmbnUuxBMEdpKsnfaR26JNxXSYWREfVvLhDUR2fJjGmpP4`,
-                  rawData: null,
-            })
-      })
-})
-describe("error2()", () => {
-      it("checks fetchMetadata() function", async () => {
-            let data = await fetchMetadata(
-                  'https://boredapeyachtclub.com/api/mutants/26708',
-                  FETCH_CONTEXT
-            );
-            expect(data).toStrictEqual({
-                  name: "",
-                  description: "",
-                  image: `https://ipfs.io/ipfs/QmXmwq9vRTByB53BRd9QMmVLdL1ECpUoPD6HJ9tzaHFwHF`,
-                  rawData: null,
-            })
-      })
-})
-
-// Below are two successes
-describe("checks fetchMetadata() function()", () => {
-      it("blah", async () => {
-            let data = await fetchMetadata(
-                  'https://ipfs.io/ipfs/QmTFMJ17s35Y2fHSomdTh29m8CdBPK8Cv8trXnAWTVJ1hc',
-                  FETCH_CONTEXT
-            );
-            expect(data).toStrictEqual({
-                  name: "The War on Crypto",
-                  description: "A Series by Award Winning Artist Rebecca Hendin",
-                  image: `https://ipfs.io/ipfs/QmQ7UHJGMdUVgDESYTMaeDfDu1pPyoqyaLfrAqqbfRceLX`,
-                  rawData: {
-                        "name": "The War on Crypto",
-                        "description": "A Series by Award Winning Artist Rebecca Hendin",
-                        "external_link": "http://pac.xyz/",
-                        "image": "ipfs://QmQ7UHJGMdUVgDESYTMaeDfDu1pPyoqyaLfrAqqbfRceLX",
-                        "attributes": [
-                            {
-                                "trait_type": "Action NFT Type",
-                                "value": "Common"
-                            }
-                        ]
-                    },
-            })
-      })
-})
-describe("checks fetchMetadata() function()", () => {
-      it("blah", async () => {
-            let data = await fetchMetadata(
-                  'https://moonwalk.mypinata.cloud/ipfs/QmfTX9D32Zmu6JaW6r21fXHpg9JL39CbCoiy2mkDbqcwGS/9366',
-                  FETCH_CONTEXT
-            );
-            expect(data).toStrictEqual({
-                  name: "BoringStone #9366",
-                  description: "BoringStone",
-                  image: `https://moonwalk.mypinata.cloud/ipfs/QmQ4vvp2xZmGuz34MNWzSxaXwNXsxCr6nikZUtdy212fn9/9366.png`,
-                  rawData: {"description":"BoringStone","image":"https://moonwalk.mypinata.cloud/ipfs/QmQ4vvp2xZmGuz34MNWzSxaXwNXsxCr6nikZUtdy212fn9/9366.png","name":"BoringStone #9366","attributes":[{"trait_type":"Background","value":"Vibrant Pink"},{"trait_type":"Logo","value":"Baby Poo"},{"trait_type":"Main Subject","value":"Jason the Ape - PINK HAIR DON'T CARE"},{"trait_type":"Spine","value":"July"},{"trait_type":"Sub Headline 1","value":"TO THE MOON"},{"trait_type":"Sub Headline 2","value":"Review: Ape Turner's Acoustic Set"},{"trait_type":"Location Headline","value":"Jerusalape, IL"}]},
-            })
-      })
 })
