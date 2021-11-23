@@ -1,7 +1,5 @@
 import type { FetchContext, NftJsonMetadata } from "../../types"
 
-const fetch = require("node-fetch");
-
 import {
   fixIncorrectImageField,
   fixNftMetadataMixedInJsonSchema,
