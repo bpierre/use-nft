@@ -19,7 +19,8 @@ type NftMetadataMixedInJsonSchema = {
   }
 }
 
-const RARIBLE_MATCH_RE = /^https:\/\/rarible\.com\/token\/(0x[a-fA-F0-9]{40}):([0-9]+)/
+const RARIBLE_MATCH_RE =
+  /^https:\/\/rarible\.com\/token\/(0x[a-fA-F0-9]{40}):([0-9]+)/
 
 export function isAddress(value: string): value is Address {
   return /^0x[a-fA-F0-9]{40}$/.test(value)
@@ -232,9 +233,11 @@ export function isNftMetadata(data: unknown): data is NftMetadata {
   }
   const _data = data as NftMetadata
 
-  // We don’t test for the exact type here, because some
-  // NFT minting services set some of the fields as null.
-  return "name" in _data && "image" in _data && "description" in _data
+  // We don’t test for the exact type here, because some NFT minting services
+  // set some of the fields as null.
+  // We also only test for the presence of either `name` or `image`, as some
+  // NFT formats don’t declare them all (e.g. BAYC only declares `image`).
+  return "name" in _data || "image" in _data
 }
 
 export function addressesEqual(addr1: Address, addr2: Address): boolean {
