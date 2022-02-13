@@ -19,10 +19,12 @@ const fetcher = [
   },
 ]
 
-const imageProxy = (url: string, metadata: NftMetadata) =>
-  metadata.imageType === "video"
-    ? url
-    : `https://ik.imagekit.io/p/${encodeURIComponent(url)}?tr=n-card`
+// const imageProxy = (url: string, metadata: NftMetadata) =>
+//   metadata.imageType === "video"
+//     ? url
+//     : `https://ik.imagekit.io/p/${encodeURIComponent(url)}?tr=n-card`
+
+const imageProxy = (url: string) => url
 
 const jsonProxy = (url: string) =>
   `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`
