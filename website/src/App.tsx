@@ -9,22 +9,20 @@ import Header from "./Header"
 import NftGrid from "./NftGrid"
 import nfts from "../../examples/nfts"
 
+const INFURA_KEY = import.meta.env.VITE_IMAGEKIT_ENDPOINT
+const IMAGEKIT_ENDPOINT = import.meta.env.VITE_IMAGEKIT_ENDPOINT
+
 const fetcher: FetcherDeclarationEthers = [
   "ethers",
-  {
-    provider: new providers.InfuraProvider(
-      "homestead",
-      import.meta.env.VITE_INFURA_KEY
-    ),
-  },
+  { provider: new providers.InfuraProvider("homestead", INFURA_KEY) },
 ]
 
-// const imageProxy = (url: string, metadata: NftMetadata) =>
-//   metadata.imageType === "video"
-//     ? url
-//     : `https://ik.imagekit.io/p/${encodeURIComponent(url)}?tr=n-card`
-
-const imageProxy = (url: string, _metadata: NftMetadata) => url
+function imageProxy(url: string, metadata: NftMetadata) {
+  if (metadata.imageType === "video") return url
+  return IMAGEKIT_ENDPOINT
+    ? `${IMAGEKIT_ENDPOINT}${encodeURIComponent(url)}?tr=n-card`
+    : url
+}
 
 const jsonProxy = (url: string) =>
   `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`

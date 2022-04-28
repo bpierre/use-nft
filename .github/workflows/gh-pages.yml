@@ -36,6 +36,7 @@ jobs:
       - name: Build website/
         env:
           VITE_INFURA_KEY: ${{ secrets.INFURA_KEY }}
+          VITE_IMAGEKIT_ENDPOINT: ${{ secrets.IMAGEKIT_ENDPOINT }}
         run: cd website && pnpm install --frozen-lockfile && pnpm build
 
       - name: Deploy
