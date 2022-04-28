@@ -9,7 +9,7 @@ import Header from "./Header"
 import NftGrid from "./NftGrid"
 import nfts from "../../examples/nfts"
 
-const fetcher = [
+const fetcher: FetcherDeclarationEthers = [
   "ethers",
   {
     provider: new providers.InfuraProvider(
@@ -24,7 +24,7 @@ const fetcher = [
 //     ? url
 //     : `https://ik.imagekit.io/p/${encodeURIComponent(url)}?tr=n-card`
 
-const imageProxy = (url: string) => url
+const imageProxy = (url: string, _metadata: NftMetadata) => url
 
 const jsonProxy = (url: string) =>
   `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`
@@ -32,7 +32,7 @@ const jsonProxy = (url: string) =>
 function App() {
   return (
     <NftProvider
-      fetcher={fetcher as FetcherDeclarationEthers}
+      fetcher={fetcher}
       imageProxy={imageProxy}
       jsonProxy={jsonProxy}
     >
