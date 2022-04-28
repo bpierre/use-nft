@@ -13,52 +13,45 @@
   ],
   "bugs": "https://github.com/spectrexyz/use-nft/issues",
   "type": "module",
-  "module": "dist/use-nft.js",
-  "main": "dist/use-nft.cjs",
+  "module": "dist/use-nft.es.js",
+  "main": "dist/use-nft.cjs.js",
   "source": "src/index.tsx",
-  "unpkg": "dist/use-nft.umd.js",
   "types": "dist/index.d.ts",
   "sideEffects": false,
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "microbundle",
-    "dev": "microbundle watch",
+    "dev": "vite build --watch",
+    "build": "vite build --mode production",
     "prepublishOnly": "npm run build",
     "lint": "eslint src",
-    "test": "jest",
-    "test:watch": "jest --watchAll",
-    "coverage": "npx live-server coverage/lcov-report"
+    "test": "vitest"
   },
   "dependencies": {
-    "swr": "1.0.1"
+    "swr": "1.3.0"
   },
   "devDependencies": {
-    "@ethersproject/contracts": "^5.5.0",
-    "@ethersproject/providers": "^5.5.0",
-    "@types/jest": "^27.0.3",
-    "@types/react": "^17.0.36",
-    "@types/react-dom": "^17.0.11",
-    "@typescript-eslint/eslint-plugin": "^5.4.0",
-    "@typescript-eslint/parser": "^5.4.0",
-    "eslint": "^8.3.0",
-    "eslint-plugin-import": "^2.25.3",
-    "eslint-plugin-jest": "^25.3.0",
-    "eslint-plugin-jest-dom": "^3.9.2",
+    "@ethersproject/contracts": "^5.6.0",
+    "@ethersproject/providers": "^5.6.4",
+    "@types/react": "^18.0.8",
+    "@types/react-dom": "^18.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.21.0",
+    "@typescript-eslint/parser": "^5.21.0",
+    "eslint": "^8.14.0",
+    "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.5.1",
-    "eslint-plugin-react": "^7.27.1",
-    "eslint-plugin-react-hooks": "^4.3.0",
-    "ethers": "^5.5.1",
-    "jest": "^27.3.1",
-    "jest-environment-jsdom": "^27.3.1",
-    "jest-watch-typeahead": "^1.0.0",
-    "microbundle": "^0.14.2",
-    "prettier": "^2.4.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "ts-jest": "^27.0.7",
-    "typescript": "^4.5.2"
+    "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react-hooks": "^4.5.0",
+    "ethers": "^5.6.4",
+    "happy-dom": "^3.1.0",
+    "prettier": "^2.6.2",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "typescript": "^4.6.3",
+    "vite": "^2.9.6",
+    "vite-plugin-dts": "^1.1.1",
+    "vitest": "^0.10.0"
   },
   "peerDependencies": {
     "@ethersproject/contracts": ">=5.2.0 <6",
@@ -105,12 +98,5 @@
         }
       }
     ]
-  },
-  "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "jsdom",
-    "transform": {
-      "\\.(ts|tsx)$": "ts-jest"
-    }
   }
 }

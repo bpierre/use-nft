@@ -1,4 +1,5 @@
-import "../../../jest-fetch-mock"
+import '../../../mock-fetch.ts'
+import { describe, expect, it } from "vitest"
 import { identity, ipfsUrlDefault, ipfsUrlFromString } from "../../../src/utils"
 import { fetchMetadata } from "../../../src/fetchers/shared/fetch-metadata"
 
