@@ -20,7 +20,7 @@ import type { EthersFetcherConfig } from "./fetchers/ethers/types"
 import type { EthereumFetcherConfigDeclaration } from "./fetchers/ethereum/types"
 
 import React, { createContext, useCallback, useContext, useMemo } from "react"
-import useSWR, { SWRConfig, useSWRConfig } from "swr"
+import useSWR from "swr"
 import ethersFetcher from "./fetchers/ethers"
 import ethereumFetcher from "./fetchers/ethereum"
 import { identity, ipfsUrlDefault } from "./utils"
@@ -95,11 +95,7 @@ const NftProvider: FC<{
     jsonProxy,
   }
 
-  return (
-    <SWRConfig value={{ provider: () => new Map() }}>
-      <NftContext.Provider value={context}>{children}</NftContext.Provider>
-    </SWRConfig>
-  )
+  return <NftContext.Provider value={context}>{children}</NftContext.Provider>
 }
 
 function useNft(contractAddress: Address, tokenId: string): NftResult {
@@ -114,20 +110,16 @@ function useNft(contractAddress: Address, tokenId: string): NftResult {
     [imageProxy, ipfsUrl, jsonProxy]
   )
 
-  const fetchNft = useCallback(() => {
+  const fetchNft = useCallback(async () => {
     return fetcher
       ? fetcher.fetchNft(contractAddress, tokenId, fetchContext)
       : { ...NFT_METADATA_DEFAULT }
   }, [contractAddress, fetcher, fetchContext, tokenId])
 
-  const { cache } = useSWRConfig()
-  const cached = (cache.get(contractAddress + tokenId) ?? false) as boolean
-
   const result = useSWR<NftMetadata, Error>(
     contractAddress + tokenId,
     fetchNft,
     {
-      revalidateOnMount: !cached,
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
     }

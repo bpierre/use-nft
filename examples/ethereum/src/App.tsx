@@ -1,4 +1,3 @@
-import React from "react"
 import { NftProvider } from "use-nft"
 
 import Base from "./Base"
