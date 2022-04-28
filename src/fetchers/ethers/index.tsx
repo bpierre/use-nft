@@ -39,7 +39,7 @@ async function loadEthers(
   }
 
   try {
-    const ethers = await import("@ethersproject/contracts")
+    const ethers = await import("@ethersproject/contracts").then(m => m?.default ?? m)
     if (!ethers?.Contract) {
       throw new Error()
     }
