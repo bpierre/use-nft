@@ -9,7 +9,7 @@ import Header from "./Header"
 import NftGrid from "./NftGrid"
 import nfts from "../../examples/nfts"
 
-const INFURA_KEY = import.meta.env.VITE_IMAGEKIT_ENDPOINT
+const INFURA_KEY = import.meta.env.VITE_INFURA_KEY
 const IMAGEKIT_ENDPOINT = import.meta.env.VITE_IMAGEKIT_ENDPOINT
 
 const fetcher: FetcherDeclarationEthers = [
