@@ -11,6 +11,7 @@ jobs:
   build-and-deploy:
     name: Build use-nft and deploy the website
     runs-on: ubuntu-latest
+    environment: github-pages
     steps:
       - name: Checkout
         uses: actions/checkout@v2
