@@ -13,7 +13,7 @@
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-spring": "^9.4.4",
-    "use-nft": "workspace:*",
+    "use-nft": "workspace:..",
     "use-viewport": "git://github.com/aragon/use-viewport.git#dd60132c8ab5c8f824e9dd08a7543a034c93141e"
   },
   "devDependencies": {
