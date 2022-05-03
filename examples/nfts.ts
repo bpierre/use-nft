@@ -1,4 +1,4 @@
-export default shuffle<[string, string, string, string]>([
+export default [
   [
     "0xf87e31492faf9a91b02ee0deaad50d51d56d5d4d",
     "29264283555200707857850216239132066185199",
@@ -147,13 +147,4 @@ export default shuffle<[string, string, string, string]>([
     "Meebit",
     "https://meebits.larvalabs.com/meebits/detail?index=13396",
   ],
-])
-
-function shuffle<T = unknown>(arr: T[]): T[] {
-  const _arr = [...arr]
-  for (let i = _arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[_arr[i], _arr[j]] = [_arr[j], _arr[i]]
-  }
-  return _arr
-}
+] as Array<[string, string, string, string]>

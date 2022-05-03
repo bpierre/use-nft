@@ -1,6 +1,5 @@
 import type { NftMetadata } from "use-nft"
 
-import React from "react"
 import { providers } from "ethers"
 import { NftProvider, FetcherDeclarationEthers } from "use-nft"
 import Base from "./Base"
@@ -36,7 +35,7 @@ function App() {
     >
       <Base>
         <Header />
-        <NftGrid nfts={nfts} />
+        <NftGrid nfts={[...nfts].sort(() => Math.random() - 0.5)} />
         <Footer />
       </Base>
     </NftProvider>

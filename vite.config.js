@@ -7,8 +7,7 @@ export default defineConfig(async ({ mode }) => ({
     outDir: "dist",
     lib: {
       entry: "src/index.tsx",
-      formats: ["es", "cjs"],
-      fileName: (format) => `use-nft.${format}.js`,
+      formats: ["es"],
     },
     sourcemap: mode === "production" || "inline",
     rollupOptions: {
