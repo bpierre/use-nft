@@ -14,7 +14,7 @@
   "bugs": "https://github.com/spectrexyz/use-nft/issues",
   "type": "module",
   "module": "dist/use-nft.es.js",
-  "main": "dist/use-nft.cjs.js",
+  "main": "dist/use-nft.es.js",
   "source": "src/index.tsx",
   "types": "dist/index.d.ts",
   "sideEffects": false,
