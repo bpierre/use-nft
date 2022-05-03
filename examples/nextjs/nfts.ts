@@ -147,4 +147,4 @@ export default [
     "Meebit",
     "https://meebits.larvalabs.com/meebits/detail?index=13396",
   ],
-] as Array<[string, string, string, string]>
+]
