@@ -2,6 +2,7 @@
   "name": "fetchwrapper",
   "version": "1.0.0",
   "description": "Example for FetchWrapper",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "dev": "esnext run index.js --watch",

@@ -1,5 +1,5 @@
-const ethers = require("ethers")
-const FetchWrapper = require("use-nft").FetchWrapper
+import ethers from "ethers"
+import { FetchWrapper } from "use-nft"
 
 // nodejs does not have a fetch function, set it here
 // not required for applications that run in a browser
