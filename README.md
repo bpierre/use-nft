@@ -15,7 +15,7 @@ npm install --save use-nft
 useNft() uses a concept of “fetchers”, in order to provide different ways to retrieve data from Ethereum. If you use the [Ethers](https://github.com/ethers-io/ethers.js) in your app, using `ethersFetcher()` is recommended. Otherwise you can use `ethereumFetcher()`, which only requires a [standard Ethereum provider](https://eips.ethereum.org/EIPS/eip-1193), like the one provided by MetaMask.
 
 ```jsx
-import { getDefaultProvider, } from "ethers"
+import { getDefaultProvider } from "ethers"
 import { NftProvider, useNft } from "use-nft"
 
 // We are using the "ethers" fetcher here.
